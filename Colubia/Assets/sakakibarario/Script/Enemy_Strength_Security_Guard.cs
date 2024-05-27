@@ -10,23 +10,26 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
     //敵の動き
     public float speed = 4.0f;
-    float speed_P = 2.0f;
+    float speed_P = 1.0f;
     private int distance_traveled = 7;//移動距離
+    private bool EMove_Stop = true;
+    static public bool EMove_Stop_mark = false;
 
     //カウント用
     private float countleftTime = 3.0f;   //左向き
     private float countrightTime = 3.0f;   //右向き
     private bool direction = false;        //trueは右向き
+    private float countstoptime = 3.0f;   //左向き
 
     //playerとの距離
     public float reactionDistance = 10.0f;//距離
-    private bool isActive = false;
+    static public bool isActive = false;
     private bool Moved_Enemy = false;
 
     Vector2 MyEnemy = new Vector2(0, 0);
     Vector2 MyEnemy2 = new Vector2(0, 0);
 
-    bool move_end = false;
+    //bool move_end = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,30 +61,16 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             if (dist < reactionDistance)
             {
                 isActive = true; //アクティブにする
+                EMove_Stop_mark = false;
             }
             else
             {
                 isActive = false; //非アクティブにする
+               
                 if (Moved_Enemy)
                 {
-                    if(transform.position.x < MyEnemy.x)
-                    {
-                        this.transform.localScale = new Vector2(-1, 1);//左向き
-                    }
-                    else if(transform.position.x > MyEnemy.x)
-                    {
-                        this.transform.localScale = new Vector2(1, 1);//左向き
-                    }
-                    transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed_P * Time.deltaTime);
-
-                    if (MyEnemy.x == transform.position.x)
-                    {
-                        countrightTime = 3.0f;
-                        countleftTime = 3.0f;
-                        direction = false;
-                        Moved_Enemy = false;
-
-                    }
+                  
+                    MoveBack();
                 }
                
             }
@@ -158,5 +147,42 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         }
 
     }
-  
+    void MoveBack()
+    { 
+        if(EMove_Stop)//一時停止
+        {
+            EMove_Stop_mark = true;
+            countstoptime -= Time.deltaTime;
+
+            if(countstoptime < 0)
+            {
+                countstoptime = 3.0f;
+                EMove_Stop_mark = false;
+                EMove_Stop = false;
+            }
+        }
+        if (!EMove_Stop)
+        {
+            if (transform.position.x < MyEnemy.x)
+            {
+                this.transform.localScale = new Vector2(-1, 1);//左向き
+            }
+            else if (transform.position.x > MyEnemy.x)
+            {
+                this.transform.localScale = new Vector2(1, 1);//左向き
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);//初期位置戻る
+
+            if (MyEnemy.x == transform.position.x)//初期位置に戻ったら
+            {
+                countrightTime = 3.0f;
+                countleftTime = 3.0f;
+                EMove_Stop = true;
+                direction = false;
+                Moved_Enemy = false;
+
+            }
+        }
+    }
 }
