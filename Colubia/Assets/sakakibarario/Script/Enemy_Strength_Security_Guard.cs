@@ -40,7 +40,6 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(MyEnemy2);
         //Player　のゲームオブジェクトを得る
          player = GameObject.FindGameObjectWithTag("Player");
         if(GameManager.GState == "Pose")
@@ -73,13 +72,17 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                         this.transform.localScale = new Vector2(1, 1);//左向き
                     }
                     transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed_P * Time.deltaTime);
+
+                    if (MyEnemy.x == transform.position.x)
+                    {
+                        countrightTime = 3.0f;
+                        countleftTime = 3.0f;
+                        direction = false;
+                        Moved_Enemy = false;
+
+                    }
                 }
-                if(MyEnemy.x == transform.position.x)
-                {
-                    direction = false;
-                    Moved_Enemy = false;
-                   
-                }
+               
             }
 
             if (!isActive && !Moved_Enemy)//主人公と離れているとき
