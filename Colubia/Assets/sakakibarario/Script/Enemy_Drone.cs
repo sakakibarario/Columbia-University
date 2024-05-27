@@ -8,45 +8,99 @@ public class Enemy_Drone : MonoBehaviour
 
     //敵の動き
     public float speed = 7.0f;
+    private int distance_traveled = 20;//移動距離
 
     //カウント用
     private float countleftTime = 3.0f;   //左向き
     private float countrightTime = 3.0f;   //右向き
     private bool direction = false;        //trueは右向き
 
+    private bool Moved_Enemy = false;
+
+    Vector2 MyEnemy = new Vector2(0, 0);
+    Vector2 MyEnemy2 = new Vector2(0, 0);
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //初期座標を記憶
+        MyEnemy = transform.position;
+        MyEnemy2 = MyEnemy;
+        MyEnemy2.x = MyEnemy2.x - distance_traveled;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        if (GameManager.GState == "Pose")
+        {
+            Moved_Enemy = true;//初期位置に戻す
+        }
     }
     private void FixedUpdate()
     {
         if (GameManager.GState == "Playing")
         {
-            if (direction)
+
+            if (Moved_Enemy)
             {
-                countrightTime -= Time.deltaTime; //カウントアップ
-              
-                if (countrightTime < 0)
+                if (transform.position.x < MyEnemy.x)
                 {
-                    StartCoroutine(Moveright());//右向き
+                    this.transform.localScale = new Vector2(-1, 1);//左向き
+                }
+                else if (transform.position.x > MyEnemy.x)
+                {
+                    this.transform.localScale = new Vector2(1, 1);//左向き
+                }
+                transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
+
+                if (MyEnemy.x == transform.position.x)
+                {
+                    countrightTime = 3.0f;
+                    countleftTime = 3.0f;
+                    direction = false;
+                    Moved_Enemy = false;
+
                 }
             }
-            else
+
+            if (!Moved_Enemy)
             {
-                countleftTime -= Time.deltaTime;  //カウントアップ
-                
-                if (countleftTime < 0)
+                if (direction)
                 {
-                    StartCoroutine(Moveleft());//左向き
+                    countrightTime -= Time.deltaTime; //カウントアップ
+
+                    if (countrightTime < 0)
+                    {
+                        this.transform.localScale = new Vector2(-1, 1);//右向き
+                        transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
+                      
+                        if (transform.position.x == MyEnemy.x)
+                        {
+                            Debug.Log("aaaa");
+                            countrightTime = 3.0f;
+                            direction = false;
+                        }
+                    }
+                }
+                else
+                {
+                    countleftTime -= Time.deltaTime;  //カウントアップ
+
+                    if (countleftTime < 0)
+                    {
+                        this.transform.localScale = new Vector2(1, 1);//左向き
+                                                                     
+                        transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
+
+                        if (transform.position.x == MyEnemy2.x)
+                        {
+                            Debug.Log("aaaa");
+                            countleftTime = 3.0f;
+                            direction = true;
+                        }
+                    }
                 }
             }
         }
@@ -56,26 +110,5 @@ public class Enemy_Drone : MonoBehaviour
         }
 
     }
-    IEnumerator Moveleft()
-    {
-       
-        this.transform.localScale = new Vector2(1, 1);//向きを調整
-        rb.velocity = new Vector2(-speed, rb.velocity.y);//動きを決める
-        yield return new WaitForSeconds(3.0f);//move time
-        rb.velocity = new Vector2(0, rb.velocity.y);//動きを止める
-        countleftTime = 3.0f;//リセット
-        direction = true;
-        yield break;
-    }
-    IEnumerator Moveright()
-    {
-       
-        this.transform.localScale = new Vector2(-1, 1);//向きを調整
-        rb.velocity = new Vector2(speed, rb.velocity.y);//動きを決める
-        yield return new WaitForSeconds(3.0f);//move time
-        rb.velocity = new Vector2(0, rb.velocity.y);//動きを止める
-        countrightTime = 3.0f;//リセット
-        direction = false;
-        yield break;
-    }
+   
 }

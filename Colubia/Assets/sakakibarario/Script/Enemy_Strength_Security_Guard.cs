@@ -11,6 +11,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     //敵の動き
     public float speed = 4.0f;
     float speed_P = 2.0f;
+    private int distance_traveled = 7;//移動距離
 
     //カウント用
     private float countleftTime = 3.0f;   //左向き
@@ -34,7 +35,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
-        MyEnemy2.x = MyEnemy2.x - 5;
+        MyEnemy2.x = MyEnemy2.x - distance_traveled;
     }
 
     // Update is called once per frame
@@ -95,7 +96,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                     {
                         this.transform.localScale = new Vector2(-1, 1);//右向き
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
-                        //StartCoroutine(Moveright());
+                        
                         if (transform.position.x == MyEnemy.x)
                         {
                             Debug.Log("aaaa");
@@ -111,7 +112,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                     if (countleftTime < 0)
                     {
                         this.transform.localScale = new Vector2(1, 1);//左向き
-                        //StartCoroutine(Moveleft());
+                       
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
                         if (transform.position.x == MyEnemy2.x)
@@ -157,22 +158,5 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         }
 
     }
-    //IEnumerator Moveleft()
-    //{
-    //    this.transform.localScale = new Vector2(1, 1);//左向き
-    //    rb.velocity = new Vector2(-speed, rb.velocity.y);//動きを決める
-    //    yield return new WaitForSeconds(2.0f);
-    //    direction = true;
-    //    countleftTime = 3.0f;
-    //    yield break;
-    //}
-    //IEnumerator Moveright()
-    //{
-    //    this.transform.localScale = new Vector2(-1, 1);//右向き
-    //    rb.velocity = new Vector2(speed, rb.velocity.y);//動きを決める
-    //    yield return new WaitForSeconds(2.0f);
-    //    direction = false;
-    //    countrightTime = 3.0f;
-    //    yield break;
-    //}
+  
 }
