@@ -12,9 +12,12 @@ public class PlayerController : MonoBehaviour
     LockerController lockerController;
     PaperController paperController;
     BatteryController batteryController;
+    BatteryBar batteryBar;
 
     SpriteRenderer sp;
     Color spriteColor;
+
+    public GameObject stungun;
 
     //　プレイヤー管理
     public float hideduration = 0.05f;
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private int PlayerAngleCount = 0;
 
     //  スタンガン系
-    private int Battery = 2;
+    public int Battery = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour
         lockerController = GameObject.FindWithTag("Locker").GetComponent<LockerController>();
         paperController =GameObject.FindWithTag("paper").GetComponent<PaperController>();
         batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
+        batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
 
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
@@ -91,6 +95,19 @@ public class PlayerController : MonoBehaviour
                 GravityChange();
         }
 
+        if (SwitchGravity && inLocker == false && isLookPaper == false)
+        {
+            if(Input.GetMouseButton(0))
+            {
+                stungun.SetActive(true);
+            }
+
+            if(Input.GetMouseButtonUp(0))
+            {
+                stungun.SetActive(false);
+            }
+        }
+
         //  ロッカーのボタンガイドがアクティブなら
         if (lockerController.LockerF.activeSelf) 
         {
@@ -128,12 +145,15 @@ public class PlayerController : MonoBehaviour
 
         if (batteryController != null && batteryController.BatteryF.activeSelf) 
         {
-            if (Input.GetKey(KeyCode.F) && isInteract == true)
+            if (Input.GetKey(KeyCode.F) && isInteract == true && Battery < 5) 
             {
                 isInteract = false;
                 StartCoroutine(Interactive("Battery"));
+                batteryBar.UpdateBatteryBar();
             }
         }
+
+
 
         rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
     }
@@ -181,7 +201,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //  回転後、左右が逆なので反転させる
-        FlipX();
+        FlipX(gameObject);
 
         //  空中で回転できないように少し待機
         yield return new WaitForSeconds(0.25f);
@@ -190,12 +210,12 @@ public class PlayerController : MonoBehaviour
         isInteract = true;
     }
 
-    void FlipX()
+    void FlipX(GameObject anyobj)
     {
-        if (this.GetComponent<SpriteRenderer>().flipX == false)
-            this.GetComponent<SpriteRenderer>().flipX = true;
+        if (anyobj.GetComponent<SpriteRenderer>().flipX == false)
+            anyobj.GetComponent<SpriteRenderer>().flipX = true;
         else
-            this.GetComponent<SpriteRenderer>().flipX = false;
+            anyobj.GetComponent<SpriteRenderer>().flipX = false;
 
     }
 
