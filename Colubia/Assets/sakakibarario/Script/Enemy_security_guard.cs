@@ -9,6 +9,7 @@ public class Enemy_security_guard : MonoBehaviour
     //敵の動き
     public float speed = 2.5f;
     private int distance_traveled = 5;//移動距離
+    public int Enemy_start_count = 0;//最初の動き出す時間を変える
 
     //カウント用
     private float countleftTime  = 3.0f;   //左向き
@@ -27,7 +28,9 @@ public class Enemy_security_guard : MonoBehaviour
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
-        MyEnemy2.x = MyEnemy2.x - distance_traveled;
+        MyEnemy2.x = MyEnemy2.x - distance_traveled;//敵の可動域
+
+        countleftTime = Enemy_start_count;//動き出す時間をずらす
     }
 
     // Update is called once per frame
@@ -54,6 +57,7 @@ public class Enemy_security_guard : MonoBehaviour
                 {
                     this.transform.localScale = new Vector2(2, 2);//左向き
                 }
+                //指定座標まで移動
                 transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
 
                 if (MyEnemy.x == transform.position.x)
@@ -75,6 +79,7 @@ public class Enemy_security_guard : MonoBehaviour
                     if (countrightTime < 0)
                     {
                         this.transform.localScale = new Vector2(-2, 2);//右向き
+                        //指定座標まで移動
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                        
                         if (transform.position.x == MyEnemy.x)
@@ -92,7 +97,7 @@ public class Enemy_security_guard : MonoBehaviour
                     if (countleftTime < 0)
                     {
                         this.transform.localScale = new Vector2(2, 2);//左向き
-                                                                     
+                        //指定座標まで移動                                             
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
                         if (transform.position.x == MyEnemy2.x)

@@ -23,19 +23,17 @@ public class Mark : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (transform.position.x < player.transform.position.x)
         {
-            Question_mark.transform.localScale = new Vector2(-1, 1);//ç∂å¸Ç´
+            Question_mark.transform.localScale = new Vector2(-0.7f, 0.7f);//ç∂å¸Ç´
         }
         else if (transform.position.x > player.transform.position.x)
         {
-            Question_mark.transform.localScale = new Vector2(1, 1);//ç∂å¸Ç´
+            Question_mark.transform.localScale = new Vector2(0.7f, 0.7f);//ç∂å¸Ç´
         }
 
 
         if (Enemy_Strength_Security_Guard.isActive)
         {
-            //EM = true;
             Exclamation_mark.SetActive(true);
-            Debug.Log("ãhã¡É}Å[ÉN");
         }
         else
         {
@@ -43,19 +41,11 @@ public class Mark : MonoBehaviour
         }
         if(Enemy_Strength_Security_Guard.EMove_Stop_mark)
         {
-             Question_mark.SetActive(true);
-            
+             Question_mark.SetActive(true);   
         }
         else
         {
             Question_mark.SetActive(false);
         }
-    }
-    private void FixedUpdate()
-    {
-
-        
-
-
     }
 }
