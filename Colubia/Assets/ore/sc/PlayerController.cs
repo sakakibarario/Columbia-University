@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     PaperController paperController;
     BatteryController batteryController;
     BatteryBar batteryBar;
+    StunGunController stunGunController;
+    enemyenemy en;
 
     SpriteRenderer sp;
     Color spriteColor;
@@ -45,15 +48,18 @@ public class PlayerController : MonoBehaviour
 
     //  スタンガン系
     public int Battery = 2;
+    public bool onFire = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         lockerController = GameObject.FindWithTag("Locker").GetComponent<LockerController>();
-        paperController =GameObject.FindWithTag("paper").GetComponent<PaperController>();
+        paperController = GameObject.FindWithTag("paper").GetComponent<PaperController>();
         batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
+        stunGunController = stungun.GetComponent<StunGunController>();
+        en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
 
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
@@ -64,14 +70,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
         if (Onmove)
         {
             //　Aを押したら左に進む
-            if (Input.GetKey(KeyCode.A)) 
-            { 
-                isMoveLeft = true;    isMoveRight = false;
-                playerX = -speed;    
+            if (Input.GetKey(KeyCode.A))
+            {
+                isMoveLeft = true; isMoveRight = false;
+                playerX = -speed;
             }
 
             //　Bを押したら左に進む
@@ -84,8 +90,16 @@ public class PlayerController : MonoBehaviour
         }
 
         //  キャラクターが進行方向に進むようにする
-        if (isMoveRight) transform.localScale = new Vector2(-0.4f, 0.4f);
-        if (isMoveLeft)  transform.localScale = new Vector2(0.4f, 0.4f);
+        if (isMoveRight)
+        {
+            transform.localScale = new Vector2(-0.4f, 0.4f);
+            stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+        }
+        if (isMoveLeft)
+        {
+            transform.localScale = new Vector2(0.4f, 0.4f);
+            stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+        }
 
 
         //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
@@ -95,6 +109,7 @@ public class PlayerController : MonoBehaviour
                 GravityChange();
         }
 
+        //　スタンガン
         if (SwitchGravity && inLocker == false && isLookPaper == false)
         {
             if(Input.GetMouseButton(0))
@@ -104,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetMouseButtonUp(0))
             {
-                stungun.SetActive(false);
+                StartCoroutine(StunGun());
             }
         }
 
@@ -138,11 +153,12 @@ public class PlayerController : MonoBehaviour
                 paperController.PaperESC.SetActive(false);
                 paperController.PaperLook.SetActive(false);
 
-                StartCoroutine(waittaime(4));
+                StartCoroutine(waitTime(1000));
                 isInteract = true;
             }
         }
 
+        //　バッテリー
         if (batteryController != null && batteryController.BatteryF.activeSelf) 
         {
             if (Input.GetKey(KeyCode.F) && isInteract == true && Battery < 5) 
@@ -153,14 +169,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-
         rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
     }
 
-    IEnumerator waittaime(float x)
+    IEnumerator waitTime(float x)
     {
-        yield return new WaitForSeconds(x);
+        yield return new WaitForSecondsRealtime(x);
     }
 
     void GravityChange()
@@ -169,6 +183,8 @@ public class PlayerController : MonoBehaviour
         SwitchGravity = false;
         Onmove = false;
         isInteract = false;
+
+        stungun.SetActive(false);
 
         //　重力を反転させる
         rb2D.gravityScale *= -1;
@@ -297,6 +313,22 @@ public class PlayerController : MonoBehaviour
             lockerController.LockerVision.SetActive(false);
     }
 
+    IEnumerator StunGun()
+    {
+        onFire = true;
+
+        if (stunGunController.checkInArea && onFire)
+        {
+            Battery -= 1;
+            en.enabled = false;
+            yield return new WaitForSeconds(1.0f);
+            stungun.SetActive(false);
+            yield return new WaitForSeconds(5.0f);
+            en.enabled = true;
+        }
+
+        onFire = false;
+    }
 
     /*
      スタンガン

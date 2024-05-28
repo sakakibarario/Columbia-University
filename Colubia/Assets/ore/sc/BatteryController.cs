@@ -34,12 +34,14 @@ public class BatteryController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BatteryF.SetActive(true);// 取得したobjを表示させる
+        if (collision.gameObject.tag == "Player") 
+            BatteryF.SetActive(true);// 取得したobjを表示させる
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        BatteryF.SetActive(false);// 取得したobjを非表示にする
+        if (collision.gameObject.tag == "Player")
+            BatteryF.SetActive(false);// 取得したobjを非表示にする
     }
 
     public void objDestroy()
