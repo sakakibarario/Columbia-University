@@ -48,11 +48,11 @@ public class Enemy_security_guard : MonoBehaviour
             {
                 if (transform.position.x < MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(-1, 1);//¶Œü‚«
+                    this.transform.localScale = new Vector2(-2, 2);//¶Œü‚«
                 }
                 else if (transform.position.x > MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(1, 1);//¶Œü‚«
+                    this.transform.localScale = new Vector2(2, 2);//¶Œü‚«
                 }
                 transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
 
@@ -74,7 +74,7 @@ public class Enemy_security_guard : MonoBehaviour
 
                     if (countrightTime < 0)
                     {
-                        this.transform.localScale = new Vector2(-1, 1);//‰EŒü‚«
+                        this.transform.localScale = new Vector2(-2, 2);//‰EŒü‚«
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                        
                         if (transform.position.x == MyEnemy.x)
@@ -91,7 +91,7 @@ public class Enemy_security_guard : MonoBehaviour
 
                     if (countleftTime < 0)
                     {
-                        this.transform.localScale = new Vector2(1, 1);//¶Œü‚«
+                        this.transform.localScale = new Vector2(2, 2);//¶Œü‚«
                                                                      
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 

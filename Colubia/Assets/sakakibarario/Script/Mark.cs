@@ -9,13 +9,6 @@ public class Mark : MonoBehaviour
     public GameObject Exclamation_mark;
     public GameObject Question_mark;
 
-    //カウント用
-    float count =1.0f;
-
-    //bool QM = false;
-    bool EM = false;
-    bool QM = false;
-
     // Start is called before the first frame update
     void Start()
     {
