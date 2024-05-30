@@ -47,11 +47,11 @@ public class Enemy_Drone : MonoBehaviour
             {
                 if (transform.position.x < MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(-1, 1);//ç∂å¸Ç´
+                    this.transform.localScale = new Vector2(-1.5f, 1.2f);//ç∂å¸Ç´
                 }
                 else if (transform.position.x > MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(1, 1);//ç∂å¸Ç´
+                    this.transform.localScale = new Vector2(1.5f, 1.2f);//ç∂å¸Ç´
                 }
                 transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
 
@@ -73,7 +73,7 @@ public class Enemy_Drone : MonoBehaviour
 
                     if (countrightTime < 0)
                     {
-                        this.transform.localScale = new Vector2(-1, 1);//âEå¸Ç´
+                        this.transform.localScale = new Vector2(-1.5f, 1.2f);//âEå¸Ç´
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                       
                         if (transform.position.x == MyEnemy.x)
@@ -90,7 +90,7 @@ public class Enemy_Drone : MonoBehaviour
 
                     if (countleftTime < 0)
                     {
-                        this.transform.localScale = new Vector2(1, 1);//ç∂å¸Ç´
+                        this.transform.localScale = new Vector2(1.5f, 1.2f);//ç∂å¸Ç´
                                                                      
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
