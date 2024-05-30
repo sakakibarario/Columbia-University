@@ -28,7 +28,7 @@ public class StunGunController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("ikuhdsfohs");
+            Debug.Log("enter");
             checkInArea = true;
         }
     }
@@ -37,7 +37,7 @@ public class StunGunController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("i");
+            Debug.Log("exit");
             checkInArea = false;
         }
     }

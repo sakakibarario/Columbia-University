@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
         paperController = GameObject.FindWithTag("paper").GetComponent<PaperController>();
         batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
-        stunGunController = stungun.GetComponent<StunGunController>();
         en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
 
         sp = GetComponent<SpriteRenderer>();
@@ -115,6 +114,7 @@ public class PlayerController : MonoBehaviour
             if(Input.GetMouseButton(0))
             {
                 stungun.SetActive(true);
+                stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
             }
 
             if(Input.GetMouseButtonUp(0))
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 paperController.PaperESC.SetActive(false);
                 paperController.PaperLook.SetActive(false);
 
-                StartCoroutine(waitTime(1000));
+               // StartCoroutine(waitTime(1000));
                 isInteract = true;
             }
         }
@@ -170,11 +170,6 @@ public class PlayerController : MonoBehaviour
         }
 
         rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
-    }
-
-    IEnumerator waitTime(float x)
-    {
-        yield return new WaitForSecondsRealtime(x);
     }
 
     void GravityChange()
@@ -319,32 +314,25 @@ public class PlayerController : MonoBehaviour
 
         if (stunGunController.checkInArea && onFire)
         {
+            Debug.Log("hit");
             Battery -= 1;
+            batteryBar.UpdateBatteryBar();
             en.enabled = false;
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             stungun.SetActive(false);
             yield return new WaitForSeconds(5.0f);
             en.enabled = true;
+        }
+        else if(stunGunController.checkInArea == false && onFire)
+        {
+            Debug.Log("miss");
+            Battery -= 1;
+            batteryBar.UpdateBatteryBar();
+            yield return new WaitForSeconds(0.5f);
+            stungun.SetActive(false);
         }
 
         onFire = false;
     }
 
-    /*
-     スタンガン
-
-        MAX残量５
-        
-    　　現在残量が５未満の時
-            電池を拾うと現在の残量を＋１
-
-        スタンガンクールタイムが終わってる　＆＆　左クリック　＆＆　残量が１以上
-
-            範囲内の敵が数秒間停止     ＊難所
-            
-            残量が０ならスタンガンUIのアイコン変更
-
-            スタンガンクールタイム
-     
-     */
 }
