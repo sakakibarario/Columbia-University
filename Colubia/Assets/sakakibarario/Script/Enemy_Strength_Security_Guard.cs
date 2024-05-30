@@ -14,6 +14,8 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     private int distance_traveled = 7;//移動距離
     private bool EMove_Stop = true;
     static public bool EMove_Stop_mark = false;
+    Vector2 movementx;
+    Vector2 movementy;
 
     //カウント用
     private float countleftTime = 3.0f;   //左向き
@@ -22,7 +24,8 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     private float countstoptime = 3.0f;   //左向き
 
     //playerとの距離
-    public float reactionDistance = 10.0f;//距離
+    public float reactionDistanceX = 10.0f;//距離
+    public float reactionDistanceY = 4.0f;//距離
     static public bool isActive = false;
     private bool Moved_Enemy = false;
 
@@ -58,8 +61,13 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         if (GameManager.GState == "Playing")
         {
             //プレイヤーとの距離を求める
-            float dist = Vector2.Distance(transform.position, player.transform.position);
-            if (dist < reactionDistance)
+            //float dist = Vector2.Distance(transform.position, player.transform.position);
+            movementx.x = this.transform.position.x - player.transform.position.x;
+            movementy.y = this.transform.position.y - player.transform.position.y;
+            float distx = movementx.magnitude;
+            float disty = movementy.magnitude;
+
+            if (disty < reactionDistanceY && distx < reactionDistanceX)
             {
                 isActive = true; //アクティブにする
                 EMove_Stop_mark = false;
