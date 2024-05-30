@@ -45,5 +45,53 @@ public class KeyPad_Program : MonoBehaviour
             Debug.Log("click2");
             Instantiate(Number2, pos, Quaternion.identity);
         }
+
+        if (gameObject.tag == "KeyButton3")
+        {
+            Debug.Log("click2");
+            Instantiate(Number3, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton4")
+        {
+            Debug.Log("click4");
+            Instantiate(Number4, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton5")
+        {
+            Debug.Log("click2");
+            Instantiate(Number5, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton6")
+        {
+            Debug.Log("click6");
+            Instantiate(Number6, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton7")
+        {
+            Debug.Log("click7");
+            Instantiate(Number7, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton8")
+        {
+            Debug.Log("click8");
+            Instantiate(Number8, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton9")
+        {
+            Debug.Log("click9");
+            Instantiate(Number9, pos, Quaternion.identity);
+        }
+
+        if (gameObject.tag == "KeyButton0")
+        {
+            Debug.Log("click0");
+            Instantiate(Number0, pos, Quaternion.identity);
+        }
     }
 }
