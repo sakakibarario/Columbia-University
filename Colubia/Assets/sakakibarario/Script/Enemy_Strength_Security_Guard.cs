@@ -60,6 +60,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     {
         if (GameManager.GState == "Playing")
         {
+           
             //プレイヤーとの距離を求める
             //float dist = Vector2.Distance(transform.position, player.transform.position);
             movementx.x = this.transform.position.x - player.transform.position.x;
@@ -193,6 +194,15 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                 direction = false;//初期の向きに戻す
                 Moved_Enemy = false;//最初の動きに戻す
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")// 主人公
+        {
+            // ゲームオーバー処理を呼ぶ
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Over);
         }
     }
 }
