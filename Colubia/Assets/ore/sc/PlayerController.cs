@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool Onmove = true;
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
+    private bool isTenjo = false;
 
 
     public bool isInteract = true;
@@ -89,17 +90,32 @@ public class PlayerController : MonoBehaviour
         }
 
         //  キャラクターが進行方向に進むようにする
-        if (isMoveRight)
+        if(!isTenjo)
         {
-            transform.localScale = new Vector2(-0.4f, 0.4f);
-            stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+            if (isMoveRight)
+            {
+                transform.localScale = new Vector2(-0.4f, 0.4f);
+                stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+            }
+            if (isMoveLeft)
+            {
+                transform.localScale = new Vector2(0.4f, 0.4f);
+                stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+            }
         }
-        if (isMoveLeft)
+        else
         {
-            transform.localScale = new Vector2(0.4f, 0.4f);
-            stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+            if (isMoveRight)
+            {
+                transform.localScale = new Vector2(0.4f, 0.4f);
+                stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+            }
+            if (isMoveLeft)
+            {
+                transform.localScale = new Vector2(-0.4f, 0.4f);
+                stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+            }
         }
-
 
         //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
         if (SwitchGravity && inLocker == false && isLookPaper == false) 
@@ -117,7 +133,7 @@ public class PlayerController : MonoBehaviour
                 stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
             }
 
-            if(Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 StartCoroutine(StunGun());
             }
@@ -205,29 +221,19 @@ public class PlayerController : MonoBehaviour
         {
             //  1°づつ回転させる
             transform.rotation = Quaternion.Euler(0, 0, PlayerAngle);
-            PlayerAngle += 3.0f;
+            PlayerAngle += 5.0f;
 
             //  次の回転まで少し待機
             yield return new WaitForSeconds(0.000025f);
         }
 
-        //  回転後、左右が逆なので反転させる
-        FlipX(gameObject);
+        isTenjo = !isTenjo;
 
         //  空中で回転できないように少し待機
         yield return new WaitForSeconds(0.25f);
         SwitchGravity = true;
         Onmove = true; //着地後に移動できるようにする
         isInteract = true;
-    }
-
-    void FlipX(GameObject anyobj)
-    {
-        if (anyobj.GetComponent<SpriteRenderer>().flipX == false)
-            anyobj.GetComponent<SpriteRenderer>().flipX = true;
-        else
-            anyobj.GetComponent<SpriteRenderer>().flipX = false;
-
     }
 
     IEnumerator Interactive(string anyOBJ)
@@ -310,29 +316,38 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator StunGun()
     {
-        onFire = true;
-
-        if (stunGunController.checkInArea && onFire)
+        if (Battery > 0) 
         {
-            Debug.Log("hit");
-            Battery -= 1;
-            batteryBar.UpdateBatteryBar();
-            en.enabled = false;
+            onFire = true;
+
+            if (stunGunController.checkInArea && onFire)
+            {
+                Debug.Log("hit");
+                Battery -= 1;
+                batteryBar.UpdateBatteryBar();
+                en.enabled = false;
+                yield return new WaitForSeconds(0.5f);
+                stungun.SetActive(false);
+                yield return new WaitForSeconds(4.5f);
+                en.enabled = true;
+            }
+            else if (stunGunController.checkInArea == false && onFire)
+            {
+                Debug.Log("miss");
+                Battery -= 1;
+                batteryBar.UpdateBatteryBar();
+                yield return new WaitForSeconds(0.5f);
+                stungun.SetActive(false);
+            }
+
+            onFire = false;
+        }
+        else
+        {
+            Debug.Log("0battery");
             yield return new WaitForSeconds(0.5f);
             stungun.SetActive(false);
-            yield return new WaitForSeconds(5.0f);
-            en.enabled = true;
         }
-        else if(stunGunController.checkInArea == false && onFire)
-        {
-            Debug.Log("miss");
-            Battery -= 1;
-            batteryBar.UpdateBatteryBar();
-            yield return new WaitForSeconds(0.5f);
-            stungun.SetActive(false);
-        }
-
-        onFire = false;
     }
 
 }
