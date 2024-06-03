@@ -27,12 +27,12 @@ public class KeyPad_Program : MonoBehaviour
 
     private bool ClickStopFlag = true;
 
-    public static int clickCount = 0;
+    static public int clickCount = 0;
 
-    public static int zero = 0;
+    static public int zero = 0;
 
-    public static int[] answer = new int[4]{ 1, 2, 3, 4 };
-    public static int[] p_answer = new int[4]{ 0, 0, 0, 0};
+    static public int[] answer = new int[4]{ 0, 0, 0, 0 };
+    static public int[] p_answer = new int[4]{ 0, 0, 0, 0};
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +40,8 @@ public class KeyPad_Program : MonoBehaviour
         gameObject.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
 
         clickCount = 0;
-        //ClickStopFlag = true;
+
+
     }
 
     // Update is called once per frame
