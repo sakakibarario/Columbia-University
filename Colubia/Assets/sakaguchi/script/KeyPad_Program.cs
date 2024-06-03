@@ -27,6 +27,8 @@ public class KeyPad_Program : MonoBehaviour
 
     public static int clickCount = 0;
 
+    public static int zero = 0;
+
     public static int[] answer = new int[4]{ 1, 2, 3, 4 };
     public static int[] p_answer = new int[4]{ 0, 0, 0, 0};
 
@@ -34,15 +36,15 @@ public class KeyPad_Program : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
+
+        clickCount = 0;
     }
 
     // Update is called once per frame
     void Update()
-    {
-      
-       
+    {     
+        
     }
-
 
     public void Click()
     {
@@ -55,13 +57,10 @@ public class KeyPad_Program : MonoBehaviour
         if (clickCount == 3)
             pos = pos4;
 
-        if(clickCount > 3)
+        if (zero == 4)
         {
-            Debug.Log(p_answer[0]);
-            Debug.Log(p_answer[1]);
-            Debug.Log(p_answer[2]);
-            Debug.Log(p_answer[3]);
-            CheckAnswer();
+            KNumDelete.deleteFlag = false;
+            zero = 0;
         }
 
         if (gameObject.tag == "KeyButton1")
@@ -128,6 +127,18 @@ public class KeyPad_Program : MonoBehaviour
             p_answer[clickCount] = 0;
             clickCount++;
         }
+
+        if(clickCount > 3)
+        {
+            Debug.Log(p_answer[0]);
+            Debug.Log(p_answer[1]);
+            Debug.Log(p_answer[2]);
+            Debug.Log(p_answer[3]);
+            CheckAnswer();
+        }
+
+        
+
     }
 
     void CheckAnswer()
@@ -137,6 +148,8 @@ public class KeyPad_Program : MonoBehaviour
             if (answer[i] != p_answer[i])
             {
                 Debug.Log("•s³‰ð");
+                clickCount = 0;
+                KNumDelete.deleteFlag = true;
                 break;
             }
             else if (i >= 3)
