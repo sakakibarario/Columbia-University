@@ -17,6 +17,9 @@ TagManager:
   - KeyButton8
   - KeyButton9
   - KeyButton0
+  - Stage1
+  - Stage2
+  - Stage3
   layers:
   - Default
   - TransparentFX
