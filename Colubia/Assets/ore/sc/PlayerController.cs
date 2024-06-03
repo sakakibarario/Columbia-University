@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     BatteryBar batteryBar;
     StunGunController stunGunController;
     enemyenemy en;
+    LadderController ladderController;
 
     SpriteRenderer sp;
     Color spriteColor;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public float hideduration = 0.05f;
     public float speed = 3.0f;
     private float playerX;
+    private float playerY;
     private bool Onmove = true;
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     //  重力管理
     private bool SwitchGravity = true;
+    private float GravityPoint;
 
     //  回転管理
     private float PlayerAngle = 0;
@@ -50,6 +53,9 @@ public class PlayerController : MonoBehaviour
     //  スタンガン系
     public int Battery = 2;
     public bool onFire = false;
+
+    //  ladder
+    public bool onLadder = false;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +66,7 @@ public class PlayerController : MonoBehaviour
         batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
         en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
+        ladderController = GameObject.FindWithTag("ladder").GetComponent<LadderController>();
 
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
@@ -79,8 +86,7 @@ public class PlayerController : MonoBehaviour
                 isMoveLeft = true; isMoveRight = false;
                 playerX = -speed;
             }
-
-            //　Bを押したら左に進む
+            //　Dを押したら右に進む
             else if (Input.GetKey(KeyCode.D))
             {
                 isMoveRight = true; isMoveLeft = false;
@@ -88,9 +94,23 @@ public class PlayerController : MonoBehaviour
             }
             else playerX = 0;
         }
+        if (onLadder)
+        {
+            //　Sを押したら下に進む
+            if (Input.GetKey(KeyCode.S))
+            {
+                playerY = -speed;
+            }
+            //　Wを押したら上に進む
+            else if (Input.GetKey(KeyCode.W))
+            {
+                playerY = speed;
+            }
+            else playerY = 0;
+        }
 
         //  キャラクターが進行方向に進むようにする
-        if(!isTenjo)
+        if (!isTenjo)
         {
             if (isMoveRight)
             {
@@ -118,16 +138,16 @@ public class PlayerController : MonoBehaviour
         }
 
         //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
-        if (SwitchGravity && inLocker == false && isLookPaper == false) 
+        if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.LeftShift))
                 GravityChange();
         }
 
         //　スタンガン
-        if (SwitchGravity && inLocker == false && isLookPaper == false)
+        if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
         {
-            if(Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 stungun.SetActive(true);
                 stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
@@ -140,9 +160,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //  ロッカーのボタンガイドがアクティブなら
-        if (lockerController.LockerF.activeSelf) 
+        if (lockerController.LockerF.activeSelf)
         {
-            if (Input.GetKey(KeyCode.F) && isInteract == true) 
+            if (Input.GetKey(KeyCode.F) && isInteract == true)
             {
                 isInteract = false;
                 StartCoroutine(Interactive("Locker"));
@@ -150,9 +170,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //　ペーパーのボタンガイドがアクティブなら
-        if (paperController.PaperF.activeSelf) 
+        if (paperController.PaperF.activeSelf)
         {
-            if(Input.GetKey(KeyCode.F) && isInteract == true)
+            if (Input.GetKey(KeyCode.F) && isInteract == true)
             {
                 isInteract = false;
                 StartCoroutine(Interactive("Paper"));
@@ -169,15 +189,14 @@ public class PlayerController : MonoBehaviour
                 paperController.PaperESC.SetActive(false);
                 paperController.PaperLook.SetActive(false);
 
-               // StartCoroutine(waitTime(1000));
                 isInteract = true;
             }
         }
 
         //　バッテリー
-        if (batteryController != null && batteryController.BatteryF.activeSelf) 
+        if (batteryController != null && batteryController.BatteryF.activeSelf)
         {
-            if (Input.GetKey(KeyCode.F) && isInteract == true && Battery < 5) 
+            if (Input.GetKey(KeyCode.F) && isInteract == true && Battery < 5)
             {
                 isInteract = false;
                 StartCoroutine(Interactive("Battery"));
@@ -185,7 +204,31 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
+        //  ladder
+        if (ladderController.LadderF.activeSelf && SwitchGravity && inLocker == false && isLookPaper == false)
+        {
+            if (Input.GetKey(KeyCode.F) && isInteract == true)
+            {
+                isInteract = false;
+                StartCoroutine(Interactive("Ladder"));
+            }
+        }
+        if (onLadder)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                onLadder = false;
+                Onmove = true;
+                isInteract = true;
+
+                rb2D.gravityScale = GravityPoint;
+            }
+
+        }
+        if(onLadder == false)
+            rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
+        else
+            rb2D.velocity = new Vector2(playerX, playerY);
     }
 
     void GravityChange()
@@ -289,6 +332,20 @@ public class PlayerController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             isInteract = true;
+        }
+
+        if (anyOBJ == "Ladder") 
+        {
+            playerX = 0;
+            onLadder = true;
+            Onmove = false;
+
+            GravityPoint = rb2D.gravityScale;
+            rb2D.gravityScale = 0;
+
+            yield return new WaitForSeconds(0.25f);
+            position.x = ladderController.transform.position.x;
+            transform.position = position;          
         }
     }
 
