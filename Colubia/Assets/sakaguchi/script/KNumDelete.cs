@@ -15,11 +15,9 @@ public class KNumDelete : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(deleteFlag)
+        if (deleteFlag)
         {
             KeyPad_Program.zero++;
-            Destroy(this.gameObject, 0.7f);
-            Debug.Log(deleteFlag);
-        }
+            Destroy(this.gameObject, 0.7f);        }
     }
 }
