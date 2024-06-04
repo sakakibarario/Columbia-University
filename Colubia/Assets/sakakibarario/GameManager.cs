@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                 GameOver();
                 break;
             case GameState.Home:
-
+                GameHome();
                 break;
             case GameState.Pose:
                 GamePose();
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     }
     // オープニング処理
-    void GameOpening()
+    void GameHome()
     {
 
     }
