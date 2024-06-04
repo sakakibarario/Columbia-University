@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     enemyenemy en;
     LadderController ladderController;
 
+    Animator animator;
+
     SpriteRenderer sp;
     Color spriteColor;
 
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
         //en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
 
+        animator = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
 
@@ -86,14 +89,20 @@ public class PlayerController : MonoBehaviour
             {
                 isMoveLeft = true; isMoveRight = false;
                 playerX = -speed;
+                animator.Play("playerwalk");
             }
             //Å@DÇâüÇµÇΩÇÁâEÇ…êiÇﬁ
             else if (Input.GetKey(KeyCode.D))
             {
                 isMoveRight = true; isMoveLeft = false;
                 playerX = speed;
+                animator.Play("playerwalk");
             }
-            else playerX = 0;
+            else
+            {
+                playerX = 0;
+                animator.Play("playerstop");
+            }
         }
         if (onLadder)
         {
@@ -117,26 +126,26 @@ public class PlayerController : MonoBehaviour
         {
             if (isMoveRight)
             {
-                transform.localScale = new Vector2(-0.4f, 0.4f);
-                stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+                transform.localScale = new Vector2(-0.7f, 0.7f);
+                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
             }
             if (isMoveLeft)
             {
-                transform.localScale = new Vector2(0.4f, 0.4f);
-                stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+                transform.localScale = new Vector2(0.7f, 0.7f);
+                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
             }
         }
         else
         {
             if (isMoveRight)
             {
-                transform.localScale = new Vector2(0.4f, 0.4f);
-                stungun.transform.localScale = new Vector2(-0.3f, 0.7f);
+                transform.localScale = new Vector2(0.7f, 0.7f);
+                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
             }
             if (isMoveLeft)
             {
-                transform.localScale = new Vector2(-0.4f, 0.4f);
-                stungun.transform.localScale = new Vector2(0.3f, 0.7f);
+                transform.localScale = new Vector2(-0.7f, 0.7f);
+                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
             }
         }
 
