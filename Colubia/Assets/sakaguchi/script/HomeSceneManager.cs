@@ -13,9 +13,9 @@ public class HomeSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //RandomQestion.BeginnerQuestionFlag = false;
-        //RandomQestion.IntermediateQestionFlag = false;
-        //RandomQestion.AdvancedQuestionFlag = false;
+        RandomQestion.BeginnerQuestionFlag = false;
+        RandomQestion.IntermediateQestionFlag = false;
+        RandomQestion.AdvancedQuestionFlag = false;
     }
 
     // Update is called once per frame
@@ -27,19 +27,26 @@ public class HomeSceneManager : MonoBehaviour
    {
         if(gameObject.tag == "Stage1")
         {
+           
             RandomQestion.BeginnerQuestionFlag = true;
+            // ゲームオーバー処理を呼ぶ
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             Debug.Log(RandomQestion.BeginnerQuestionFlag);
         }
 
         if (gameObject.tag == "Stage2")
         {
             RandomQestion.IntermediateQestionFlag = true;
+            // ゲームオーバー処理を呼ぶ
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             Debug.Log(RandomQestion.IntermediateQestionFlag);
         }
 
         if (gameObject.tag == "Stage3")
         {
             RandomQestion.AdvancedQuestionFlag = true;
+            // ゲームオーバー処理を呼ぶ
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             Debug.Log(RandomQestion.AdvancedQuestionFlag);
         }
     }

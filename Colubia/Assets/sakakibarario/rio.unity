@@ -4412,6 +4412,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneNameO: GameOver
   sceneNameC: GameClear
+  sceneName1: Stage1M
+  sceneName2: Stage2M
+  sceneName3: Stage3M
   fadeColor: {r: 1, g: 1, b: 1, a: 0}
   fadeSpeed: 3
   currentState: 3

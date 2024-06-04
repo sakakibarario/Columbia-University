@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     //フェード用
     [SerializeField] private string sceneNameO;
     [SerializeField] private string sceneNameC;
+    [SerializeField] private string sceneName1;
+    [SerializeField] private string sceneName2;
+    [SerializeField] private string sceneName3;
 
     [SerializeField] private Color fadeColor;
     [SerializeField] private float fadeSpeed;
@@ -79,6 +82,22 @@ public class GameManager : MonoBehaviour
     void GameStart()
     {
         GState = "Playing";
+        if (RandomQestion.BeginnerQuestionFlag == true)
+        {
+            Debug.Log("Beginner");
+            Initiate.Fade(sceneName1, fadeColor, fadeSpeed);
+        }
+        if (RandomQestion.IntermediateQestionFlag == true)
+        {
+            Debug.Log("Intermediate");
+            Initiate.Fade(sceneName2, fadeColor, fadeSpeed);
+        }
+        if (RandomQestion.AdvancedQuestionFlag == true)
+        {
+            Debug.Log("Advabced");
+            Initiate.Fade(sceneName3, fadeColor, fadeSpeed);
+        }
+
         Debug.Log("playing");
     }
 

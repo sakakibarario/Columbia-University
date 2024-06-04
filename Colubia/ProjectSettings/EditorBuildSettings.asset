@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/sakakibarario/GameOver.unity
     guid: 841bb017b97da4442911e148caaff2e9
+  - enabled: 1
+    path: Assets/MainScene/Stage1M.unity
+    guid: 8930c928956e51b4295140b71ba66c59
+  - enabled: 1
+    path: Assets/MainScene/Stage2M.unity
+    guid: 5c49ad0cb79d90049b8182490717746b
+  - enabled: 1
+    path: Assets/MainScene/Stage3M.unity
+    guid: d6fc668b8a7d5f74786a024ea4948ae7
   m_configObjects: {}

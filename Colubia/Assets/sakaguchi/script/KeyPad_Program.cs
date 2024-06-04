@@ -157,6 +157,7 @@ public class KeyPad_Program : MonoBehaviour
             }
             else if (i >= 3)
             {
+                FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Clear);
                 Debug.Log("³‰ğ");
             }
         }

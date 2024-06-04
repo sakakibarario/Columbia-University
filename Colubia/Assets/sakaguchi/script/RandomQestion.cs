@@ -35,10 +35,6 @@ public class RandomQestion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BeginnerQuestionFlag = false;
-        IntermediateQestionFlag = true;
-        AdvancedQuestionFlag = false;
-
         //‰‹‰
         BeginnerQuestion1.SetActive(false);
         BeginnerQuestion2.SetActive(false);
