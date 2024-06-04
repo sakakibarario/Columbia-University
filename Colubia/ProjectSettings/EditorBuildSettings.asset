@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/sakakibarario/rio.unity
     guid: 8d6228ea62fd54c4ab93927d7d3e6070
   - enabled: 1
-    path: Assets/sakakibarario/GaCl.unity
+    path: Assets/sakakibarario/GameClear.unity
     guid: f6c84017be0121a4c9cf6d3e08aba96c
   - enabled: 1
-    path: Assets/sakakibarario/GaOv.unity
+    path: Assets/sakakibarario/GameOver.unity
     guid: 841bb017b97da4442911e148caaff2e9
   m_configObjects: {}
