@@ -18,6 +18,13 @@ public class Enemy_security_guard : MonoBehaviour
 
     private bool Moved_Enemy = false;
 
+
+    //アニメーション用
+    Animator animator; //アニメーター
+    public string stopAnime = "Enemy_security_guardB_stand";
+    public string moveAnime = "Enemy_security_guardB_run";
+    
+
     Vector2 MyEnemy = new Vector2(0, 0);
     Vector2 MyEnemy2 = new Vector2(0, 0);
 
@@ -25,6 +32,11 @@ public class Enemy_security_guard : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //Animator をとってくる
+        animator = GetComponent<Animator>();
+
+     
+
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
@@ -38,6 +50,7 @@ public class Enemy_security_guard : MonoBehaviour
     {
         if (GameManager.GState == "Pose")
         {
+            animator.Play(stopAnime);    //アニメーション再生
             Moved_Enemy = true;//初期位置に戻す
         }
 
@@ -49,6 +62,7 @@ public class Enemy_security_guard : MonoBehaviour
 
             if (Moved_Enemy)
             {
+                animator.Play(moveAnime);    //アニメーション再生
                 if (transform.position.x < MyEnemy.x)
                 {
                     this.transform.localScale = new Vector2(-2, 2);//左向き
@@ -74,16 +88,19 @@ public class Enemy_security_guard : MonoBehaviour
             {
                 if (direction)
                 {
+                    
                     countrightTime -= Time.deltaTime; //カウントアップ
 
                     if (countrightTime < 0)
                     {
+                        animator.Play(moveAnime);
                         this.transform.localScale = new Vector2(-2, 2);//右向き
                         //指定座標まで移動
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                        
                         if (transform.position.x == MyEnemy.x)
                         {
+                            animator.Play(stopAnime);
                             Debug.Log("aaaa");
                             countrightTime = 3.0f;
                             direction = false;
@@ -93,15 +110,17 @@ public class Enemy_security_guard : MonoBehaviour
                 else
                 {
                     countleftTime -= Time.deltaTime;  //カウントアップ
-
+                    
                     if (countleftTime < 0)
                     {
+                        animator.Play(moveAnime);
                         this.transform.localScale = new Vector2(2, 2);//左向き
                         //指定座標まで移動                                             
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
                         if (transform.position.x == MyEnemy2.x)
                         {
+                            animator.Play(stopAnime);
                             Debug.Log("aaaa");
                             countleftTime = 3.0f;
                             direction = true;
@@ -112,6 +131,7 @@ public class Enemy_security_guard : MonoBehaviour
         }
         else
         {
+            animator.Play(stopAnime);    //アニメーション再生
             rb.Sleep();//動きを止める
         }
 
@@ -120,6 +140,7 @@ public class Enemy_security_guard : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")// 主人公
         {
+            animator.Play(stopAnime);    //アニメーション再生
             // ゲームオーバー処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Over);
         }
