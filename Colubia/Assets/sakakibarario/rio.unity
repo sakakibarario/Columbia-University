@@ -329,7 +329,6 @@ GameObject:
   - component: {fileID: 91689958}
   - component: {fileID: 91689957}
   - component: {fileID: 91689956}
-  - component: {fileID: 91689961}
   m_Layer: 0
   m_Name: "\u5F37\u5316\u8B66\u5099\u54E1\u5DE6"
   m_TagString: Enemy
@@ -352,6 +351,7 @@ Transform:
   - {fileID: 10318985}
   - {fileID: 1770012745}
   - {fileID: 1631086457}
+  - {fileID: 1013896292}
   m_Father: {fileID: 216609125}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -389,8 +389,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0016123455, y: 1.8525143}
-  m_Size: {x: 1.6966763, y: 3.74203}
+  m_Offset: {x: 0.001612266, y: 1.8525143}
+  m_Size: {x: 1.4951844, y: 3.74203}
   m_Direction: 0
 --- !u!114 &91689958
 MonoBehaviour:
@@ -473,22 +473,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &91689961
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91689954}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0023832321, y: 1.8852409}
-  m_Size: {x: 1.8981798, y: 3.8399997}
-  m_Direction: 0
 --- !u!1 &216609124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,6 +2346,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b97c25f52c6d6749b11dcfed753cca3, type: 3}
+--- !u!1 &1013896291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013896292}
+  - component: {fileID: 1013896294}
+  - component: {fileID: 1013896293}
+  m_Layer: 0
+  m_Name: death_area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1013896292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013896291}
+  m_LocalRotation: {x: -0.02460675, y: -0, z: -0, w: 0.9996972}
+  m_LocalPosition: {x: 0.07, y: 2.4466667, z: -9.62}
+  m_LocalScale: {x: 0.6666667, y: 0.6663976, z: 1.0012082}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91689955}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -2.82, y: 0, z: 0}
+--- !u!114 &1013896293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013896291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541642371f565ab4b8bad4848f30185c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &1013896294
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013896291}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.12481165, y: -0.82574946}
+  m_Size: {x: 2.62386, y: 5.960673}
+  m_Direction: 0
 --- !u!1001 &1172832497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2593,7 +2638,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194006528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.84, y: -4.4, z: 0}
+  m_LocalPosition: {x: 11.03, y: -8.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2688,7 +2733,6 @@ GameObject:
   - component: {fileID: 1342423995}
   - component: {fileID: 1342423994}
   - component: {fileID: 1342423993}
-  - component: {fileID: 1342423997}
   m_Layer: 0
   m_Name: drawn.1
   m_TagString: Enemy
@@ -2824,32 +2868,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1342423997
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342423991}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.000000059604645, y: 0.034708977}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.69, y: 2.05}
-    newSize: {x: 2.69, y: 2.05}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.9121375, y: 2.2582545}
-  m_EdgeRadius: 0
 --- !u!1 &1375777200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,6 +3406,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1720730528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720730529}
+  - component: {fileID: 1720730530}
+  - component: {fileID: 1720730531}
+  m_Layer: 0
+  m_Name: death_area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720730529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720730528}
+  m_LocalRotation: {x: -0.02460675, y: 0, z: 0, w: 0.9996972}
+  m_LocalPosition: {x: 0.87, y: 1.83, z: -9.62}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2006963880}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -2.82, y: 0, z: 0}
+--- !u!70 &1720730530
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720730528}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08703184, y: -1.2419976}
+  m_Size: {x: 2.4727411, y: 5.0524864}
+  m_Direction: 0
+--- !u!114 &1720730531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720730528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541642371f565ab4b8bad4848f30185c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1745128814
 GameObject:
   m_ObjectHideFlags: 0
@@ -4051,7 +4130,6 @@ GameObject:
   - component: {fileID: 2006963882}
   - component: {fileID: 2006963881}
   - component: {fileID: 2006963884}
-  - component: {fileID: 2006963885}
   - component: {fileID: 2006963886}
   m_Layer: 0
   m_Name: "\u8B66\u5099\u54E1B\u5DE6"
@@ -4068,11 +4146,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006963879}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.22, y: -7.5, z: 0.07665088}
+  m_LocalPosition: {x: -17.17, y: -7.5, z: 0.07665088}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 606429787}
+  - {fileID: 1720730529}
   m_Father: {fileID: 216609125}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4181,22 +4260,6 @@ MonoBehaviour:
   Enemy_start_count: 4
   stopAnime: Enemy_security_guardB_stand
   moveAnime: Enemy_security_guardB_run
---- !u!70 &2006963885
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006963879}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0798738, y: 1.226244}
-  m_Size: {x: 1.1866727, y: 2.482131}
-  m_Direction: 0
 --- !u!95 &2006963886
 Animator:
   serializedVersion: 5

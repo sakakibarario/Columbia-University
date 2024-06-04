@@ -136,14 +136,6 @@ public class Enemy_security_guard : MonoBehaviour
         }
 
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")// 主人公
-        {
-            animator.Play(stopAnime);    //アニメーション再生
-            // ゲームオーバー処理を呼ぶ
-            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Over);
-        }
-    }
+  
 
 }
