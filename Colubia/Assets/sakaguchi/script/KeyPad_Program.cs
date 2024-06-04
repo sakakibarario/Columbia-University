@@ -25,12 +25,14 @@ public class KeyPad_Program : MonoBehaviour
 
     Vector3 pos;
 
-    public static int clickCount = 0;
+    private bool ClickStopFlag = true;
 
-    public static int zero = 0;
+    static public int clickCount = 0;
 
-    public static int[] answer = new int[4]{ 1, 2, 3, 4 };
-    public static int[] p_answer = new int[4]{ 0, 0, 0, 0};
+    static public int zero = 0;
+
+    static public int[] answer = new int[4]{ 0, 0, 0, 0 };
+    static public int[] p_answer = new int[4]{ 0, 0, 0, 0};
 
     // Start is called before the first frame update
     void Start()
@@ -38,16 +40,24 @@ public class KeyPad_Program : MonoBehaviour
         gameObject.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
 
         clickCount = 0;
+
+
     }
 
     // Update is called once per frame
     void Update()
-    {     
-        
+    {
+        Debug.Log(ClickStopFlag);
+        if (zero >= 4)
+        {
+            KNumDelete.deleteFlag = false;
+            zero = 0;
+        }
     }
 
     public void Click()
     {
+
         if (clickCount == 0)
             pos = pos1;
         if (clickCount == 1)
@@ -56,12 +66,6 @@ public class KeyPad_Program : MonoBehaviour
             pos = pos3;
         if (clickCount == 3)
             pos = pos4;
-
-        if (zero == 4)
-        {
-            KNumDelete.deleteFlag = false;
-            zero = 0;
-        }
 
         if (gameObject.tag == "KeyButton1")
         {
@@ -72,7 +76,7 @@ public class KeyPad_Program : MonoBehaviour
         }
         if (gameObject.tag == "KeyButton2")
         {
-            Instantiate(Number2, pos, Quaternion.identity);           
+            Instantiate(Number2, pos, Quaternion.identity);
             p_answer[clickCount] = 2;
             Debug.Log(p_answer[clickCount]);
             clickCount++;
@@ -81,68 +85,68 @@ public class KeyPad_Program : MonoBehaviour
         {
             Instantiate(Number3, pos, Quaternion.identity);
             p_answer[clickCount] = 3;
-            Debug.Log(p_answer[clickCount]);
             clickCount++;
         }
         if (gameObject.tag == "KeyButton4")
         {
-            Instantiate(Number4, pos, Quaternion.identity);           
+            Instantiate(Number4, pos, Quaternion.identity);
             p_answer[clickCount] = 4;
-            Debug.Log(p_answer[clickCount]);
             clickCount++;
         }
         if (gameObject.tag == "KeyButton5")
         {
-            Instantiate(Number5, pos, Quaternion.identity);            
+            Instantiate(Number5, pos, Quaternion.identity);
             p_answer[clickCount] = 5;
             clickCount++;
         }
         if (gameObject.tag == "KeyButton6")
         {
-            Instantiate(Number6, pos, Quaternion.identity);           
+            Instantiate(Number6, pos, Quaternion.identity);
             p_answer[clickCount] = 6;
             clickCount++;
         }
         if (gameObject.tag == "KeyButton7")
         {
-            Instantiate(Number7, pos, Quaternion.identity);           
+            Instantiate(Number7, pos, Quaternion.identity);
             p_answer[clickCount] = 7;
             clickCount++;
         }
         if (gameObject.tag == "KeyButton8")
         {
-            Instantiate(Number8, pos, Quaternion.identity);            
+            Instantiate(Number8, pos, Quaternion.identity);
             p_answer[clickCount] = 8;
             clickCount++;
         }
         if (gameObject.tag == "KeyButton9")
         {
-            Instantiate(Number9, pos, Quaternion.identity);           
+            Instantiate(Number9, pos, Quaternion.identity);
             p_answer[clickCount] = 9;
             clickCount++;
         }
         if (gameObject.tag == "KeyButton0")
         {
-            Instantiate(Number0, pos, Quaternion.identity);           
+            Instantiate(Number0, pos, Quaternion.identity);
             p_answer[clickCount] = 0;
             clickCount++;
         }
 
-        if(clickCount > 3)
+        if (clickCount > 3)
         {
             Debug.Log(p_answer[0]);
             Debug.Log(p_answer[1]);
             Debug.Log(p_answer[2]);
             Debug.Log(p_answer[3]);
             CheckAnswer();
+
         }
 
-        
+
 
     }
 
     void CheckAnswer()
     {
+        ClickStopFlag = false;
         for(int i = 0; i <= 4; i++)
         {
             if (answer[i] != p_answer[i])
@@ -150,6 +154,7 @@ public class KeyPad_Program : MonoBehaviour
                 Debug.Log("•s³‰ð");
                 clickCount = 0;
                 KNumDelete.deleteFlag = true;
+
                 break;
             }
             else if (i >= 3)
