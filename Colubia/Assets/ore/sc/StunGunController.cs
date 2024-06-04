@@ -5,10 +5,12 @@ using UnityEngine;
 public class StunGunController : MonoBehaviour
 {
     PlayerController playerController;
-    Enemy_security_guard enemy_Security_Guard;
-    Enemy_Strength_Security_Guard enemy_Strength_Security_Guard;
+    static public Enemy_security_guard enemy_Security_Guard;
+    static public Enemy_Strength_Security_Guard enemy_Strength_Security_Guard;
 
     public bool checkInArea = false;
+
+    public bool strong = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +35,12 @@ public class StunGunController : MonoBehaviour
             if (collision.gameObject.tag == "Enemy_security_guard")
             {
                 enemy_Security_Guard = collision.GetComponent<Enemy_security_guard>();
+                strong = false;
             }
             else if (collision.gameObject.tag == "Enemy_Strength_Security_Guard")
             {
                 enemy_Strength_Security_Guard = collision.GetComponent<Enemy_Strength_Security_Guard>();
+                strong = true;
             }
         }
     }
@@ -52,4 +56,5 @@ public class StunGunController : MonoBehaviour
             enemy_Strength_Security_Guard = null;
         }
     }
+
 }

@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
     private bool isTenjo = false;
+    private bool moveup = false;
+    private bool movedown = false;
 
 
     public bool isInteract = true;
@@ -98,11 +100,13 @@ public class PlayerController : MonoBehaviour
             //　Sを押したら下に進む
             if (Input.GetKey(KeyCode.S))
             {
+                movedown = true; moveup = false;
                 playerY = -speed;
             }
             //　Wを押したら上に進む
             else if (Input.GetKey(KeyCode.W))
             {
+                moveup = true; movedown = false;
                 playerY = speed;
             }
             else playerY = 0;
@@ -159,7 +163,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //  ロッカーのボタンガイドがアクティブなら
-        if (lockerController.LockerF.activeSelf)
+        if (lockerController != null && lockerController.LockerF.activeSelf )
         {
             if (Input.GetKey(KeyCode.F) && isInteract == true)
             {
@@ -169,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //　ペーパーのボタンガイドがアクティブなら
-        if (paperController.PaperF.activeSelf)
+        if (paperController != null && paperController.PaperF.activeSelf)
         {
             if (Input.GetKey(KeyCode.F) && isInteract == true)
             {
@@ -178,7 +182,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         //  ペーパーを見てる時　＆＆　ペーパーESCガイドが有効の時
-        if (isLookPaper == true && paperController.PaperESC.activeSelf)
+        if (paperController != null && isLookPaper == true && paperController.PaperESC.activeSelf)
         {
             if (Input.GetKey(KeyCode.Escape))
             {
@@ -204,34 +208,39 @@ public class PlayerController : MonoBehaviour
         }
 
         //  ladder
-        if (ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf && SwitchGravity && inLocker == false && isLookPaper == false)
+        if(ladderController != null)
         {
-            if (Input.GetKey(KeyCode.F) && isInteract == true)
+            if (SwitchGravity && inLocker == false && isLookPaper == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
             {
-                isInteract = false;
-                StartCoroutine(Interactive("Ladder"));
-            }
-        }
-
-        for(int i = 0; i < ladderController.childLadder.Length; i++)
-        {
-            if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
-            {
-                if (transform.position.y <= ladderController.transform.position.y - 0.3 || 
-                    transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)  
+                if (Input.GetKey(KeyCode.F) && isInteract == true)
                 {
-                    if (Input.GetKey(KeyCode.Space))
-                    {
-                        onLadder = false;
-                        Onmove = true;
-                        isInteract = true;
-
-                        ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
-                        rb2D.gravityScale = GravityPoint;
-                    }
+                    isInteract = false;
+                    StartCoroutine(Interactive("Ladder"));
                 }
             }
 
+            for (int i = 0; i < ladderController.childLadder.Length; i++)
+            {
+                if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
+                {
+                    if (transform.position.y <= ladderController.transform.position.y - 0.4 ||
+                        transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
+                    {
+                        if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
+                            playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
+                        if (Input.GetKey(KeyCode.Space))
+                        {
+                            onLadder = false;
+                            Onmove = true;
+                            isInteract = true;
+
+                            ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
+                            rb2D.gravityScale = GravityPoint;
+                        }
+                    }
+                }
+
+            }
         }
         if(onLadder == false)
             rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
@@ -361,7 +370,7 @@ public class PlayerController : MonoBehaviour
             rb2D.gravityScale = 0;
 
             yield return new WaitForSeconds(0.25f);
-            position.x = ladderController.transform.position.x;
+            position = ladderController.transform.position;
             transform.position = position;          
         }
     }
@@ -400,12 +409,19 @@ public class PlayerController : MonoBehaviour
                 Battery -= 1;
                 batteryBar.UpdateBatteryBar();
 
-                
-                en.enabled = false;
+               if( stunGunController.strong == false)
+                    StunGunController.enemy_Security_Guard.enabled = false;
+               else
+                    StunGunController.enemy_Strength_Security_Guard.enabled=false;
+
                 yield return new WaitForSeconds(0.5f);
                 stungun.SetActive(false);
                 yield return new WaitForSeconds(4.5f);
-                en.enabled = true;
+
+                if (stunGunController.strong == false)
+                    StunGunController.enemy_Security_Guard.enabled = true;
+                else
+                    StunGunController.enemy_Strength_Security_Guard.enabled = true;
             }
             else if (stunGunController.checkInArea == false && onFire)
             {
