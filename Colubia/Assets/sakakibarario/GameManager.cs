@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
         Pose
     }
     //フェード用
-    [SerializeField] private string sceneName;
+    [SerializeField] private string sceneNameO;
+    [SerializeField] private string sceneNameC;
+
     [SerializeField] private Color fadeColor;
     [SerializeField] private float fadeSpeed;
 
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
     void GameClear()
     {
         GState = "GameClear";
+        Initiate.Fade(sceneNameC, fadeColor, fadeSpeed);
         Debug.Log("GameClear");
     }
 
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         GState = "GameOver";
-        Initiate.Fade(sceneName, fadeColor, fadeSpeed);
+        Initiate.Fade(sceneNameO, fadeColor, fadeSpeed);
         Debug.Log("gameover");
     }
 
