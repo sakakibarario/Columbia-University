@@ -7,9 +7,7 @@ TagManager:
   - Locker
   - paper
   - Battery
-  - Exclamation
-  - Question
-  - Enemy
+
   layers:
   - Default
   - TransparentFX
