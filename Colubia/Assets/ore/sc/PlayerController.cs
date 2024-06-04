@@ -61,12 +61,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        lockerController = GameObject.FindWithTag("Locker").GetComponent<LockerController>();
-        paperController = GameObject.FindWithTag("paper").GetComponent<PaperController>();
-        batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
+        //lockerController = GameObject.FindWithTag("Locker").GetComponent<LockerController>();
+        //paperController = GameObject.FindWithTag("paper").GetComponent<PaperController>();
+        //batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
-        en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
-        ladderController = GameObject.FindWithTag("ladder").GetComponent<LadderController>();
+        //en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
 
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
@@ -205,7 +204,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //  ladder
-        if (ladderController.LadderF.activeSelf && SwitchGravity && inLocker == false && isLookPaper == false)
+        if (ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf && SwitchGravity && inLocker == false && isLookPaper == false)
         {
             if (Input.GetKey(KeyCode.F) && isInteract == true)
             {
@@ -213,15 +212,24 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Interactive("Ladder"));
             }
         }
-        if (onLadder)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                onLadder = false;
-                Onmove = true;
-                isInteract = true;
 
-                rb2D.gravityScale = GravityPoint;
+        for(int i = 0; i < ladderController.childLadder.Length; i++)
+        {
+            if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
+            {
+                if (transform.position.y <= ladderController.transform.position.y - 0.3 || 
+                    transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)  
+                {
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        onLadder = false;
+                        Onmove = true;
+                        isInteract = true;
+
+                        ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
+                        rb2D.gravityScale = GravityPoint;
+                    }
+                }
             }
 
         }
@@ -340,6 +348,15 @@ public class PlayerController : MonoBehaviour
             onLadder = true;
             Onmove = false;
 
+            for(int i =0; ; i++)
+            {
+                if (ladderController.childLadder[i].GetComponent<BoxCollider2D>() != null)
+                {
+                    ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = false;
+                    break;
+                }
+            }
+
             GravityPoint = rb2D.gravityScale;
             rb2D.gravityScale = 0;
 
@@ -382,6 +399,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hit");
                 Battery -= 1;
                 batteryBar.UpdateBatteryBar();
+
+                
                 en.enabled = false;
                 yield return new WaitForSeconds(0.5f);
                 stungun.SetActive(false);
@@ -407,4 +426,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "ladder")
+        {
+            ladderController = collision.GetComponent<LadderController>();
+        }
+
+        if(collision.gameObject.tag == "Locker")
+        {
+            lockerController = collision.GetComponent<LockerController>();
+        }
+
+        if(collision.gameObject.tag == "paper")
+        {
+            paperController = collision.GetComponent<PaperController>();
+        }
+
+        if(collision.gameObject.tag == "Battery")
+        {
+            batteryController = collision.GetComponent<BatteryController>();
+        }
+    }
 }

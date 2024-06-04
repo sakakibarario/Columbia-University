@@ -6,7 +6,7 @@ public class StunGunController : MonoBehaviour
 {
     PlayerController playerController;
     Enemy_security_guard enemy_Security_Guard;
-    enemyenemy en;
+    Enemy_Strength_Security_Guard enemy_Strength_Security_Guard;
 
     public bool checkInArea = false;
 
@@ -14,9 +14,8 @@ public class StunGunController : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        enemy_Security_Guard = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy_security_guard>();
-        en = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyenemy>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -30,6 +29,15 @@ public class StunGunController : MonoBehaviour
         {
             Debug.Log("enter");
             checkInArea = true;
+
+            if (collision.gameObject.tag == "Enemy_security_guard")
+            {
+                enemy_Security_Guard = collision.GetComponent<Enemy_security_guard>();
+            }
+            else if (collision.gameObject.tag == "Enemy_Strength_Security_Guard")
+            {
+                enemy_Strength_Security_Guard = collision.GetComponent<Enemy_Strength_Security_Guard>();
+            }
         }
     }
 
@@ -39,21 +47,9 @@ public class StunGunController : MonoBehaviour
         {
             Debug.Log("exit");
             checkInArea = false;
+
+            enemy_Security_Guard = null;
+            enemy_Strength_Security_Guard = null;
         }
     }
-
-
-    //public IEnumerator stun()
-    //{
-    //    if (checkInArea && playerController.onFire)
-    //    {
-    //        Debug.Log("kkkkk");
-    //        playerController.Battery -= 1;
-    //        en.enabled = false;
-
-    //        yield return new WaitForSecondsRealtime(4.0f);
-
-    //        en.enabled = true;
-    //    }
-    //}
 }

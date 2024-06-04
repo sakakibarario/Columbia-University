@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class LadderController : MonoBehaviour
 {
     public GameObject LadderF;
+    public GameObject childLadderF;
+    public GameObject[] childLadder = new GameObject[1];
+
+    public bool doDown = false;
 
     PlayerController PlayerCTRL;
     // Start is called before the first frame update
@@ -16,7 +22,10 @@ public class LadderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(PlayerCTRL.onLadder != false)
+        {
+            LadderF.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,6 +38,20 @@ public class LadderController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
             LadderF.SetActive(false);// Žæ“¾‚µ‚½obj‚ð”ñ•\Ž¦‚É‚·‚é
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        doDown = true;
+        if (PlayerCTRL.onLadder == false && collision.gameObject.tag == "Player")
+            childLadderF.SetActive(true);// Žæ“¾‚µ‚½obj‚ð•\Ž¦‚³‚¹‚é
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        doDown = false;
+        if (collision.gameObject.tag == "Player")
+            childLadderF.SetActive(false);// Žæ“¾‚µ‚½obj‚ð”ñ•\Ž¦‚É‚·‚é
     }
 
 }
