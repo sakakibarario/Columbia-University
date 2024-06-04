@@ -1411,8 +1411,7 @@ MonoBehaviour:
   sceneName2: Stage2M
   sceneName3: Stage3M
   fadeColor: {r: 0, g: 0, b: 0, a: 0}
-  fadeSpeed: 0
-  currentState: 3
+  fadeSpeed: 3
 --- !u!1 &2127869499
 GameObject:
   m_ObjectHideFlags: 0

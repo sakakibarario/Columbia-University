@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float fadeSpeed;
 
     // 現在のゲーム進行状態
-    public GameState currentState = GameState.Home;
+    GameState currentState = GameState.Home;
 
     public static string GState = "home";//ゲームの状態
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
         //if (Input.GetButtonDown("Fire1"))
@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
     void GameClear()
     {
         GState = "GameClear";
+        //SceneManager.LoadScene(sceneNameC);
         Initiate.Fade(sceneNameC, fadeColor, fadeSpeed);
         Debug.Log("GameClear");
     }

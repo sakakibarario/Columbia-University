@@ -27,7 +27,7 @@ public class KeyPad_Program : MonoBehaviour
 
     Vector3 pos;
 
-    private bool ClickStopFlag = true;
+    //private bool ClickStopFlag = true;
 
     static public int clickCount = 0;
 
@@ -144,7 +144,7 @@ public class KeyPad_Program : MonoBehaviour
 
     void CheckAnswer()
     {
-        ClickStopFlag = false;
+        //ClickStopFlag = false;
         for(int i = 0; i <= 4; i++)
         {
             if (answer[i] != p_answer[i])
@@ -157,8 +157,10 @@ public class KeyPad_Program : MonoBehaviour
             }
             else if (i >= 3)
             {
-                FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Clear);
                 Debug.Log("ê≥â");
+                FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Clear);
+                break;
+               
             }
         }
     }

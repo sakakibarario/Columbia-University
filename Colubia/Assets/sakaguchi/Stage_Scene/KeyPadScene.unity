@@ -832,13 +832,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1811463050}
+      - m_Target: {fileID: 455904603}
         m_TargetAssemblyTypeName: KeyPad_Program, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3478,13 +3478,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneNameO: GameOver
-  sceneNameC: GamerClear
+  sceneNameC: GameClear
   sceneName1: Stage1M
   sceneName2: Stage2M
   sceneName3: Stage3M
-  fadeColor: {r: 0, g: 0, b: 0, a: 0}
-  fadeSpeed: 0
-  currentState: 3
+  fadeColor: {r: 1, g: 0.11792451, b: 0.11792451, a: 0}
+  fadeSpeed: 3
 --- !u!1 &1421692595
 GameObject:
   m_ObjectHideFlags: 0
@@ -5616,9 +5615,9 @@ MonoBehaviour:
   IntermediateQuestion1: {fileID: 873573015}
   IntermediateQuestion2: {fileID: 347323493}
   IntermediateQuestion3: {fileID: 1651457695}
-  IntermediateTips1: {fileID: 0}
-  IntermediateTips2: {fileID: 0}
-  IntermediateTips3: {fileID: 0}
+  IntermediateTips1: {fileID: 1700840122}
+  IntermediateTips2: {fileID: 347323493}
+  IntermediateTips3: {fileID: 1758613097}
   AdvancedQuestion1: {fileID: 0}
   AdvancedQuestion2: {fileID: 0}
   AdvancedQuestion3: {fileID: 0}
