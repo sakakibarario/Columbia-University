@@ -18,6 +18,8 @@ public class KeyPad_Program : MonoBehaviour
     public GameObject Number8;
     public GameObject Number9;
 
+    
+
     Vector3 pos1 = new Vector3(-2.1f, 3.31f, 0.0f);
     Vector3 pos2 = new Vector3(-0.9f, 3.31f, 0.0f);
     Vector3 pos3 = new Vector3(0.285f, 3.31f, 0.0f);
@@ -136,6 +138,8 @@ public class KeyPad_Program : MonoBehaviour
             Debug.Log(p_answer[3]);
             CheckAnswer();
         }
+
+        
     }
 
     void CheckAnswer()

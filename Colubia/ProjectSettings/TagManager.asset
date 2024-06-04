@@ -7,7 +7,23 @@ TagManager:
   - Locker
   - paper
   - Battery
-
+  - ladder
+  - Exclamation
+  - Question
+  - KeyButton9
+  - KeyButton2
+  - KeyButton0
+  - KeyButton1
+  - KeyButton5
+  - KeyButton8
+  - KeyButton3
+  - KeyButton6
+  - KeyButton4
+  - KeyButton7
+  - Stage2
+  - Stage1
+  - Stage3
+  - TipsButton
   layers:
   - Default
   - TransparentFX
