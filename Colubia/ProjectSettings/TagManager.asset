@@ -7,19 +7,7 @@ TagManager:
   - Locker
   - paper
   - Battery
-  - KeyButton1
-  - KeyButton2
-  - KeyButton3
-  - KeyButton4
-  - KeyButton5
-  - KeyButton6
-  - KeyButton7
-  - KeyButton8
-  - KeyButton9
-  - KeyButton0
-  - Stage1
-  - Stage2
-  - Stage3
+
   layers:
   - Default
   - TransparentFX
