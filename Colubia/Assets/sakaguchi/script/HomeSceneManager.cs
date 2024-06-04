@@ -13,9 +13,9 @@ public class HomeSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RandomQestion.BeginnerQuestionFlag = false;
-        RandomQestion.IntermediateQestionFlag = false;
-        RandomQestion.AdvancedQuestionFlag = false;
+        //RandomQestion.BeginnerQuestionFlag = false;
+        //RandomQestion.IntermediateQestionFlag = false;
+        //RandomQestion.AdvancedQuestionFlag = false;
     }
 
     // Update is called once per frame

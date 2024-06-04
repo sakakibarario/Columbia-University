@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class RandomQestion : MonoBehaviour
 {
     static public bool BeginnerQuestionFlag = false;
-    static public bool IntermediateQestionFlag = false;
+    static public bool IntermediateQestionFlag = true;
     static public bool AdvancedQuestionFlag = false;
 
     //èâãâ
@@ -89,8 +89,8 @@ public class RandomQestion : MonoBehaviour
         if(IntermediateQestionFlag)//íÜãâ
         {
             int rand = Random.Range(1, 4);
-
-            switch(rand)
+          
+            switch (rand)
             {
                 case 1:
                     int[] Intermediate1 = new int[4] { 8, 7, 4, 6 };
@@ -147,7 +147,7 @@ public class RandomQestion : MonoBehaviour
 
     public void RandomQuestion(int[] Q)
     {
-        Debug.Log("a");
+        Debug.Log("acccccccc");
 
         BeginnerQuestionFlag = false;
         IntermediateQestionFlag = false;
