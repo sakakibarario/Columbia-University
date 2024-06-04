@@ -6,41 +6,41 @@ using UnityEngine.SceneManagement;
 public class HomeSceneManager : MonoBehaviour
 {
 
-    public GameObject Stage1;
-    public GameObject Stage2;
-    public GameObject Stage3;
-
+    //public GameObject Stage1;
+    //public GameObject Stage2;
+    //public GameObject Stage3;
 
     // Start is called before the first frame update
     void Start()
     {
-        RandomQestion.BeginnerQuestionFlag = false;
-        RandomQestion.IntermediateQestionFlag = false;
-        RandomQestion.AdvancedQuestionFlag = false;
+        //RandomQestion.BeginnerQuestionFlag = false;
+        //RandomQestion.IntermediateQestionFlag = false;
+        //RandomQestion.AdvancedQuestionFlag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Fire1"))
+    }
+
+   public void Click()
+   {
+        if(gameObject.tag == "Stage1")
         {
-            if(gameObject.tag == "Stage1")
-            {
-                RandomQestion.BeginnerQuestionFlag = true;
-                SceneManager.LoadScene("Stage1");
-            }
+            RandomQestion.BeginnerQuestionFlag = true;
+            Debug.Log(RandomQestion.BeginnerQuestionFlag);
+        }
 
-            if (gameObject.tag == "Stage2")
-            {
-                RandomQestion.IntermediateQestionFlag = true;
-                SceneManager.LoadScene("Stage2");
-            }
+        if (gameObject.tag == "Stage2")
+        {
+            RandomQestion.IntermediateQestionFlag = true;
+            Debug.Log(RandomQestion.IntermediateQestionFlag);
+        }
 
-            if (gameObject.tag == "Stage3")
-            {
-                RandomQestion.AdvancedQuestionFlag = true;
-                SceneManager.LoadScene("sakaguchi");
-            }
+        if (gameObject.tag == "Stage3")
+        {
+            RandomQestion.AdvancedQuestionFlag = true;
+            Debug.Log(RandomQestion.AdvancedQuestionFlag);
         }
     }
 }

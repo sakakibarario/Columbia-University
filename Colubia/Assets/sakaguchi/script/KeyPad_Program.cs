@@ -40,14 +40,12 @@ public class KeyPad_Program : MonoBehaviour
         gameObject.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
 
         clickCount = 0;
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(ClickStopFlag);
+        //Debug.Log(ClickStopFlag);
         if (zero >= 4)
         {
             KNumDelete.deleteFlag = false;
@@ -137,11 +135,7 @@ public class KeyPad_Program : MonoBehaviour
             Debug.Log(p_answer[2]);
             Debug.Log(p_answer[3]);
             CheckAnswer();
-
         }
-
-
-
     }
 
     void CheckAnswer()
