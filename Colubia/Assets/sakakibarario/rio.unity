@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 91689956}
   m_Layer: 0
   m_Name: "\u5F37\u5316\u8B66\u5099\u54E1\u5DE6"
-  m_TagString: Enemy
+  m_TagString: Enemy_Strength_Security_Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4165,7 +4165,7 @@ GameObject:
   - component: {fileID: 2006963886}
   m_Layer: 0
   m_Name: "\u8B66\u5099\u54E1B\u5DE6"
-  m_TagString: Enemy
+  m_TagString: Enemy_security_guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

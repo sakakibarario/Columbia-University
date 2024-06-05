@@ -24,6 +24,10 @@ TagManager:
   - Stage1
   - Stage3
   - TipsButton
+  - Warning_area
+  - Enemy
+  - Enemy_security_guard
+  - Enemy_Strength_Security_Guard
   layers:
   - Default
   - TransparentFX
