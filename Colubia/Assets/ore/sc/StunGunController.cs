@@ -7,6 +7,7 @@ public class StunGunController : MonoBehaviour
     PlayerController playerController;
     static public Enemy_security_guard enemy_Security_Guard;
     static public Enemy_Strength_Security_Guard enemy_Strength_Security_Guard;
+    static public Warning_area warning_Area;
 
     public bool checkInArea = false;
 
@@ -27,11 +28,11 @@ public class StunGunController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy_security_guard" || collision.gameObject.tag == "Enemy_Strength_Security_Guard")
         {
             Debug.Log("enter");
             checkInArea = true;
-
+            warning_Area = collision.gameObject.GetComponent<Warning_area>();
             if (collision.gameObject.tag == "Enemy_security_guard")
             {
                 enemy_Security_Guard = collision.GetComponent<Enemy_security_guard>();
@@ -47,13 +48,13 @@ public class StunGunController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy_security_guard" || collision.gameObject.tag == "Enemy_Strength_Security_Guard")
         {
             Debug.Log("exit");
             checkInArea = false;
 
-            enemy_Security_Guard = null;
-            enemy_Strength_Security_Guard = null;
+            //enemy_Security_Guard = null;
+            //enemy_Strength_Security_Guard = null;
         }
     }
 
