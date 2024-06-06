@@ -34,9 +34,6 @@ public class PlayerController : MonoBehaviour
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
     private bool isTenjo = false;
-    private bool moveup = false;
-    private bool movedown = false;
-
 
     public bool isInteract = true;
 
@@ -109,13 +106,11 @@ public class PlayerController : MonoBehaviour
             //　Sを押したら下に進む
             if (Input.GetKey(KeyCode.S))
             {
-                movedown = true; moveup = false;
                 playerY = -speed;
             }
             //　Wを押したら上に進む
             else if (Input.GetKey(KeyCode.W))
             {
-                moveup = true; movedown = false;
                 playerY = speed;
             }
             else playerY = 0;
