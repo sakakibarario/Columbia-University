@@ -78,7 +78,7 @@ public class Enemy_Drone : MonoBehaviour
                       
                         if (transform.position.x == MyEnemy.x)
                         {
-                            Debug.Log("aaaa");
+                            //Debug.Log("aaaa");
                             countrightTime = 3.0f;
                             direction = false;
                         }
@@ -96,7 +96,7 @@ public class Enemy_Drone : MonoBehaviour
 
                         if (transform.position.x == MyEnemy2.x)
                         {
-                            Debug.Log("aaaa");
+                            //Debug.Log("aaaa");
                             countleftTime = 3.0f;
                             direction = true;
                         }

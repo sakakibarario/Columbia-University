@@ -69,7 +69,6 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         {
            
             //プレイヤーとの距離を求める
-            //float dist = Vector2.Distance(transform.position, player.transform.position);
             movementx.x = this.transform.position.x - player.transform.position.x;
             movementy.y = this.transform.position.y - player.transform.position.y;
             float distx = movementx.magnitude;
@@ -86,7 +85,6 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                
                 if (Moved_Enemy)
                 {
-                  
                     MoveBack();
                 }
                
@@ -107,7 +105,6 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                         if (transform.position.x == MyEnemy.x)
                         {
                             animator.Play(stopAnime);    //アニメーション再生
-                            Debug.Log("aaaa");
                             countrightTime = 3.0f;
                             direction = false;
                         }
@@ -194,7 +191,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             {
                 this.transform.localScale = new Vector2(1.5f, 1.5f);//左向き
             }
-
+              
             transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);//初期位置戻る
 
             if (MyEnemy.x == transform.position.x)//初期位置に戻ったら

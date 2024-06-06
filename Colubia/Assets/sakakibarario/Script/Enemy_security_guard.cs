@@ -101,7 +101,7 @@ public class Enemy_security_guard : MonoBehaviour
                         if (transform.position.x == MyEnemy.x)
                         {
                             animator.Play(stopAnime);
-                            Debug.Log("aaaa");
+                            //Debug.Log("aaaa");
                             countrightTime = 3.0f;
                             direction = false;
                         }
@@ -121,7 +121,7 @@ public class Enemy_security_guard : MonoBehaviour
                         if (transform.position.x == MyEnemy2.x)
                         {
                             animator.Play(stopAnime);
-                            Debug.Log("aaaa");
+                            //Debug.Log("aaaa");
                             countleftTime = 3.0f;
                             direction = true;
                         }

@@ -6,12 +6,21 @@ public class Mark : MonoBehaviour
 {
     GameObject player;
 
+    //マーク用
     public GameObject Exclamation_mark;
     public GameObject Question_mark;
+
+    //SE用
+    AudioSource AudioSource;
+    public AudioClip ExclamationAudio;
+    public AudioClip QuestionAuidoname;
+    private bool AudioFlag = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        AudioSource = GetComponent<AudioSource>();
+        AudioFlag = true;
         Exclamation_mark.SetActive(false);
         Question_mark.SetActive(false);
     }
@@ -31,17 +40,32 @@ public class Mark : MonoBehaviour
         }
 
 
-        if (Enemy_Strength_Security_Guard.isActive)
+        if (Enemy_Strength_Security_Guard.isActive)//主人公発見時
         {
             Exclamation_mark.SetActive(true);
+
+            if(AudioFlag)
+            {
+                //オーディオ再生
+                AudioSource.PlayOneShot(ExclamationAudio, 0.5f);
+                AudioFlag = false;
+            }
         }
         else
         {
             Exclamation_mark.SetActive(false);
         }
-        if(Enemy_Strength_Security_Guard.EMove_Stop_mark)
+
+        if(Enemy_Strength_Security_Guard.EMove_Stop_mark)//主人公見失い時
         {
-             Question_mark.SetActive(true);   
+             Question_mark.SetActive(true);
+
+            if (!AudioFlag)
+            {
+                //オーディオ再生
+                AudioSource.PlayOneShot(QuestionAuidoname, 0.5f);
+                AudioFlag = true;
+            }
         }
         else
         {
