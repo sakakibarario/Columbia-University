@@ -412,6 +412,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hit");
                 Battery -= 1;
                 batteryBar.UpdateBatteryBar();
+
                 StunGunController.warning_Area.enabled = false;
                if( stunGunController.strong == false)
                     StunGunController.enemy_Security_Guard.enabled = false;
