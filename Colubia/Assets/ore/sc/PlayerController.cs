@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb2D;
     Vector2 position;
 
+    StunGunIconController stunGunIconController;
     LockerController lockerController;
     PaperController paperController;
     BatteryController batteryController;
@@ -32,7 +33,6 @@ public class PlayerController : MonoBehaviour
     public AudioClip Locker_HeartBeat_SE;
     public AudioClip Ladder_SE;
 
-    private bool Ladder_SE_Flag = false;
 
     //　プレイヤー管理
     public float hideduration = 0.05f;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     public bool isLookPaper = false;
 
     //  重力管理
-    private bool SwitchGravity = true;
+    public bool SwitchGravity = true;
     private float GravityPoint;
 
     //  回転管理
@@ -65,9 +65,11 @@ public class PlayerController : MonoBehaviour
     //  スタンガン系
     public int Battery = 2;
     public bool onFire = false;
+    public bool CanUseStungun = true;
 
     //  ladder
     public bool onLadder = false;
+
 
     float mcount = 0.3f;
 
@@ -80,6 +82,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
+        stunGunIconController = GameObject.Find("StunGunIconCover").GetComponent<StunGunIconController>();
 
         position = transform.position;
     }
@@ -134,7 +137,6 @@ public class PlayerController : MonoBehaviour
 
             if (playerY != 0) 
             {
-                Ladder_SE_Flag = true;
                 mcount -= Time.deltaTime;
                 if (mcount < 0)
                 {
@@ -182,15 +184,17 @@ public class PlayerController : MonoBehaviour
         //　スタンガン
         if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0) 
             {
                 stungun.SetActive(true);
                 stungun.GetComponent<Animator>().Play("stungun0");
                 stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0 )
             {
+                CanUseStungun = false;
+                stunGunIconController.countTime = stunGunIconController.count;
                 StartCoroutine(StunGun());
             }
         }
@@ -346,24 +350,32 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(hideCTRL(0));    //　主人公を非表示にする
                 StartCoroutine(LockerActivate(true));   //　ロッカー視点を表示する
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
-                audioSource.PlayOneShot(Locker_HeartBeat_SE, 0.5f);
+
+                audioSource.clip = Locker_HeartBeat_SE;
+                audioSource.loop = true;
+                audioSource.volume = 0.5f;
+                audioSource.PlayDelayed(1.0f);
+
             }
             //　表に出る
             else
             {
                 inLocker = false;
                 Onmove = true;      //　主人公を動けるようにする
+
                 audioSource.Stop();
+                audioSource.loop = false;
+                audioSource.clip = null;
+
                 StartCoroutine(hideCTRL(1));    //　主人公を表示する
                 StartCoroutine(LockerActivate(false)); //　ロッカー視点を取り除く
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
-                audioSource.Stop();
             }
 
             //　ロッカーのX座標を「主人公とは無関係」のベクター型変数に保存
-            position = lockerController.transform.position;
+            position.x = lockerController.transform.position.x;
             //　保存した座標をプレイヤーに入れる
-            transform.position = position;
+            transform.position = new Vector2( position.x, transform.position.y );
 
             yield return new WaitForSeconds(4f);
             isInteract = true;
@@ -490,10 +502,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Play()
-    {
-
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "ladder")
