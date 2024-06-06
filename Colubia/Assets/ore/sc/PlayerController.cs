@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
     private bool isTenjo = false;
+    private bool top = false;
+    private bool under = false;
 
     public bool isInteract = true;
 
@@ -104,16 +106,24 @@ public class PlayerController : MonoBehaviour
         if (onLadder)
         {
             //　Sを押したら下に進む
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S) && under != true) 
             {
+                top = false;
                 playerY = -speed;
+                animator.Play("climb");
             }
             //　Wを押したら上に進む
-            else if (Input.GetKey(KeyCode.W))
+            else if (Input.GetKey(KeyCode.W) && top != true)
             {
+                under = false;
                 playerY = speed;
+                animator.Play("climb");
             }
-            else playerY = 0;
+            else 
+            { 
+                playerY = 0;
+                animator.Play("stopclimb");
+            }
         }
 
         //  キャラクターが進行方向に進むようにする
@@ -231,12 +241,15 @@ public class PlayerController : MonoBehaviour
                         transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
                     {
                         if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
-                            playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
+                            top = true;//playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
+                        if (transform.position.y <= ladderController.transform.position.y - 0.4)
+                            under = true;
                         if (Input.GetKey(KeyCode.Space))
                         {
                             onLadder = false;
                             Onmove = true;
                             isInteract = true;
+                            top = false; under = false;
 
                             ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
                             rb2D.gravityScale = GravityPoint;
@@ -373,7 +386,7 @@ public class PlayerController : MonoBehaviour
             GravityPoint = rb2D.gravityScale;
             rb2D.gravityScale = 0;
 
-            yield return new WaitForSeconds(0.25f);
+            //yield return new WaitForSeconds(0.25f);
             position = ladderController.transform.position;
             transform.position = position;          
         }
@@ -412,6 +425,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("hit");
                 Battery -= 1;
                 batteryBar.UpdateBatteryBar();
+
                 StunGunController.warning_Area.enabled = false;
                if( stunGunController.strong == false)
                     StunGunController.enemy_Security_Guard.enabled = false;
@@ -421,6 +435,7 @@ public class PlayerController : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 stungun.SetActive(false);
                 yield return new WaitForSeconds(4.5f);
+
                 StunGunController.warning_Area.enabled = true;
                 if (stunGunController.strong == false)
                     StunGunController.enemy_Security_Guard.enabled = true;

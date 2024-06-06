@@ -32,7 +32,9 @@ public class StunGunController : MonoBehaviour
         {
             Debug.Log("enter");
             checkInArea = true;
-            warning_Area = collision.gameObject.GetComponent<Warning_area>();
+
+            warning_Area = collision.gameObject.GetComponentInChildren<Warning_area>();
+
             if (collision.gameObject.tag == "Enemy_security_guard")
             {
                 enemy_Security_Guard = collision.GetComponent<Enemy_security_guard>();
