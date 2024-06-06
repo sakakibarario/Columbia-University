@@ -29,6 +29,11 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     static public bool isActive = false;
     private bool Moved_Enemy = false;
 
+    //アニメーション用
+    Animator animator; //アニメーター
+    private string stopAnime = "Enemy_Strength_Security_Guard_stand";
+    private string moveAnime = "Enemy_Strength_Security_Guard_run";
+
     Vector2 MyEnemy = new Vector2(0, 0);
     Vector2 MyEnemy2 = new Vector2(0, 0);
 
@@ -38,6 +43,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
@@ -51,6 +57,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
          player = GameObject.FindGameObjectWithTag("Player");
         if(GameManager.GState == "Pose")
         {
+            animator.Play(stopAnime);    //アニメーション再生
             Moved_Enemy = true;//初期位置に戻す
             isPose = true;
         }
@@ -93,11 +100,13 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
                     if (countrightTime < 0)
                     {
+                        animator.Play(moveAnime);    //アニメーション再生
                         this.transform.localScale = new Vector2(-1.5f, 1.5f);//右向き
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                         
                         if (transform.position.x == MyEnemy.x)
                         {
+                            animator.Play(stopAnime);    //アニメーション再生
                             Debug.Log("aaaa");
                             countrightTime = 3.0f;
                             direction = false;
@@ -110,13 +119,14 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
                     if (countleftTime < 0)
                     {
+                        animator.Play(moveAnime);    //アニメーション再生
                         this.transform.localScale = new Vector2(1.5f, 1.5f);//左向き
                        
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
                         if (transform.position.x == MyEnemy2.x)
                         {
-                            Debug.Log("aaaa");
+                            animator.Play(stopAnime);    //アニメーション再生
                             countleftTime = 3.0f;
                             direction = true;
                         }
@@ -125,7 +135,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             }
             else if(isActive)//主人公が近くにいた時の動き
             {
-               
+                animator.Play(moveAnime);    //アニメーション再生
                 Moved_Enemy = true;
                 countleftTime = 3.0f;//カウントリセット
                 countrightTime = 3.0f;//カウントリセット
@@ -161,7 +171,8 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     { 
         if(EMove_Stop)//一時停止
         {
-            if(!isPose)
+            animator.Play(stopAnime);    //アニメーション再生
+            if (!isPose)
             EMove_Stop_mark = true;
             countstoptime -= Time.deltaTime;
 
@@ -174,6 +185,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         }
         if (!EMove_Stop)
         {
+            animator.Play(moveAnime);    //アニメーション再生
             if (transform.position.x < MyEnemy.x)
             {
                 this.transform.localScale = new Vector2(-1.5f, 1.5f);//左向き
@@ -187,6 +199,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
             if (MyEnemy.x == transform.position.x)//初期位置に戻ったら
             {
+                animator.Play(stopAnime);    //アニメーション再生
                 countrightTime = 3.0f;
                 countleftTime = 3.0f;
                 isPose = false;//ポーズフラグ
