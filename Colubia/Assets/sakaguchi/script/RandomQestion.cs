@@ -7,7 +7,7 @@ public class RandomQestion : MonoBehaviour
 {
     static public bool BeginnerQuestionFlag = false;
     static public bool IntermediateQestionFlag = false;
-    static public bool AdvancedQuestionFlag = true;
+    static public bool AdvancedQuestionFlag = false;
 
     //èâãâ
     public GameObject BeginnerQuestion1;
@@ -124,7 +124,7 @@ public class RandomQestion : MonoBehaviour
             switch(rand)
             {
                 case 1:
-                    int[] Advanced1 = new int[4] { 1, 5, 1, 5 };
+                    int[] Advanced1 = new int[4] { 1, 5, 7, 9 };
                     AdvancedQuestion1.SetActive(true);
                     AdvancedTips1.SetActive(true);
                     RandomQuestion(Advanced1);

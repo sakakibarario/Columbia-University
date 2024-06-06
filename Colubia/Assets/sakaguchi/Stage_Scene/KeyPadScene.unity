@@ -2621,7 +2621,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5235849, g: 0.56489146, b: 1, a: 1}
   m_FlipX: 0
@@ -4072,7 +4072,7 @@ MonoBehaviour:
   sceneName1: Stage1M
   sceneName2: Stage2M
   sceneName3: Stage3M
-  fadeColor: {r: 1, g: 0.11792451, b: 0.11792451, a: 0}
+  loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!1 &1421692595
 GameObject:
@@ -6466,16 +6466,6 @@ MonoBehaviour:
   IntermediateQuestion2: {fileID: 1946138721}
   IntermediateQuestion3: {fileID: 1651457695}
   IntermediateTips1: {fileID: 1700840122}
-<<<<<<< HEAD
-  IntermediateTips2: {fileID: 347323493}
-  IntermediateTips3: {fileID: 1758613097}
-  AdvancedQuestion1: {fileID: 0}
-  AdvancedQuestion2: {fileID: 0}
-  AdvancedQuestion3: {fileID: 0}
-  AdvancedTips1: {fileID: 0}
-  AdvancedTips2: {fileID: 0}
-  AdvancedTips3: {fileID: 0}
-=======
   IntermediateTips2: {fileID: 549548268}
   IntermediateTips3: {fileID: 1758613097}
   AdvancedQuestion1: {fileID: 995404080}
@@ -6484,4 +6474,3 @@ MonoBehaviour:
   AdvancedTips1: {fileID: 808116377}
   AdvancedTips2: {fileID: 530256199}
   AdvancedTips3: {fileID: 1932101887}
->>>>>>> 坂口２
