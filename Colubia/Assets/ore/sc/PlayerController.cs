@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     public bool isLookPaper = false;
 
     //  d—ÍŠÇ—
-    private bool SwitchGravity = true;
+    public bool SwitchGravity = true;
     private float GravityPoint;
 
     //  ‰ñ“]ŠÇ—
