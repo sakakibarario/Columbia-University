@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class TimerCount : MonoBehaviour
 {
+    PlayerController PlayerController;
+
     //秒カウントダウン
-    private float countupsecond = 50;
+    private float countupsecond = 0;
 
     //分カウントダウン
-    private int countupinute = 9;
+    private int countupinute = 0;
 
 
     //時間を表示するText型の変数
@@ -19,33 +21,38 @@ public class TimerCount : MonoBehaviour
     //ポーズしてるかどうか
     public static bool isPose = false;
 
+
     private void Start()
     {
-       
+        PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     //Uodate is called once per frame
     void Update()
     {
-       
-          
-        //クリックされたとき
-        if (Input.GetKeyDown(KeyCode.Tab))
+
+        if (PlayerController.inLocker == false && PlayerController.onLadder == false &&
+            PlayerController.isInteract == true && PlayerController.onFire == true &&
+            PlayerController.SwitchGravity == false)
         {
-            //ポーズ中にクリックされたとき
-            if (isPose)
+            //クリックされたとき
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                //ポーズ状態を解除する
-                FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
-                isPose = false;
-              
-            }
-            //進行中にクリックされたとき
-            else
-            {
-                //ポーズ状態にする
-                FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Pose);
-                isPose = true;
+                //ポーズ中にクリックされたとき
+                if (isPose)
+                {
+                    //ポーズ状態を解除する
+                    FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+                    isPose = false;
+
+                }
+                //進行中にクリックされたとき
+                else
+                {
+                    //ポーズ状態にする
+                    FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Pose);
+                    isPose = true;
+                }
             }
         }
 
