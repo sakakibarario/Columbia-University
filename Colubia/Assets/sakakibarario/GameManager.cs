@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
         Clear,
         Over,
         Home,
-        Pose
+        Pose,
+        Title
     }
     //フェード用
     public string sceneNameO;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     public string sceneName1;
     public string sceneName2;
     public string sceneName3;
+    public string sceneNameH;
+    public string sceneNameT;
 
     public Color loadToColor = Color.white;
     public float fadeSpeed;
@@ -63,13 +66,22 @@ public class GameManager : MonoBehaviour
             case GameState.Pose:
                 GamePose();
                 break;
+            case GameState.Title:
+                GameTitle();
+                break;
         }
 
+    }
+    void GameTitle()
+    {
+        Debug.Log("Title");
+        Initiate.Fade(sceneNameT, loadToColor, fadeSpeed);
     }
     // オープニング処理
     void GameHome()
     {
-
+        Debug.Log("home");
+        Initiate.Fade(sceneNameH, loadToColor, fadeSpeed);
     }
 
     //ポーズ処理

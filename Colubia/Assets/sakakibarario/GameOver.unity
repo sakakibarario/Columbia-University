@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 336853138}
   - component: {fileID: 336853137}
   - component: {fileID: 336853136}
+  - component: {fileID: 336853139}
   m_Layer: 5
   m_Name: EndButton (Legacy)
   m_TagString: Untagged
@@ -356,7 +357,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 336853137}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 336853139}
+        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+        m_MethodName: OnClickEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &336853137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +408,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336853134}
   m_CullTransparentMesh: 1
+--- !u!114 &336853139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336853134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443bac990ef4dd845b2ddd3ebd2b8f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &703865681
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +431,7 @@ GameObject:
   - component: {fileID: 703865684}
   - component: {fileID: 703865683}
   - component: {fileID: 703865682}
+  - component: {fileID: 703865685}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -479,6 +505,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &703865685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703865681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09868c9e91e97642a2ddbb852d9beb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNameO: GameOver
+  sceneNameC: GameClear
+  sceneName1: Stage1M
+  sceneName2: Stage2M
+  sceneName3: Stage3M
+  sceneNameH: 
+  sceneNameT: 
+  loadToColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeSpeed: 3
 --- !u!1 &736108524
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +538,7 @@ GameObject:
   - component: {fileID: 736108528}
   - component: {fileID: 736108527}
   - component: {fileID: 736108526}
+  - component: {fileID: 736108529}
   m_Layer: 5
   m_Name: RetryButton (Legacy)
   m_TagString: Untagged
@@ -562,7 +610,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 736108527}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 736108529}
+        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+        m_MethodName: OnClickRetry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &736108527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +661,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736108524}
   m_CullTransparentMesh: 1
+--- !u!114 &736108529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736108524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443bac990ef4dd845b2ddd3ebd2b8f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437813856
 GameObject:
   m_ObjectHideFlags: 0
