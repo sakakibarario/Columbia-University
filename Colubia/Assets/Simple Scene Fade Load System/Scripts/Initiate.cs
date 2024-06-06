@@ -17,9 +17,6 @@ public static class Initiate
         GameObject init = new GameObject();
         init.name = "Fader";
         Canvas myCanvas = init.AddComponent<Canvas>();
-
-        myCanvas.sortingOrder = 999;    // Å©í«â¡
-
         myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         init.AddComponent<Fader>();
         init.AddComponent<CanvasGroup>();
