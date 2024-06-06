@@ -7,7 +7,7 @@ public class RandomQestion : MonoBehaviour
 {
     static public bool BeginnerQuestionFlag = false;
     static public bool IntermediateQestionFlag = false;
-    static public bool AdvancedQuestionFlag = false;
+    static public bool AdvancedQuestionFlag = true;
 
     //‰‹‰
     public GameObject BeginnerQuestion1;
