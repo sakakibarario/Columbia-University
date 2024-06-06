@@ -19,7 +19,6 @@ public class StunGunController : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-
     // Update is called once per frame
     void Update()
     {

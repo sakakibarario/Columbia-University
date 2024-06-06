@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     StunGunController stunGunController;
     enemyenemy en;
     LadderController ladderController;
+    AudioSource audioSource;
 
     Animator animator;
 
@@ -24,6 +25,14 @@ public class PlayerController : MonoBehaviour
     Color spriteColor;
 
     public GameObject stungun;
+
+    //  sound管理
+    public AudioClip stungun_SE;
+    public AudioClip Locker_SE;
+    public AudioClip Locker_HeartBeat_SE;
+    public AudioClip Ladder_SE;
+
+    private bool Ladder_SE_Flag = false;
 
     //　プレイヤー管理
     public float hideduration = 0.05f;
@@ -60,16 +69,14 @@ public class PlayerController : MonoBehaviour
     //  ladder
     public bool onLadder = false;
 
+    float mcount = 0.3f;
+
     // Start is called before the first frame update
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        //lockerController = GameObject.FindWithTag("Locker").GetComponent<LockerController>();
-        //paperController = GameObject.FindWithTag("paper").GetComponent<PaperController>();
-        //batteryController = GameObject.FindWithTag("Battery").GetComponent<BatteryController>();
         batteryBar = GameObject.Find("BatteryBar").GetComponent<BatteryBar>();
-        //en = GameObject.FindWithTag("Enemy").GetComponent<enemyenemy>();
-
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
@@ -124,6 +131,17 @@ public class PlayerController : MonoBehaviour
                 playerY = 0;
                 animator.Play("stopclimb");
             }
+
+            if (playerY != 0) 
+            {
+                Ladder_SE_Flag = true;
+                mcount -= Time.deltaTime;
+                if (mcount < 0)
+                {
+                    audioSource.PlayOneShot(Ladder_SE, 0.4f);
+                    mcount = 0.3f;
+                }
+            }
         }
 
         //  キャラクターが進行方向に進むようにする
@@ -132,12 +150,12 @@ public class PlayerController : MonoBehaviour
             if (isMoveRight)
             {
                 transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
             if (isMoveLeft)
             {
                 transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
         }
         else
@@ -145,12 +163,12 @@ public class PlayerController : MonoBehaviour
             if (isMoveRight)
             {
                 transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
             if (isMoveLeft)
             {
                 transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
         }
 
@@ -164,9 +182,10 @@ public class PlayerController : MonoBehaviour
         //　スタンガン
         if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 stungun.SetActive(true);
+                stungun.GetComponent<Animator>().Play("stungun0");
                 stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
             }
 
@@ -298,7 +317,7 @@ public class PlayerController : MonoBehaviour
         {
             //  1°づつ回転させる
             transform.rotation = Quaternion.Euler(0, 0, PlayerAngle);
-            PlayerAngle += 5.0f;
+            PlayerAngle += 10.0f;
 
             //  次の回転まで少し待機
             yield return new WaitForSeconds(0.000025f);
@@ -326,14 +345,19 @@ public class PlayerController : MonoBehaviour
                 Onmove = false;      //　主人公を止める
                 StartCoroutine(hideCTRL(0));    //　主人公を非表示にする
                 StartCoroutine(LockerActivate(true));   //　ロッカー視点を表示する
+                audioSource.PlayOneShot(Locker_SE, 0.5f);
+                audioSource.PlayOneShot(Locker_HeartBeat_SE, 0.5f);
             }
             //　表に出る
             else
             {
                 inLocker = false;
                 Onmove = true;      //　主人公を動けるようにする
+                audioSource.Stop();
                 StartCoroutine(hideCTRL(1));    //　主人公を表示する
                 StartCoroutine(LockerActivate(false)); //　ロッカー視点を取り除く
+                audioSource.PlayOneShot(Locker_SE, 0.5f);
+                audioSource.Stop();
             }
 
             //　ロッカーのX座標を「主人公とは無関係」のベクター型変数に保存
@@ -420,23 +444,28 @@ public class PlayerController : MonoBehaviour
         {
             onFire = true;
 
+            stungun.GetComponent<Animator>().Play("stungun1");
+            audioSource.PlayOneShot(stungun_SE, 0.5f);
+
             if (stunGunController.checkInArea && onFire)
             {
                 Debug.Log("hit");
                 Battery -= 1;
                 batteryBar.UpdateBatteryBar();
 
-                StunGunController.warning_Area.enabled = false;
+                    StunGunController.warning_Area.enabled = false;
                if( stunGunController.strong == false)
                     StunGunController.enemy_Security_Guard.enabled = false;
                else
                     StunGunController.enemy_Strength_Security_Guard.enabled=false;
 
                 yield return new WaitForSeconds(0.5f);
+
                 stungun.SetActive(false);
+
                 yield return new WaitForSeconds(4.5f);
 
-                StunGunController.warning_Area.enabled = true;
+                    StunGunController.warning_Area.enabled = true;
                 if (stunGunController.strong == false)
                     StunGunController.enemy_Security_Guard.enabled = true;
                 else
@@ -461,7 +490,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Play()
+    {
 
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "ladder")
