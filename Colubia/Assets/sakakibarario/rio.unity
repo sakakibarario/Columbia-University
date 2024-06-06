@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10318984}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: -3.07, y: 1.94, z: 0}
+  m_LocalPosition: {x: -3.23, y: 1.94, z: 0}
   m_LocalScale: {x: 3, y: 4.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 91689958}
   - component: {fileID: 91689957}
   - component: {fileID: 91689956}
+  - component: {fileID: 91689961}
   m_Layer: 0
   m_Name: "\u5F37\u5316\u8B66\u5099\u54E1\u5DE6"
   m_TagString: Enemy_Strength_Security_Guard
@@ -473,6 +474,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &91689961
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91689954}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9a1e0454567e3d4c966a989eb88a44a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &216609124
 GameObject:
   m_ObjectHideFlags: 0
