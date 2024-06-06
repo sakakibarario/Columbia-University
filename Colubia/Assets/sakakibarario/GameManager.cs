@@ -15,14 +15,14 @@ public class GameManager : MonoBehaviour
         Pose
     }
     //フェード用
-    [SerializeField] private string sceneNameO;
-    [SerializeField] private string sceneNameC;
-    [SerializeField] private string sceneName1;
-    [SerializeField] private string sceneName2;
-    [SerializeField] private string sceneName3;
+    public string sceneNameO;
+    public string sceneNameC;
+    public string sceneName1;
+    public string sceneName2;
+    public string sceneName3;
 
-    [SerializeField] private Color fadeColor;
-    [SerializeField] private float fadeSpeed;
+    public Color loadToColor = Color.white;
+    public float fadeSpeed;
 
     // 現在のゲーム進行状態
     GameState currentState = GameState.Home;
@@ -85,17 +85,17 @@ public class GameManager : MonoBehaviour
         if (RandomQestion.BeginnerQuestionFlag == true)
         {
             Debug.Log("Beginner");
-            Initiate.Fade(sceneName1, fadeColor, fadeSpeed);
+            Initiate.Fade(sceneName1, loadToColor, fadeSpeed);
         }
         if (RandomQestion.IntermediateQestionFlag == true)
         {
             Debug.Log("Intermediate");
-            Initiate.Fade(sceneName2, fadeColor, fadeSpeed);
+            Initiate.Fade(sceneName2, loadToColor, fadeSpeed);
         }
         if (RandomQestion.AdvancedQuestionFlag == true)
         {
             Debug.Log("Advabced");
-            Initiate.Fade(sceneName3, fadeColor, fadeSpeed);
+            Initiate.Fade(sceneName3, loadToColor, fadeSpeed);
         }
 
         Debug.Log("playing");
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     {
         GState = "GameClear";
         //SceneManager.LoadScene(sceneNameC);
-        Initiate.Fade(sceneNameC, fadeColor, fadeSpeed);
+        Initiate.Fade(sceneNameC, loadToColor, fadeSpeed);
         Debug.Log("GameClear");
     }
 
@@ -114,7 +114,8 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         GState = "GameOver";
-        Initiate.Fade(sceneNameO, fadeColor, fadeSpeed);
+        Initiate.Fade(sceneNameO, loadToColor, fadeSpeed);
+        
         Debug.Log("gameover");
     }
 
