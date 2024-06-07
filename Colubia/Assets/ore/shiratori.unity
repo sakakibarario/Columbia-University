@@ -2876,11 +2876,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stungun: {fileID: 34074906}
+  stungun_SE: {fileID: 8300000, guid: 8775189db2f6f3e41a6e7c8285523b50, type: 3}
+  Locker_SE: {fileID: 8300000, guid: cd15e8cb136f6aa48a543c3d417612c7, type: 3}
+  Locker_HeartBeat_SE: {fileID: 8300000, guid: 8ec9a0f29fda79f4f9c89aa0c6c2fecd, type: 3}
+  Ladder_SE: {fileID: 8300000, guid: b0bfa026e16182a41836863c2f4e02b5, type: 3}
   hideduration: 0.005
   speed: 3
   isInteract: 1
   inLocker: 0
   isLookPaper: 0
+  SwitchGravity: 1
   Battery: 2
   onFire: 0
   CanUseStungun: 1
