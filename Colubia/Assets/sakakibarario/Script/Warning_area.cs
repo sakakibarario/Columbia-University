@@ -6,12 +6,14 @@ public class Warning_area : MonoBehaviour
 {
     private bool inarea = false;
     public float count_area = 1.5f;
+    PlayerController PlayerController;
     //public BoxCollider2D bx1;
     //public BoxCollider2D bx2;
 
 
     private void Start()
     {
+        PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         //bx1 = GetComponent<BoxCollider2D>();
         //bx2 = GetComponent<BoxCollider2D>();
     }
@@ -40,16 +42,15 @@ public class Warning_area : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")// 主人公
+        if (other.gameObject.tag == "Player" && PlayerController.inLocker == false)// 主人公
         {
-
          　inarea = true;
         }  
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")// 主人公
+        if (other.gameObject.tag == "Player" || PlayerController.inLocker == false)// 主人公
         {
             inarea = false;
         }
