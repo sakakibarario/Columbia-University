@@ -132,12 +132,12 @@ public class PlayerController : MonoBehaviour
             if (isMoveRight)
             {
                 transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
             if (isMoveLeft)
             {
                 transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
         }
         else
@@ -145,12 +145,12 @@ public class PlayerController : MonoBehaviour
             if (isMoveRight)
             {
                 transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
             if (isMoveLeft)
             {
                 transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(0.25f, 0.53f);
+                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
             }
         }
 
