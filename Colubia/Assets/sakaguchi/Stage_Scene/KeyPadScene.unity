@@ -4072,6 +4072,9 @@ MonoBehaviour:
   sceneName1: Stage1M
   sceneName2: Stage2M
   sceneName3: Stage3M
+  sceneNameS: KeyPadScene
+  sceneNameH: HomeScene
+  sceneNameT: 
   loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!1 &1421692595

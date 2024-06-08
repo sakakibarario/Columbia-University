@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     SafeController safeController;
 
+    //ÉJÉÅÉâ
+    Camera Camera;
+
     Animator animator;
 
     SpriteRenderer sp;
@@ -84,6 +87,8 @@ public class PlayerController : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
         stunGunIconController = GameObject.Find("StunGunIconCover").GetComponent<StunGunIconController>();
+
+        Camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
         position = transform.position;
     }
@@ -193,7 +198,7 @@ public class PlayerController : MonoBehaviour
                     stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
                 }
 
-                if (Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0)
+                if (stunGunController != null && Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0)
                 {
                     CanUseStungun = false;
                     stunGunIconController.countTime = stunGunIconController.count;
@@ -455,7 +460,7 @@ public class PlayerController : MonoBehaviour
 
         if (anyOBJ == "Safe")
         {
-           //FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Safe);
+           FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Safe);
         }
     }
 
@@ -558,6 +563,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Safe")
         {
             safeController = collision.GetComponent<SafeController>();
+        }
+
+
+        if(collision.gameObject.tag == "BoxON" )
+        {
+            Camera.OnBox = true;
+        }
+        if (collision.gameObject.tag == "BoxOFF")
+        {
+            Camera.OnBox = false;
         }
     }
 

@@ -29,6 +29,8 @@ TagManager:
   - Enemy_security_guard
   - Enemy_Strength_Security_Guard
   - Safe
+  - BoxOFF
+  - BoxON
   layers:
   - Default
   - TransparentFX
