@@ -6,6 +6,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 {
     Rigidbody2D rb;
     GameObject player;
+    PlayerController PlayerController;
     //GameObject MyEnemy;
 
     //敵の動き
@@ -14,6 +15,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     private int distance_traveled = 7;//移動距離
     private bool EMove_Stop = true;
     static public bool EMove_Stop_mark = false;
+    public float Enemy_Start_Count = 3.0f;//最初の動き出す時間を変える
     Vector2 movementx;
     Vector2 movementy;
 
@@ -44,6 +46,11 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        //最初の動き出す時間を変える
+        countleftTime = Enemy_Start_Count;
+
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
@@ -62,19 +69,24 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             isPose = true;
         }
 
+        if(PlayerController.inLocker == true)
+        {
+            isActive = false;
+        }
     }
     private void FixedUpdate()
     {
         if (GameManager.GState == "Playing")
         {
            
+
             //プレイヤーとの距離を求める
             movementx.x = this.transform.position.x - player.transform.position.x;
             movementy.y = this.transform.position.y - player.transform.position.y;
             float distx = movementx.magnitude;
             float disty = movementy.magnitude;
 
-            if (disty < reactionDistanceY && distx < reactionDistanceX)
+            if (disty < reactionDistanceY && distx < reactionDistanceX && PlayerController.inLocker == false)
             {
                 isActive = true; //アクティブにする
                 EMove_Stop_mark = false;
@@ -99,7 +111,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                     if (countrightTime < 0)
                     {
                         animator.Play(moveAnime);    //アニメーション再生
-                        this.transform.localScale = new Vector2(-1.5f, 1.5f);//右向き
+                        this.transform.localScale = new Vector2(-0.6f, 0.6f);//右向き
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                         
                         if (transform.position.x == MyEnemy.x)
@@ -117,7 +129,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                     if (countleftTime < 0)
                     {
                         animator.Play(moveAnime);    //アニメーション再生
-                        this.transform.localScale = new Vector2(1.5f, 1.5f);//左向き
+                        this.transform.localScale = new Vector2(0.6f, 0.6f);//左向き
                        
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
@@ -150,11 +162,11 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                 //反転
                 if (transform.position.x < player.transform.position.x)
                 {
-                    this.transform.localScale = new Vector2(-1.5f, 1.5f);//左向き
+                    this.transform.localScale = new Vector2(-0.6f, 0.6f);//左向き
                 }
                 else if (transform.position.x > player.transform.position.x)
                 {
-                    this.transform.localScale = new Vector2(1.5f, 1.5f);//左向き
+                    this.transform.localScale = new Vector2(0.6f, 0.6f);//左向き
                 }
             }
         }
@@ -185,11 +197,11 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             animator.Play(moveAnime);    //アニメーション再生
             if (transform.position.x < MyEnemy.x)
             {
-                this.transform.localScale = new Vector2(-1.5f, 1.5f);//左向き
+                this.transform.localScale = new Vector2(-0.6f, 0.6f);//左向き
             }
             else if (transform.position.x > MyEnemy.x)
             {
-                this.transform.localScale = new Vector2(1.5f, 1.5f);//左向き
+                this.transform.localScale = new Vector2(0.6f, 0.6f);//左向き
             }
               
             transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);//初期位置戻る

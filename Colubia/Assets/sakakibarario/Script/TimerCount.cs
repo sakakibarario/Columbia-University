@@ -8,17 +8,17 @@ public class TimerCount : MonoBehaviour
 {
     PlayerController PlayerController;
 
-    //•bƒJƒEƒ“ƒgƒ_ƒEƒ“
+    //ç§’ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
     private float countupsecond = 0;
 
-    //•ªƒJƒEƒ“ƒgƒ_ƒEƒ“
+    //åˆ†ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
     private int countupinute = 0;
 
 
-    //ŠÔ‚ğ•\¦‚·‚éTextŒ^‚Ì•Ï”
+    //æ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹Textå‹ã®å¤‰æ•°
     public Text timeText;
 
-    //ƒ|[ƒY‚µ‚Ä‚é‚©‚Ç‚¤‚©
+    //ãƒãƒ¼ã‚ºã—ã¦ã‚‹ã‹ã©ã†ã‹
     public static bool isPose = false;
 
 
@@ -32,24 +32,24 @@ public class TimerCount : MonoBehaviour
     {
 
         if (PlayerController.inLocker == false && PlayerController.onLadder == false &&
-            PlayerController.CanInteract == true && PlayerController.onFire == true &&
-            PlayerController.CanSwitchGravity == false)
+            PlayerController.CanInteract == true && PlayerController.onFire == false &&
+            PlayerController.CanSwitchGravity == true)
         {
-            //ƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«
+            //ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ã
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                //ƒ|[ƒY’†‚ÉƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«
+                //ãƒãƒ¼ã‚ºä¸­ã«ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ã
                 if (isPose)
                 {
-                    //ƒ|[ƒYó‘Ô‚ğ‰ğœ‚·‚é
+                    //ãƒãƒ¼ã‚ºçŠ¶æ…‹ã‚’è§£é™¤ã™ã‚‹
                     FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
                     isPose = false;
 
                 }
-                //is’†‚ÉƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«
+                //é€²è¡Œä¸­ã«ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ã
                 else
                 {
-                    //ƒ|[ƒYó‘Ô‚É‚·‚é
+                    //ãƒãƒ¼ã‚ºçŠ¶æ…‹ã«ã™ã‚‹
                     FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Pose);
                     isPose = true;
                 }
@@ -61,16 +61,16 @@ public class TimerCount : MonoBehaviour
         {
             return;
         }
-        //ƒ|[ƒY’†‚©‚Ç‚¤‚©
+        //ãƒãƒ¼ã‚ºä¸­ã‹ã©ã†ã‹
         if (isPose)
         {
-            //ƒ|[ƒY’†‚Å‚ ‚é‚±‚Æ‚ğ•\¦
-            //timeText.text = "ƒ|[ƒY’†";
-            //ƒJƒEƒ“ƒgƒ_ƒEƒ“‚µ‚È‚¢
+            //ãƒãƒ¼ã‚ºä¸­ã§ã‚ã‚‹ã“ã¨ã‚’è¡¨ç¤º
+            //timeText.text = "ãƒãƒ¼ã‚ºä¸­";
+            //ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã—ãªã„
             return;
         }
 
-        //ŠÔ‚ğƒJƒEƒ“ƒg‚·‚é
+        //æ™‚é–“ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
         countupsecond += Time.deltaTime;
 
         if (countupsecond >= 60)
@@ -79,7 +79,7 @@ public class TimerCount : MonoBehaviour
             countupsecond = 0.0f;
         }
 
-        //ŠÔ‚ğ•\¦‚·‚é
+        //æ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹
         if (countupsecond < 10)
         {
             timeText.text = countupinute.ToString("00") + ":0" + countupsecond.ToString("f2");

@@ -41,8 +41,8 @@ public class Enemy_security_guard : MonoBehaviour
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
         MyEnemy2.x = MyEnemy2.x - distance_traveled;//敵の可動域
-
-        countleftTime = Enemy_start_count;//動き出す時間をずらす
+        //動き出す時間をずらす
+        countleftTime = Enemy_start_count;
     }
 
     // Update is called once per frame
@@ -53,7 +53,6 @@ public class Enemy_security_guard : MonoBehaviour
             animator.Play(stopAnime);    //アニメーション再生
             Moved_Enemy = true;//初期位置に戻す
         }
-
     }
     private void FixedUpdate()
     {
@@ -65,11 +64,11 @@ public class Enemy_security_guard : MonoBehaviour
                 animator.Play(moveAnime);    //アニメーション再生
                 if (transform.position.x < MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(-2, 2);//左向き
+                    this.transform.localScale = new Vector2(-0.7f, 0.7f);//左向き
                 }
                 else if (transform.position.x > MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(2, 2);//左向き
+                    this.transform.localScale = new Vector2(0.7f, 0.7f);//左向き
                 }
                 //指定座標まで移動
                 transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
@@ -94,7 +93,7 @@ public class Enemy_security_guard : MonoBehaviour
                     if (countrightTime < 0)
                     {
                         animator.Play(moveAnime);
-                        this.transform.localScale = new Vector2(-2, 2);//右向き
+                        this.transform.localScale = new Vector2(-0.7f, 0.7f);//右向き
                         //指定座標まで移動
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                        
@@ -114,7 +113,7 @@ public class Enemy_security_guard : MonoBehaviour
                     if (countleftTime < 0)
                     {
                         animator.Play(moveAnime);
-                        this.transform.localScale = new Vector2(2, 2);//左向き
+                        this.transform.localScale = new Vector2(0.7f, 0.7f);//左向き
                         //指定座標まで移動                                             
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
