@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     enemyenemy en;
     LadderController ladderController;
     AudioSource audioSource;
+    SafeController safeController;
 
     Animator animator;
 
@@ -39,23 +40,23 @@ public class PlayerController : MonoBehaviour
     public float speed = 3.0f;
     private float playerX;
     private float playerY;
-    private bool Onmove = true;
+    private bool CanMove = true;
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
     private bool isTenjo = false;
     private bool top = false;
     private bool under = false;
 
-    public bool isInteract = true;
+    public bool CanInteract = true;
 
     //　ロッカー系
     public bool inLocker = false;
 
     //　ペーパー系
-    public bool isLookPaper = false;
+   //public bool isLookPaper = false;
 
     //  重力管理
-    public bool SwitchGravity = true;
+    public bool CanSwitchGravity = true;
     private float GravityPoint;
 
     //  回転管理
@@ -90,210 +91,221 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Onmove)
+        if (GameManager.GState == "Playing")
         {
-            //　Aを押したら左に進む
-            if (Input.GetKey(KeyCode.A))
+            if (CanMove)
             {
-                isMoveLeft = true; isMoveRight = false;
-                playerX = -speed;
-                animator.Play("playerwalk");
+                //　Aを押したら左に進む
+                if (Input.GetKey(KeyCode.A))
+                {
+                    isMoveLeft = true; isMoveRight = false;
+                    playerX = -speed;
+                    animator.Play("playerwalk");
+                }
+                //　Dを押したら右に進む
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    isMoveRight = true; isMoveLeft = false;
+                    playerX = speed;
+                    animator.Play("playerwalk");
+                }
+                else
+                {
+                    playerX = 0;
+                    animator.Play("playerstop");
+                }
             }
-            //　Dを押したら右に進む
-            else if (Input.GetKey(KeyCode.D))
+            if (onLadder)
             {
-                isMoveRight = true; isMoveLeft = false;
-                playerX = speed;
-                animator.Play("playerwalk");
+                //　Sを押したら下に進む
+                if (Input.GetKey(KeyCode.S) && under != true)
+                {
+                    top = false;
+                    playerY = -speed;
+                    animator.Play("climb");
+                }
+                //　Wを押したら上に進む
+                else if (Input.GetKey(KeyCode.W) && top != true)
+                {
+                    under = false;
+                    playerY = speed;
+                    animator.Play("climb");
+                }
+                else
+                {
+                    playerY = 0;
+                    animator.Play("stopclimb");
+                }
+
+                if (playerY != 0)
+                {
+                    mcount -= Time.deltaTime;
+                    if (mcount < 0)
+                    {
+                        audioSource.PlayOneShot(Ladder_SE, 0.4f);
+                        mcount = 0.3f;
+                    }
+                }
+            }
+
+            //  キャラクターが進行方向に進むようにする
+            if (!isTenjo)
+            {
+                if (isMoveRight)
+                {
+                    transform.localScale = new Vector2(-0.7f, 0.7f);
+                    stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
+                }
+                if (isMoveLeft)
+                {
+                    transform.localScale = new Vector2(0.7f, 0.7f);
+                    stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
+                }
             }
             else
             {
-                playerX = 0;
-                animator.Play("playerstop");
-            }
-        }
-        if (onLadder)
-        {
-            //　Sを押したら下に進む
-            if (Input.GetKey(KeyCode.S) && under != true) 
-            {
-                top = false;
-                playerY = -speed;
-                animator.Play("climb");
-            }
-            //　Wを押したら上に進む
-            else if (Input.GetKey(KeyCode.W) && top != true)
-            {
-                under = false;
-                playerY = speed;
-                animator.Play("climb");
-            }
-            else 
-            { 
-                playerY = 0;
-                animator.Play("stopclimb");
-            }
-
-            if (playerY != 0) 
-            {
-                mcount -= Time.deltaTime;
-                if (mcount < 0)
+                if (isMoveRight)
                 {
-                    audioSource.PlayOneShot(Ladder_SE, 0.4f);
-                    mcount = 0.3f;
+                    transform.localScale = new Vector2(0.7f, 0.7f);
+                    stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
-            }
-        }
-
-        //  キャラクターが進行方向に進むようにする
-        if (!isTenjo)
-        {
-            if (isMoveRight)
-            {
-                transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
-            }
-            if (isMoveLeft)
-            {
-                transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
-            }
-        }
-        else
-        {
-            if (isMoveRight)
-            {
-                transform.localScale = new Vector2(0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
-            }
-            if (isMoveLeft)
-            {
-                transform.localScale = new Vector2(-0.7f, 0.7f);
-                stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
-            }
-        }
-
-        //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
-        if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-                GravityChange();
-        }
-
-        //　スタンガン
-        if (SwitchGravity && inLocker == false && isLookPaper == false && onLadder == false)
-        {
-            if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0) 
-            {
-                stungun.SetActive(true);
-                stungun.GetComponent<Animator>().Play("stungun0");
-                stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
-            }
-
-            if (Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0 )
-            {
-                CanUseStungun = false;
-                stunGunIconController.countTime = stunGunIconController.count;
-                StartCoroutine(StunGun());
-            }
-        }
-
-        //  ロッカーのボタンガイドがアクティブなら
-        if (lockerController != null && lockerController.LockerF.activeSelf )
-        {
-            if (Input.GetKey(KeyCode.F) && isInteract == true)
-            {
-                isInteract = false;
-                StartCoroutine(Interactive("Locker"));
-            }
-        }
-
-        //　ペーパーのボタンガイドがアクティブなら
-        if (paperController != null && paperController.PaperF.activeSelf)
-        {
-            if (Input.GetKey(KeyCode.F) && isInteract == true)
-            {
-                isInteract = false;
-                StartCoroutine(Interactive("Paper"));
-            }
-        }
-        //  ペーパーを見てる時　＆＆　ペーパーESCガイドが有効の時
-        if (paperController != null && isLookPaper == true && paperController.PaperESC.activeSelf)
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                Debug.Log("iashd");
-                isLookPaper = false;
-                Onmove = true;
-                paperController.PaperESC.SetActive(false);
-                paperController.PaperLook.SetActive(false);
-
-                isInteract = true;
-            }
-        }
-
-        //　バッテリー
-        if (batteryController != null && batteryController.BatteryF.activeSelf)
-        {
-            if (Input.GetKey(KeyCode.F) && isInteract == true && Battery < 5)
-            {
-                isInteract = false;
-                StartCoroutine(Interactive("Battery"));
-                batteryBar.UpdateBatteryBar();
-            }
-        }
-
-        //  ladder
-        if(ladderController != null)
-        {
-            if (SwitchGravity && inLocker == false && isLookPaper == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
-            {
-                if (Input.GetKey(KeyCode.F) && isInteract == true)
+                if (isMoveLeft)
                 {
-                    isInteract = false;
-                    StartCoroutine(Interactive("Ladder"));
+                    transform.localScale = new Vector2(-0.7f, 0.7f);
+                    stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
             }
 
-            for (int i = 0; i < ladderController.childLadder.Length; i++)
+            //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
+            if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
             {
-                if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
+                if (Input.GetKey(KeyCode.LeftShift))
+                    GravityChange();
+            }
+
+            ////　スタンガン
+            if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
+            {
+                if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0)
                 {
-                    if (transform.position.y <= ladderController.transform.position.y - 0.4 ||
-                        transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
+                    stungun.SetActive(true);
+                    stungun.GetComponent<Animator>().Play("stungun0");
+                    stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
+                }
+
+                if (Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0)
+                {
+                    CanUseStungun = false;
+                    stunGunIconController.countTime = stunGunIconController.count;
+                    StartCoroutine(StunGun());
+                }
+            }
+
+            //  ロッカーのボタンガイドがアクティブなら
+            if (lockerController != null && lockerController.LockerF.activeSelf)
+            {
+                if (Input.GetKey(KeyCode.F) && CanInteract == true)
+                {
+                    CanInteract = false;
+                    StartCoroutine(Interactive("Locker"));
+                }
+            }
+
+            if (safeController != null && safeController.SafeF.activeSelf)
+            {
+                if (Input.GetKey(KeyCode.F) && CanInteract == true)
+                {
+                    CanInteract = false;
+                    StartCoroutine(Interactive("Safe"));
+                }
+            }
+
+            //　ペーパーのボタンガイドがアクティブなら
+            //if (paperController != null && paperController.PaperF.activeSelf)
+            //{
+            //    if (Input.GetKey(KeyCode.F) && isInteract == true)
+            //    {
+            //        isInteract = false;
+            //        StartCoroutine(Interactive("Paper"));
+            //    }
+            //}
+            //  ペーパーを見てる時　＆＆　ペーパーESCガイドが有効の時
+            //if (paperController != null && isLookPaper == true && paperController.PaperESC.activeSelf)
+            //{
+            //    if (Input.GetKey(KeyCode.Escape))
+            //    {
+            //        Debug.Log("iashd");
+            //        isLookPaper = false;
+            //        Onmove = true;
+            //        paperController.PaperESC.SetActive(false);
+            //        paperController.PaperLook.SetActive(false);
+
+            //        isInteract = true;
+            //    }
+            //}
+
+            //　バッテリー
+            if (batteryController != null && batteryController.BatteryF.activeSelf)
+            {
+                if (Input.GetKey(KeyCode.F) && CanInteract == true && Battery < 5)
+                {
+                    CanInteract = false;
+                    StartCoroutine(Interactive("Battery"));
+                    batteryBar.UpdateBatteryBar();
+                }
+            }
+
+            //  ladder
+            if (ladderController != null)
+            {
+                if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false*/ && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
+                {
+                    if (Input.GetKey(KeyCode.F) && CanInteract == true)
                     {
-                        if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
-                            top = true;//playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
-                        if (transform.position.y <= ladderController.transform.position.y - 0.4)
-                            under = true;
-                        if (Input.GetKey(KeyCode.Space))
-                        {
-                            onLadder = false;
-                            Onmove = true;
-                            isInteract = true;
-                            top = false; under = false;
-
-                            ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
-                            rb2D.gravityScale = GravityPoint;
-                        }
+                        CanInteract = false;
+                        StartCoroutine(Interactive("Ladder"));
                     }
                 }
 
+                for (int i = 0; i < ladderController.childLadder.Length; i++)
+                {
+                    if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
+                    {
+                        if (transform.position.y <= ladderController.transform.position.y - 0.4 ||
+                            transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
+                        {
+                            if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
+                                top = true;//playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
+                            if (transform.position.y <= ladderController.transform.position.y - 0.4)
+                                under = true;
+                            if (Input.GetKey(KeyCode.Space))
+                            {
+                                onLadder = false;
+                                CanMove = true;
+                                CanInteract = true;
+                                top = false; under = false;
+
+                                ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
+                                rb2D.gravityScale = GravityPoint;
+                            }
+                        }
+                    }
+
+                }
             }
+            if (onLadder == false)
+                rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
+            else
+                rb2D.velocity = new Vector2(playerX, playerY);
         }
-        if(onLadder == false)
-            rb2D.velocity = new Vector2(playerX, rb2D.velocity.y);
-        else
-            rb2D.velocity = new Vector2(playerX, playerY);
     }
 
     void GravityChange()
     {
         playerX = 0;//  移動中に反転できないようにできる
-        SwitchGravity = false;
-        Onmove = false;
-        isInteract = false;
+        CanSwitchGravity = false;
+        CanMove = false;
+        CanInteract = false;
 
         stungun.SetActive(false);
 
@@ -305,7 +317,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator PlayerRotate()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSecondsRealtime(0.25f);
 
         //  PlayerAngleCountを初期化させて数字を大きくなりすぎないようにする
         if (PlayerAngleCount >= 2) PlayerAngleCount = 0;
@@ -324,16 +336,16 @@ public class PlayerController : MonoBehaviour
             PlayerAngle += 10.0f;
 
             //  次の回転まで少し待機
-            yield return new WaitForSeconds(0.000025f);
+            yield return new WaitForSecondsRealtime(0.000025f);
         }
 
         isTenjo = !isTenjo;
 
         //  空中で回転できないように少し待機
-        yield return new WaitForSeconds(0.25f);
-        SwitchGravity = true;
-        Onmove = true; //着地後に移動できるようにする
-        isInteract = true;
+        yield return new WaitForSecondsRealtime(0.25f);
+        CanSwitchGravity = true;
+        CanMove = true; //着地後に移動できるようにする
+        CanInteract = true;
     }
 
     IEnumerator Interactive(string anyOBJ)
@@ -345,8 +357,10 @@ public class PlayerController : MonoBehaviour
             //  隠れる
             if (inLocker == false)
             {
+                playerX = 0;
                 inLocker = true;
-                Onmove = false;      //　主人公を止める
+                CanMove = false;      //　主人公を止める
+                rb2D.isKinematic = true;
                 StartCoroutine(hideCTRL(0));    //　主人公を非表示にする
                 StartCoroutine(LockerActivate(true));   //　ロッカー視点を表示する
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
@@ -361,12 +375,12 @@ public class PlayerController : MonoBehaviour
             else
             {
                 inLocker = false;
-                Onmove = true;      //　主人公を動けるようにする
+                CanMove = true;      //　主人公を動けるようにする
 
                 audioSource.Stop();
                 audioSource.loop = false;
                 audioSource.clip = null;
-
+                rb2D.isKinematic = false;
                 StartCoroutine(hideCTRL(1));    //　主人公を表示する
                 StartCoroutine(LockerActivate(false)); //　ロッカー視点を取り除く
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
@@ -378,21 +392,21 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector2( position.x, transform.position.y );
 
             yield return new WaitForSeconds(4f);
-            isInteract = true;
+            CanInteract = true;
         }
 
-        if (anyOBJ == "Paper") 
-        {
-            if(isLookPaper==false)
-            {
-                isLookPaper = true;
-                Onmove = false;
-                paperController.PaperLook.SetActive(true);
+        //if (anyOBJ == "Paper") 
+        //{
+        //    if(isLookPaper==false)
+        //    {
+        //        isLookPaper = true;
+        //        Onmove = false;
+        //        paperController.PaperLook.SetActive(true);
 
-                yield return new WaitForSeconds(2f);
-                paperController.PaperESC.SetActive(true);
-            }
-        }
+        //        yield return new WaitForSeconds(2f);
+        //        paperController.PaperESC.SetActive(true);
+        //    }
+        //}
 
         if (anyOBJ == "Battery")
         {
@@ -401,20 +415,21 @@ public class PlayerController : MonoBehaviour
             batteryController.objDestroy();
 
             yield return new WaitForSeconds(2f);
-            isInteract = true;
+            CanInteract = true;
         }
 
         if (anyOBJ == "Ladder") 
         {
             playerX = 0;
             onLadder = true;
-            Onmove = false;
+            CanMove = false;
 
+            GameObject childLadder;
             for(int i =0; ; i++)
             {
                 if (ladderController.childLadder[i].GetComponent<BoxCollider2D>() != null)
                 {
-                    ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = false;
+                    childLadder = ladderController.childLadder[i];
                     break;
                 }
             }
@@ -423,8 +438,24 @@ public class PlayerController : MonoBehaviour
             rb2D.gravityScale = 0;
 
             //yield return new WaitForSeconds(0.25f);
-            position = ladderController.transform.position;
-            transform.position = position;          
+            if(ladderController.doDown)
+            {
+                position = childLadder.transform.position;
+                transform.position = position;
+                ladderController.doDown = false;
+            }
+            else
+            {
+                position = ladderController.transform.position;
+                transform.position = position;
+            }
+
+            childLadder.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if (anyOBJ == "Safe")
+        {
+           //FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Safe);
         }
     }
 
@@ -504,24 +535,40 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "ladder")
+        if (collision.gameObject.tag == "ladder")
         {
             ladderController = collision.GetComponent<LadderController>();
         }
 
-        if(collision.gameObject.tag == "Locker")
+        if (collision.gameObject.tag == "Locker")
         {
             lockerController = collision.GetComponent<LockerController>();
         }
 
-        if(collision.gameObject.tag == "paper")
+        if (collision.gameObject.tag == "paper")
         {
             paperController = collision.GetComponent<PaperController>();
         }
 
-        if(collision.gameObject.tag == "Battery")
+        if (collision.gameObject.tag == "Battery")
         {
             batteryController = collision.GetComponent<BatteryController>();
         }
+
+        if (collision.gameObject.tag == "Safe")
+        {
+            safeController = collision.GetComponent<SafeController>();
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "ladder")
+        {
+            GameObject laddertop = collision.gameObject;
+            ladderController = laddertop.GetComponent<LadderController>();
+        }
+    }
+
+    //  pose宙に動けなくする
 }

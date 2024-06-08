@@ -42,7 +42,8 @@ public class LadderController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        doDown = true;
+        if (collision.gameObject.tag == "Player")
+            doDown = true;
         if (PlayerCTRL.onLadder == false && collision.gameObject.tag == "Player")
             childLadderF.SetActive(true);// Žæ“¾‚µ‚½obj‚ð•\Ž¦‚³‚¹‚é
     }

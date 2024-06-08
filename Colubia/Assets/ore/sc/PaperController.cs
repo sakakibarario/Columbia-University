@@ -27,7 +27,7 @@ public class PaperController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerCTRL.isInteract == true && isLook)
+        if (PlayerCTRL.CanInteract == true && isLook)
         {
             PaperF.SetActive(true);
         }
