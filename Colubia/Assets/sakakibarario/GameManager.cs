@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
         Over,
         Home,
         Pose,
-        Title
+        Title,
+        Safe
     }
     //フェード用
     public string sceneNameO;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public string sceneName1;
     public string sceneName2;
     public string sceneName3;
+    public string sceneNameS;
     public string sceneNameH;
     public string sceneNameT;
 
@@ -69,6 +71,9 @@ public class GameManager : MonoBehaviour
             case GameState.Title:
                 GameTitle();
                 break;
+            case GameState.Safe:
+                GameSafe();
+                break;
         }
 
     }
@@ -111,6 +116,14 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("playing");
+    }
+
+    //金庫処理
+    void GameSafe()
+    {
+        GState = "GameSafe";
+        Initiate.Fade(sceneNameS, loadToColor, fadeSpeed);
+        Debug.Log("GameSafe");
     }
 
     // ゲームクリアー処理

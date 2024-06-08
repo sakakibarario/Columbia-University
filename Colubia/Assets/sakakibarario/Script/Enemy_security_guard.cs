@@ -41,8 +41,8 @@ public class Enemy_security_guard : MonoBehaviour
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
         MyEnemy2.x = MyEnemy2.x - distance_traveled;//“G‚Ì‰Â“®ˆæ
-
-        countleftTime = Enemy_start_count;//“®‚«o‚·ŠÔ‚ğ‚¸‚ç‚·
+        //“®‚«o‚·ŠÔ‚ğ‚¸‚ç‚·
+        countleftTime = Enemy_start_count;
     }
 
     // Update is called once per frame

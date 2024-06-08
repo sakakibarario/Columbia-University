@@ -9,7 +9,8 @@ public class Enemy_Camera : MonoBehaviour
 
     //敵の動き
     private float speed = 50.0f;
-   
+    public float Enemy_Start_Count = 3.0f; //最初の動き出す時間を変える
+
     //カウント用
     private float countleftTime = 3.0f;   //左向き
     private float countrightTime = 3.0f;   //右向き
@@ -23,6 +24,10 @@ public class Enemy_Camera : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //動き出す時間をずらす
+        countleftTime = Enemy_Start_Count;
+
         MyEnemy = transform.eulerAngles;//初期位置保存
     }
 
