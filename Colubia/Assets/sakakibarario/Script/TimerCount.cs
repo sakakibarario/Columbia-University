@@ -32,8 +32,8 @@ public class TimerCount : MonoBehaviour
     {
 
         if (PlayerController.inLocker == false && PlayerController.onLadder == false &&
-            PlayerController.isInteract == true && PlayerController.onFire == true &&
-            PlayerController.SwitchGravity == false)
+            PlayerController.isInteract == true && PlayerController.onFire == false &&
+            PlayerController.SwitchGravity == true)
         {
             //ƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«
             if (Input.GetKeyDown(KeyCode.Tab))

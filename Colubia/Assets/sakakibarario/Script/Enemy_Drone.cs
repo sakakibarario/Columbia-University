@@ -8,7 +8,8 @@ public class Enemy_Drone : MonoBehaviour
 
     //敵の動き
     public float speed = 7.0f;
-    private int distance_traveled = 20;//移動距離
+    private int distance_traveled = 10;//移動距離
+    public float Enemy_Start_Count = 3.0f;//スタート時間
 
     //カウント用
     private float countleftTime = 3.0f;   //左向き
@@ -24,6 +25,9 @@ public class Enemy_Drone : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //最初の動き出すまでの時間
+        countleftTime = Enemy_Start_Count;
         //初期座標を記憶
         MyEnemy = transform.position;
         MyEnemy2 = MyEnemy;
@@ -47,11 +51,11 @@ public class Enemy_Drone : MonoBehaviour
             {
                 if (transform.position.x < MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(-1.5f, 1.2f);//左向き
+                    this.transform.localScale = new Vector2(-0.7f, 0.5f);//左向き
                 }
                 else if (transform.position.x > MyEnemy.x)
                 {
-                    this.transform.localScale = new Vector2(1.5f, 1.2f);//左向き
+                    this.transform.localScale = new Vector2(0.7f, 0.5f);//左向き
                 }
                 transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
 
@@ -73,7 +77,7 @@ public class Enemy_Drone : MonoBehaviour
 
                     if (countrightTime < 0)
                     {
-                        this.transform.localScale = new Vector2(-1.5f, 1.2f);//右向き
+                        this.transform.localScale = new Vector2(-0.7f, 0.5f);//右向き
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy, speed * Time.deltaTime);
                       
                         if (transform.position.x == MyEnemy.x)
@@ -90,7 +94,7 @@ public class Enemy_Drone : MonoBehaviour
 
                     if (countleftTime < 0)
                     {
-                        this.transform.localScale = new Vector2(1.5f, 1.2f);//左向き
+                        this.transform.localScale = new Vector2(0.7f, 0.5f);//左向き
                                                                      
                         transform.position = Vector3.MoveTowards(transform.position, MyEnemy2, speed * Time.deltaTime);
 
@@ -109,14 +113,6 @@ public class Enemy_Drone : MonoBehaviour
             rb.Sleep();//動きを止める
         }
 
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")// 主人公
-        {
-            // ゲームオーバー処理を呼ぶ
-            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Over);
-        }
     }
 
 }
