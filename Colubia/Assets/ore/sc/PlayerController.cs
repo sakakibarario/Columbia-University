@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     SafeController safeController;
 
-    //ƒJƒƒ‰
+    //ã‚«ãƒ¡ãƒ©
     Camera Camera;
 
     Animator animator;
@@ -31,14 +31,14 @@ public class PlayerController : MonoBehaviour
 
     public GameObject stungun;
 
-    //  soundŠÇ—
+    //  soundç®¡ç†
     public AudioClip stungun_SE;
     public AudioClip Locker_SE;
     public AudioClip Locker_HeartBeat_SE;
     public AudioClip Ladder_SE;
 
 
-    //@ƒvƒŒƒCƒ„[ŠÇ—
+    //ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç®¡ç†
     public float hideduration = 0.05f;
     public float speed = 3.0f;
     private float playerX;
@@ -52,21 +52,21 @@ public class PlayerController : MonoBehaviour
 
     public bool CanInteract = true;
 
-    //@ƒƒbƒJ[Œn
+    //ã€€ãƒ­ãƒƒã‚«ãƒ¼ç³»
     public bool inLocker = false;
 
-    //@ƒy[ƒp[Œn
+    //ã€€ãƒšãƒ¼ãƒ‘ãƒ¼ç³»
    //public bool isLookPaper = false;
 
-    //  d—ÍŠÇ—
+    //  é‡åŠ›ç®¡ç†
     public bool CanSwitchGravity = true;
     private float GravityPoint;
 
-    //  ‰ñ“]ŠÇ—
+    //  å›è»¢ç®¡ç†
     private float PlayerAngle = 0;
     private int PlayerAngleCount = 0;
 
-    //  ƒXƒ^ƒ“ƒKƒ“Œn
+    //  ã‚¹ã‚¿ãƒ³ã‚¬ãƒ³ç³»
     public int Battery = 2;
     public bool onFire = false;
     public bool CanUseStungun = true;
@@ -100,14 +100,14 @@ public class PlayerController : MonoBehaviour
         {
             if (CanMove)
             {
-                //@A‚ğ‰Ÿ‚µ‚½‚ç¶‚Éi‚Ş
+                //ã€€Aã‚’æŠ¼ã—ãŸã‚‰å·¦ã«é€²ã‚€
                 if (Input.GetKey(KeyCode.A))
                 {
                     isMoveLeft = true; isMoveRight = false;
                     playerX = -speed;
                     animator.Play("playerwalk");
                 }
-                //@D‚ğ‰Ÿ‚µ‚½‚ç‰E‚Éi‚Ş
+                //ã€€Dã‚’æŠ¼ã—ãŸã‚‰å³ã«é€²ã‚€
                 else if (Input.GetKey(KeyCode.D))
                 {
                     isMoveRight = true; isMoveLeft = false;
@@ -122,14 +122,14 @@ public class PlayerController : MonoBehaviour
             }
             if (onLadder)
             {
-                //@S‚ğ‰Ÿ‚µ‚½‚ç‰º‚Éi‚Ş
+                //ã€€Sã‚’æŠ¼ã—ãŸã‚‰ä¸‹ã«é€²ã‚€
                 if (Input.GetKey(KeyCode.S) && under != true)
                 {
                     top = false;
                     playerY = -speed;
                     animator.Play("climb");
                 }
-                //@W‚ğ‰Ÿ‚µ‚½‚çã‚Éi‚Ş
+                //ã€€Wã‚’æŠ¼ã—ãŸã‚‰ä¸Šã«é€²ã‚€
                 else if (Input.GetKey(KeyCode.W) && top != true)
                 {
                     under = false;
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //  ƒLƒƒƒ‰ƒNƒ^[‚ªis•ûŒü‚Éi‚Ş‚æ‚¤‚É‚·‚é
+            //  ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒé€²è¡Œæ–¹å‘ã«é€²ã‚€ã‚ˆã†ã«ã™ã‚‹
             if (!isTenjo)
             {
                 if (isMoveRight)
@@ -181,14 +181,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //@Space‚ğ‰Ÿ‚µ‚½‚çd—Í‚ğ”½“]‚³‚¹AƒOƒ‰ƒtƒBƒbƒN‚ÌŒü‚«‚ğ®‚¦‚é
-            if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
+            //ã€€Spaceã‚’æŠ¼ã—ãŸã‚‰é‡åŠ›ã‚’åè»¢ã•ã›ã€ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®å‘ãã‚’æ•´ãˆã‚‹
+            if (ladderController == null && CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                     GravityChange();
             }
 
-            ////@ƒXƒ^ƒ“ƒKƒ“
+            ////ã€€ã‚¹ã‚¿ãƒ³ã‚¬ãƒ³
             if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
             {
                 if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0)
@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //  ƒƒbƒJ[‚Ìƒ{ƒ^ƒ“ƒKƒCƒh‚ªƒAƒNƒeƒBƒu‚È‚ç
+            //  ãƒ­ãƒƒã‚«ãƒ¼ã®ãƒœã‚¿ãƒ³ã‚¬ã‚¤ãƒ‰ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚‰
             if (lockerController != null && lockerController.LockerF.activeSelf)
             {
                 if (Input.GetKey(KeyCode.F) && CanInteract == true)
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //@ƒy[ƒp[‚Ìƒ{ƒ^ƒ“ƒKƒCƒh‚ªƒAƒNƒeƒBƒu‚È‚ç
+            //ã€€ãƒšãƒ¼ãƒ‘ãƒ¼ã®ãƒœã‚¿ãƒ³ã‚¬ã‚¤ãƒ‰ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚‰
             //if (paperController != null && paperController.PaperF.activeSelf)
             //{
             //    if (Input.GetKey(KeyCode.F) && isInteract == true)
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
             //        StartCoroutine(Interactive("Paper"));
             //    }
             //}
-            //  ƒy[ƒp[‚ğŒ©‚Ä‚é@••@ƒy[ƒp[ESCƒKƒCƒh‚ª—LŒø‚Ì
+            //  ãƒšãƒ¼ãƒ‘ãƒ¼ã‚’è¦‹ã¦ã‚‹æ™‚ã€€ï¼†ï¼†ã€€ãƒšãƒ¼ãƒ‘ãƒ¼ESCã‚¬ã‚¤ãƒ‰ãŒæœ‰åŠ¹ã®æ™‚
             //if (paperController != null && isLookPaper == true && paperController.PaperESC.activeSelf)
             //{
             //    if (Input.GetKey(KeyCode.Escape))
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
             //    }
             //}
 
-            //@ƒoƒbƒeƒŠ[
+            //ã€€ãƒãƒƒãƒ†ãƒªãƒ¼
             if (batteryController != null && batteryController.BatteryF.activeSelf)
             {
                 if (Input.GetKey(KeyCode.F) && CanInteract == true && Battery < 5)
@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false*/ && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
-                    if (Input.GetKey(KeyCode.F) && CanInteract == true)
+                    if (isTenjo == false && Input.GetKey(KeyCode.F) && CanInteract == true)
                     {
                         CanInteract = false;
                         StartCoroutine(Interactive("Ladder"));
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
                             transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
                         {
                             if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
-                                top = true;//playerY = 0;    //’òq‚Ìˆê”Ôã‚Ü‚Å“o‚Á‚½‚É~‚è‚é‚æ‚¤‚É‘£‚·‚½‚ß
+                                top = true;//playerY = 0;    //æ¢¯å­ã®ä¸€ç•ªä¸Šã¾ã§ç™»ã£ãŸæ™‚ã«é™ã‚Šã‚‹ã‚ˆã†ã«ä¿ƒã™ãŸã‚
                             if (transform.position.y <= ladderController.transform.position.y - 0.4)
                                 under = true;
                             if (Input.GetKey(KeyCode.Space))
@@ -307,14 +307,14 @@ public class PlayerController : MonoBehaviour
 
     void GravityChange()
     {
-        playerX = 0;//  ˆÚ“®’†‚É”½“]‚Å‚«‚È‚¢‚æ‚¤‚É‚Å‚«‚é
+        playerX = 0;//  ç§»å‹•ä¸­ã«åè»¢ã§ããªã„ã‚ˆã†ã«ã§ãã‚‹
         CanSwitchGravity = false;
         CanMove = false;
         CanInteract = false;
 
         stungun.SetActive(false);
 
-        //@d—Í‚ğ”½“]‚³‚¹‚é
+        //ã€€é‡åŠ›ã‚’åè»¢ã•ã›ã‚‹
         rb2D.gravityScale *= -1;
 
         StartCoroutine(PlayerRotate());
@@ -324,33 +324,34 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.25f);
 
-        //  PlayerAngleCount‚ğ‰Šú‰»‚³‚¹‚Ä”š‚ğ‘å‚«‚­‚È‚è‚·‚¬‚È‚¢‚æ‚¤‚É‚·‚é
+        //  PlayerAngleCountã‚’åˆæœŸåŒ–ã•ã›ã¦æ•°å­—ã‚’å¤§ãããªã‚Šã™ããªã„ã‚ˆã†ã«ã™ã‚‹
         if (PlayerAngleCount >= 2) PlayerAngleCount = 0;
-        //  PlayerCount‚ğ‰Šú‰»‚³‚¹‚Ä”š‚ğ‘å‚«‚­‚È‚è‚·‚¬‚È‚¢‚æ‚¤‚É‚·‚é
+        //  PlayerCountã‚’åˆæœŸåŒ–ã•ã›ã¦æ•°å­—ã‚’å¤§ãããªã‚Šã™ããªã„ã‚ˆã†ã«ã™ã‚‹
         if (PlayerAngle >= 360) PlayerAngle = 0;
 
 
-        //  ‚±‚ê‚ğg—p‚µ‚ÄÅ‘åŠp“x‚ğ•ÏX‚³‚¹‚é‚±‚Æ‚ÅA“Vˆä‚©°‚É“ª‚Å’…’n‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        //  ã“ã‚Œã‚’ä½¿ç”¨ã—ã¦æœ€å¤§è§’åº¦ã‚’å¤‰æ›´ã•ã›ã‚‹ã“ã¨ã§ã€å¤©äº•ã‹åºŠã«é ­ã§ç€åœ°ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         PlayerAngleCount += 1;
 
-        //@ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğƒWƒ‡ƒWƒ‡‚É•Ï‚¦‚é
+        //ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’ã‚¸ãƒ§ã‚¸ãƒ§ã«å¤‰ãˆã‚‹
         for (; PlayerAngle <= 180 * PlayerAngleCount;) 
         {
-            //  1‹‚Ã‚Â‰ñ“]‚³‚¹‚é
+            //  1Â°ã¥ã¤å›è»¢ã•ã›ã‚‹
             transform.rotation = Quaternion.Euler(0, 0, PlayerAngle);
             PlayerAngle += 10.0f;
 
-            //  Ÿ‚Ì‰ñ“]‚Ü‚Å­‚µ‘Ò‹@
+            //  æ¬¡ã®å›è»¢ã¾ã§å°‘ã—å¾…æ©Ÿ
             yield return new WaitForSecondsRealtime(0.000025f);
         }
 
         isTenjo = !isTenjo;
 
-        //  ‹ó’†‚Å‰ñ“]‚Å‚«‚È‚¢‚æ‚¤‚É­‚µ‘Ò‹@
+        //  ç©ºä¸­ã§å›è»¢ã§ããªã„ã‚ˆã†ã«å°‘ã—å¾…æ©Ÿ
         yield return new WaitForSecondsRealtime(0.25f);
-        CanSwitchGravity = true;
-        CanMove = true; //’…’nŒã‚ÉˆÚ“®‚Å‚«‚é‚æ‚¤‚É‚·‚é
+        CanMove = true; //ç€åœ°å¾Œã«ç§»å‹•ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
         CanInteract = true;
+        yield return new WaitForSecondsRealtime(1.75f);
+        CanSwitchGravity = true;
     }
 
     IEnumerator Interactive(string anyOBJ)
@@ -359,15 +360,15 @@ public class PlayerController : MonoBehaviour
 
         if (anyOBJ == "Locker")
         {
-            //  ‰B‚ê‚é
+            //  éš ã‚Œã‚‹
             if (inLocker == false)
             {
                 playerX = 0;
                 inLocker = true;
-                CanMove = false;      //@ålŒö‚ğ~‚ß‚é
+                CanMove = false;      //ã€€ä¸»äººå…¬ã‚’æ­¢ã‚ã‚‹
                 rb2D.isKinematic = true;
-                StartCoroutine(hideCTRL(0));    //@ålŒö‚ğ”ñ•\¦‚É‚·‚é
-                StartCoroutine(LockerActivate(true));   //@ƒƒbƒJ[‹“_‚ğ•\¦‚·‚é
+                StartCoroutine(hideCTRL(0));    //ã€€ä¸»äººå…¬ã‚’éè¡¨ç¤ºã«ã™ã‚‹
+                StartCoroutine(LockerActivate(true));   //ã€€ãƒ­ãƒƒã‚«ãƒ¼è¦–ç‚¹ã‚’è¡¨ç¤ºã™ã‚‹
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
 
                 audioSource.clip = Locker_HeartBeat_SE;
@@ -376,24 +377,24 @@ public class PlayerController : MonoBehaviour
                 audioSource.PlayDelayed(1.0f);
 
             }
-            //@•\‚Éo‚é
+            //ã€€è¡¨ã«å‡ºã‚‹
             else
             {
                 inLocker = false;
-                CanMove = true;      //@ålŒö‚ğ“®‚¯‚é‚æ‚¤‚É‚·‚é
+                CanMove = true;      //ã€€ä¸»äººå…¬ã‚’å‹•ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹
 
                 audioSource.Stop();
                 audioSource.loop = false;
                 audioSource.clip = null;
                 rb2D.isKinematic = false;
-                StartCoroutine(hideCTRL(1));    //@ålŒö‚ğ•\¦‚·‚é
-                StartCoroutine(LockerActivate(false)); //@ƒƒbƒJ[‹“_‚ğæ‚èœ‚­
+                StartCoroutine(hideCTRL(1));    //ã€€ä¸»äººå…¬ã‚’è¡¨ç¤ºã™ã‚‹
+                StartCoroutine(LockerActivate(false)); //ã€€ãƒ­ãƒƒã‚«ãƒ¼è¦–ç‚¹ã‚’å–ã‚Šé™¤ã
                 audioSource.PlayOneShot(Locker_SE, 0.5f);
             }
 
-            //@ƒƒbƒJ[‚ÌXÀ•W‚ğuålŒö‚Æ‚Í–³ŠÖŒWv‚ÌƒxƒNƒ^[Œ^•Ï”‚É•Û‘¶
+            //ã€€ãƒ­ãƒƒã‚«ãƒ¼ã®Xåº§æ¨™ã‚’ã€Œä¸»äººå…¬ã¨ã¯ç„¡é–¢ä¿‚ã€ã®ãƒ™ã‚¯ã‚¿ãƒ¼å‹å¤‰æ•°ã«ä¿å­˜
             position.x = lockerController.transform.position.x;
-            //@•Û‘¶‚µ‚½À•W‚ğƒvƒŒƒCƒ„[‚É“ü‚ê‚é
+            //ã€€ä¿å­˜ã—ãŸåº§æ¨™ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å…¥ã‚Œã‚‹
             transform.position = new Vector2( position.x, transform.position.y );
 
             yield return new WaitForSeconds(4f);
@@ -541,39 +542,39 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "ladder")
-        {
             ladderController = collision.GetComponent<LadderController>();
-        }
 
         if (collision.gameObject.tag == "Locker")
-        {
             lockerController = collision.GetComponent<LockerController>();
-        }
 
         if (collision.gameObject.tag == "paper")
-        {
             paperController = collision.GetComponent<PaperController>();
-        }
 
         if (collision.gameObject.tag == "Battery")
-        {
             batteryController = collision.GetComponent<BatteryController>();
-        }
 
         if (collision.gameObject.tag == "Safe")
-        {
             safeController = collision.GetComponent<SafeController>();
-        }
 
+    }
 
-        if(collision.gameObject.tag == "BoxON" )
-        {
-            Camera.OnBox = true;
-        }
-        if (collision.gameObject.tag == "BoxOFF")
-        {
-            Camera.OnBox = false;
-        }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ladder")
+            ladderController    = null;
+
+        if (collision.gameObject.tag == "Locker")
+            lockerController    = null;
+
+        if (collision.gameObject.tag == "paper")
+            paperController     = null;
+
+        if (collision.gameObject.tag == "Battery")
+            batteryController   = null;
+
+        if (collision.gameObject.tag == "Safe")
+            safeController      = null;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -585,5 +586,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //  pose’ˆ‚É“®‚¯‚È‚­‚·‚é
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        ladderController = null;
+    }
+
+    //  poseå®™ã«å‹•ã‘ãªãã™ã‚‹
 }
