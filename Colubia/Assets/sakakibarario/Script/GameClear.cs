@@ -11,11 +11,17 @@ public class GameClear : MonoBehaviour
     public GameObject ClearStamp;
     public GameObject TitleButton;
 
-    private bool ButtonFlag = false;
+    //SE用
+    AudioSource AudioSource;
+    public AudioClip ClearStampSE;
+    private bool StampSEFlag = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        AudioSource = GetComponent<AudioSource>();
+
+        StampSEFlag = true;
         stage1.gameObject.SetActive(false);
         stage2.gameObject.SetActive(false);
         stage3.gameObject.SetActive(false);
@@ -41,20 +47,27 @@ public class GameClear : MonoBehaviour
         {
             stage3.gameObject.SetActive(true);
         }
+
         //スタンプ表示
-        Invoke("Stamp", 2.0f);
+        if (StampSEFlag)
+            StartCoroutine(Stamp());
     }
 
-    void Stamp()
+    IEnumerator Stamp()
     {
+        StampSEFlag = false;
+
+        yield return new WaitForSeconds(1.0f);
+        //オーディオ再生
+        AudioSource.PlayOneShot(ClearStampSE, 1.0f);
+        yield return new WaitForSeconds(0.2f);
         //スタンプ表示
         ClearStamp.gameObject.SetActive(true);
-        Invoke("Button", 1.0f);
-        
-    }
-    void Button()
-    {
+        yield return new WaitForSeconds(1.5f);
+
         //ボタンの表示
         TitleButton.gameObject.SetActive(true);
+        yield break;
     }
+
 }
