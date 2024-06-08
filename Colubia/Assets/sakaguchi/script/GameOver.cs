@@ -18,4 +18,16 @@ public class GameOver : MonoBehaviour
         transform.position += position * 2 * Time.deltaTime;
         transform.localScale += scale * Time.deltaTime;
     }
+
+    public void OnClickEnd()
+    {
+        //ゲームの状態をhomeに変更
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
+    }
+
+    public void OnClickRetry()
+    {
+        //ゲームの状態をplayingに変更
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+    }
 }
