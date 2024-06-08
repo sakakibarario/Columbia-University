@@ -28,7 +28,6 @@ public class GameClear : MonoBehaviour
 
         ClearStamp.gameObject.SetActive(false);
         TitleButton.gameObject.SetActive(false);
-        RandomQestion.BeginnerQuestionFlag = true;
     }
 
     // Update is called once per frame
