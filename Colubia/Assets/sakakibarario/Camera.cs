@@ -62,7 +62,35 @@ public class Camera : MonoBehaviour
         }
         if (RandomQestion.AdvancedQuestionFlag == true)
         {
-           
+
+            if (OnBox)
+            {
+                if (PlayerController.isCeiling)
+                {
+                    transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+                }
+                else
+                {
+                    if (PlayerController.isTenjo)
+                        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + player.transform.up.y * 2.0f, transform.position.z);
+                    else
+                        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + player.transform.up.y * 4.0f, transform.position.z);
+                }
+            }
+            else
+            {
+                if (PlayerController.isCeiling)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                }
+                else
+                {
+                    if (PlayerController.isTenjo)
+                        transform.position = new Vector3(transform.position.x, player.transform.position.y + player.transform.up.y * 2.0f, transform.position.z);
+                    else
+                        transform.position = new Vector3(transform.position.x, player.transform.position.y + player.transform.up.y * 4.0f, transform.position.z);
+                }
+            }
         }
     }
    

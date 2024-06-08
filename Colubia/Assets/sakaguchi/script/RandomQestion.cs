@@ -149,11 +149,10 @@ public class RandomQestion : MonoBehaviour
 
     public void RandomQuestion(int[] Q)
     {
-        Debug.Log("random");
-
-        BeginnerQuestionFlag = false;
-        IntermediateQestionFlag = false;
-        AdvancedQuestionFlag = false;
+        Debug.LogError(RandomQestion.AdvancedQuestionFlag);
+        //BeginnerQuestionFlag = false;
+        //IntermediateQestionFlag = false;
+        //AdvancedQuestionFlag = false;
         for (int i = 0; i < 4; i++)
         {
             KeyPad_Program.answer[i] = Q[i];

@@ -44,6 +44,7 @@ public class GameClear : MonoBehaviour
         }
         if (RandomQestion.AdvancedQuestionFlag == true)
         {
+           
             stage3.gameObject.SetActive(true);
         }
 
