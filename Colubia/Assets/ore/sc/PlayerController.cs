@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
-            if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
+            if (ladderController == null && CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                     GravityChange();
@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false*/ && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
-                    if (Input.GetKey(KeyCode.F) && CanInteract == true)
+                    if (isTenjo == false && Input.GetKey(KeyCode.F) && CanInteract == true)
                     {
                         CanInteract = false;
                         StartCoroutine(Interactive("Ladder"));
@@ -343,9 +343,10 @@ public class PlayerController : MonoBehaviour
 
         //  空中で回転できないように少し待機
         yield return new WaitForSecondsRealtime(0.25f);
-        CanSwitchGravity = true;
         CanMove = true; //着地後に移動できるようにする
         CanInteract = true;
+        yield return new WaitForSecondsRealtime(1.75f);
+        CanSwitchGravity = true;
     }
 
     IEnumerator Interactive(string anyOBJ)
@@ -536,29 +537,37 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "ladder")
-        {
             ladderController = collision.GetComponent<LadderController>();
-        }
 
         if (collision.gameObject.tag == "Locker")
-        {
             lockerController = collision.GetComponent<LockerController>();
-        }
 
         if (collision.gameObject.tag == "paper")
-        {
             paperController = collision.GetComponent<PaperController>();
-        }
 
         if (collision.gameObject.tag == "Battery")
-        {
             batteryController = collision.GetComponent<BatteryController>();
-        }
 
         if (collision.gameObject.tag == "Safe")
-        {
             safeController = collision.GetComponent<SafeController>();
-        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ladder")
+            ladderController    = null;
+
+        if (collision.gameObject.tag == "Locker")
+            lockerController    = null;
+
+        if (collision.gameObject.tag == "paper")
+            paperController     = null;
+
+        if (collision.gameObject.tag == "Battery")
+            batteryController   = null;
+
+        if (collision.gameObject.tag == "Safe")
+            safeController      = null;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -568,6 +577,11 @@ public class PlayerController : MonoBehaviour
             GameObject laddertop = collision.gameObject;
             ladderController = laddertop.GetComponent<LadderController>();
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        ladderController = null;
     }
 
     //  pose宙に動けなくする
