@@ -12,7 +12,7 @@ public class fadeCTRL : MonoBehaviour
     {
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
-        StartCoroutine(Fade(1));
+        StartCoroutine(Fade(0.8f));
     }
 
     IEnumerator Fade(float targetAlpha)

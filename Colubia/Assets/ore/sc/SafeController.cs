@@ -1,25 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-public class LockerController : MonoBehaviour
+public class SafeController : MonoBehaviour
 {
     //  子オブジェクト取得用
-    public GameObject LockerF;
-    public GameObject LockerVision;
+    public GameObject SafeF;
     private bool isStay = false;
     PlayerController PlayerCTRL;
-    // Start is called before the first frame update
     void Start()
     {
         PlayerCTRL = GameObject.Find("Player").GetComponent<PlayerController>();
 
         if (transform.localEulerAngles.z == 180)
         {
-            LockerF.transform.localEulerAngles = transform.localEulerAngles;
+            SafeF.transform.localEulerAngles = transform.localEulerAngles;
         }
     }
 
@@ -28,13 +23,13 @@ public class LockerController : MonoBehaviour
     {
         if (PlayerCTRL.CanInteract == true && isStay)
         {
-            LockerF.SetActive(true);
+            SafeF.SetActive(true);
         }
         else
         {
-            LockerF.SetActive(false);
+            SafeF.SetActive(false);
         }
-       
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,7 +37,7 @@ public class LockerController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             isStay = true;
-            LockerF.SetActive(true);// 取得したobjを表示させる
+            SafeF.SetActive(true);// 取得したobjを表示させる
         }
     }
 
@@ -51,7 +46,8 @@ public class LockerController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             isStay = false;
-            LockerF.SetActive(false);// 取得したobjを非表示にする
+            SafeF.SetActive(false);// 取得したobjを非表示にする
         }
     }
+
 }

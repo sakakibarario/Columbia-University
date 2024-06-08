@@ -28,6 +28,7 @@ TagManager:
   - Enemy
   - Enemy_security_guard
   - Enemy_Strength_Security_Guard
+  - Safe
   layers:
   - Default
   - TransparentFX

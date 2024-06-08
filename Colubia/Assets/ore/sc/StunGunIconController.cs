@@ -11,6 +11,7 @@ public class StunGunIconController : MonoBehaviour
     public int count = 10;
     public int countTime;
     float timer;
+    bool startcooltime = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +24,33 @@ public class StunGunIconController : MonoBehaviour
     {
         if(!player.CanUseStungun)
         {
+            if(startcooltime)
+            {
+                img.fillAmount = 1.0f;
+                startcooltime = false;
+            }
             img.fillAmount -= 1.0f / countTime * Time.deltaTime;
             if(img.fillAmount <= 0 )
                 player.CanUseStungun = true;
         }
         else
-            img.fillAmount = 1;
+        {
+            img.fillAmount = 0.0f;
+            startcooltime = true;
+        }
+            
+    }
+
+    public void CoolTime()
+    {
+        //img.fillAmount = 1;
+
+        while (!player.CanUseStungun)
+        {
+            img.fillAmount -= 1.0f / countTime * Time.deltaTime;
+            if(img.fillAmount <= 0 )
+                player.CanUseStungun = true;
+        }
+        //img.fillAmount = 0;
     }
 }
