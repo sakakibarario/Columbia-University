@@ -12,7 +12,6 @@ public class Camera : MonoBehaviour
     void Start()
     {
           PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        RandomQestion.IntermediateQestionFlag = true;
     }
 
     // Update is called once per frame
