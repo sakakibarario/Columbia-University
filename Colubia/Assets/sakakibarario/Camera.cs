@@ -5,11 +5,14 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     GameObject player;
-    public bool OnBox = true;
+    PlayerController PlayerController;
+
+    public bool OnBox = false;
     // Start is called before the first frame update
     void Start()
     {
-        RandomQestion.BeginnerQuestionFlag = true;
+          PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        RandomQestion.IntermediateQestionFlag = true;
     }
 
     // Update is called once per frame
@@ -28,8 +31,35 @@ public class Camera : MonoBehaviour
         }
         if (RandomQestion.IntermediateQestionFlag == true)
         {
-          
-          
+           
+             if (OnBox)
+             {
+                 if (PlayerController.isCeiling)
+                 {
+                      transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+                 } 
+                 else
+                 {
+                    if (PlayerController.isTenjo)
+                        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + player.transform.up.y * 2.0f, transform.position.z);
+                    else
+                        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + player.transform.up.y * 4.0f, transform.position.z);
+                }   
+             }
+             else
+             {
+                 if (PlayerController.isCeiling)
+                 {
+                     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                 } 
+                 else
+                 {
+                    if(PlayerController.isTenjo)
+                        transform.position = new Vector3(transform.position.x, player.transform.position.y + player.transform.up.y * 2.0f, transform.position.z);
+                    else
+                        transform.position = new Vector3(transform.position.x, player.transform.position.y + player.transform.up.y * 4.0f, transform.position.z);
+                 }
+             }
         }
         if (RandomQestion.AdvancedQuestionFlag == true)
         {

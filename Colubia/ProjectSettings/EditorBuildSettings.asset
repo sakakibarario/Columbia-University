@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/sakaguchi/Stage_Scene/HomeScene.unity
     guid: 4cfe36e7a0edf5e45aad59bf985fb741
+  - enabled: 1
+    path: Assets/sakaguchi/Stage_Scene/TitleScene.unity
+    guid: 18a502a189648674c8bc43e03edfecee
   m_configObjects: {}

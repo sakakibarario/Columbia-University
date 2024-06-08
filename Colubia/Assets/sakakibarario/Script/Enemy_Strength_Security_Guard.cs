@@ -78,8 +78,6 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     {
         if (GameManager.GState == "Playing")
         {
-           
-
             //ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚ğ‹‚ß‚é
             movementx.x = this.transform.position.x - player.transform.position.x;
             movementy.y = this.transform.position.y - player.transform.position.y;

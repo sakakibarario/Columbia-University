@@ -1799,6 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b2cbb52c00b4d4c9562d042ebfb23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBox: 0
 --- !u!114 &541964336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,9 +1817,9 @@ MonoBehaviour:
   sceneName1: Stage1M
   sceneName2: Stage2M
   sceneName3: Stage3M
-  sceneNameS: 
-  sceneNameH: 
-  sceneNameT: 
+  sceneNameS: KeyPadScene
+  sceneNameH: HomeScene
+  sceneNameT: TitleScene
   loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!4 &548644608 stripped
@@ -5068,11 +5069,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2246733928780211240, guid: ba69986b944148349967b5fc4f8b1c30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.49
+      value: -6.33
       objectReference: {fileID: 0}
     - target: {fileID: 2246733928780211240, guid: ba69986b944148349967b5fc4f8b1c30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: -4.02
       objectReference: {fileID: 0}
     - target: {fileID: 2246733928780211240, guid: ba69986b944148349967b5fc4f8b1c30, type: 3}
       propertyPath: m_LocalPosition.z

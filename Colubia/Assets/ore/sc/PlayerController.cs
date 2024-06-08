@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool CanMove = true;
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
-    private bool isTenjo = false;
+    public bool isTenjo = false;
     private bool top = false;
     private bool under = false;
 
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     //  重力管理
     public bool CanSwitchGravity = true;
     private float GravityPoint;
+    public bool isCeiling = false;
 
     //  回転管理
     private float PlayerAngle = 0;
@@ -307,6 +308,7 @@ public class PlayerController : MonoBehaviour
 
     void GravityChange()
     {
+        isCeiling = true;
         playerX = 0;//  移動中に反転できないようにできる
         CanSwitchGravity = false;
         CanMove = false;
@@ -350,8 +352,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.25f);
         CanMove = true; //着地後に移動できるようにする
         CanInteract = true;
-        yield return new WaitForSecondsRealtime(1.75f);
+        yield return new WaitForSecondsRealtime(0.2f);
+        isCeiling = false;
+        yield return new WaitForSecondsRealtime(1.55f);
         CanSwitchGravity = true;
+       
     }
 
     IEnumerator Interactive(string anyOBJ)
@@ -556,6 +561,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Safe")
             safeController = collision.GetComponent<SafeController>();
 
+        if (collision.gameObject.tag == "BoxON")
+            Camera.OnBox = true;
+       
+        if (collision.gameObject.tag == "BoxOFF")
+            Camera.OnBox = false;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
