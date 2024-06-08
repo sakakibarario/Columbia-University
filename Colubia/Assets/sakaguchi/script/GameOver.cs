@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    Vector3 position = new Vector3(3.5f, 2.0f, 0.0f);
+    Vector3 position = new Vector3(3.5f, 1.5f, 0.0f);
     Vector3 scale = new Vector3(-0.7f, -0.7f, 0.0f);
     // Start is called before the first frame update
     void Start()
@@ -19,15 +19,5 @@ public class GameOver : MonoBehaviour
         transform.localScale += scale * Time.deltaTime;
     }
 
-    public void OnClickEnd()
-    {
-        //ゲームの状態をhomeに変更
-        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
-    }
-
-    public void OnClickRetry()
-    {
-        //ゲームの状態をplayingに変更
-        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
-    }
+   
 }
