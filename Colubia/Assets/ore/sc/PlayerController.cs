@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb2D;
     Vector2 position;
 
+    GravityChangeIconController gravityChangeIconController;
     StunGunIconController stunGunIconController;
     LockerController lockerController;
     PaperController paperController;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         spriteColor = sp.color;
         stunGunIconController = GameObject.Find("StunGunIconCover").GetComponent<StunGunIconController>();
+        gravityChangeIconController = GameObject.Find("GravityChangeIconCover").GetComponent<GravityChangeIconController>();
 
         Camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
@@ -284,7 +286,9 @@ public class PlayerController : MonoBehaviour
         CanMove = false;
         CanInteract = false;
 
+        gravityChangeIconController.countTime = gravityChangeIconController.count;
         stungun.SetActive(false);
+
 
         //　重力を反転させる
         rb2D.gravityScale *= -1;
@@ -324,8 +328,9 @@ public class PlayerController : MonoBehaviour
         CanInteract = true;
         yield return new WaitForSecondsRealtime(0.2f);
         isCeiling = false;
-        yield return new WaitForSecondsRealtime(1.55f);
-        CanSwitchGravity = true;
+
+        //yield return new WaitForSecondsRealtime(1.55f);
+        //CanSwitchGravity = true;
        
     }
 

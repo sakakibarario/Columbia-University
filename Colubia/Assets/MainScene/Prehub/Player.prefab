@@ -252,12 +252,12 @@ MonoBehaviour:
   Ladder_SE: {fileID: 8300000, guid: b0bfa026e16182a41836863c2f4e02b5, type: 3}
   hideduration: 0.005
   speed: 4
-  isTenjo: 0
+  isCeilingWalk: 0
   CanInteract: 1
   inLocker: 0
   CanSwitchGravity: 1
   isCeiling: 0
-  Battery: 2
+  Battery: 3
   onFire: 0
   CanUseStungun: 1
   onLadder: 0
