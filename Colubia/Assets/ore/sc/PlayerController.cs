@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject childLadder;
     Rigidbody2D rb2D;
     Vector2 position;
 
@@ -74,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     //  ladder
     public bool onLadder = false;
+    public bool inTopArea = false;
+    public bool inBottomArea = false;
 
 
     float mcount = 0.3f;
@@ -124,16 +127,14 @@ public class PlayerController : MonoBehaviour
             if (onLadder)
             {
                 //　Sを押したら下に進む
-                if (Input.GetKey(KeyCode.S) && under != true)
+                if (Input.GetKey(KeyCode.S) && !inBottomArea)
                 {
-                    top = false;
                     playerY = -speed;
                     animator.Play("climb");
                 }
                 //　Wを押したら上に進む
-                else if (Input.GetKey(KeyCode.W) && top != true)
+                else if (Input.GetKey(KeyCode.W) && !inTopArea)
                 {
-                    under = false;
                     playerY = speed;
                     animator.Play("climb");
                 }
@@ -183,14 +184,14 @@ public class PlayerController : MonoBehaviour
             }
 
             //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
-            if (ladderController == null && CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
+            if (ladderController == null && CanSwitchGravity && inLocker == false && onLadder == false)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                     GravityChange();
             }
 
             ////　スタンガン
-            if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false */&& onLadder == false)
+            if (CanSwitchGravity && inLocker == false && onLadder == false)
             {
                 if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0)
                 {
@@ -226,30 +227,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //　ペーパーのボタンガイドがアクティブなら
-            //if (paperController != null && paperController.PaperF.activeSelf)
-            //{
-            //    if (Input.GetKey(KeyCode.F) && isInteract == true)
-            //    {
-            //        isInteract = false;
-            //        StartCoroutine(Interactive("Paper"));
-            //    }
-            //}
-            //  ペーパーを見てる時　＆＆　ペーパーESCガイドが有効の時
-            //if (paperController != null && isLookPaper == true && paperController.PaperESC.activeSelf)
-            //{
-            //    if (Input.GetKey(KeyCode.Escape))
-            //    {
-            //        Debug.Log("iashd");
-            //        isLookPaper = false;
-            //        Onmove = true;
-            //        paperController.PaperESC.SetActive(false);
-            //        paperController.PaperLook.SetActive(false);
-
-            //        isInteract = true;
-            //    }
-            //}
-
             //　バッテリー
             if (batteryController != null && batteryController.BatteryF.activeSelf)
             {
@@ -264,7 +241,7 @@ public class PlayerController : MonoBehaviour
             //  ladder
             if (ladderController != null)
             {
-                if (CanSwitchGravity && inLocker == false /*&& isLookPaper == false*/ && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
+                if (CanSwitchGravity && inLocker == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
                     if (isTenjo == false && Input.GetKey(KeyCode.F) && CanInteract == true)
                     {
@@ -273,30 +250,17 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
-                for (int i = 0; i < ladderController.childLadder.Length; i++)
+                if (inBottomArea || inTopArea)
                 {
-                    if (ladderController.childLadder[i].GetComponent<LadderController>() != null)
+                    if (Input.GetKey(KeyCode.Space))
                     {
-                        if (transform.position.y <= ladderController.transform.position.y - 0.4 ||
-                            transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4 && onLadder)
-                        {
-                            if (transform.position.y >= ladderController.childLadder[i].transform.position.y + 0.4)
-                                top = true;//playerY = 0;    //梯子の一番上まで登った時に降りるように促すため
-                            if (transform.position.y <= ladderController.transform.position.y - 0.4)
-                                under = true;
-                            if (Input.GetKey(KeyCode.Space))
-                            {
-                                onLadder = false;
-                                CanMove = true;
-                                CanInteract = true;
-                                top = false; under = false;
+                        onLadder = false;
+                        CanMove = true;
+                        CanInteract = true;
 
-                                ladderController.childLadder[i].GetComponent<BoxCollider2D>().enabled = true;
-                                rb2D.gravityScale = GravityPoint;
-                            }
-                        }
+                        childLadder.GetComponent<BoxCollider2D>().enabled = true;
+                        rb2D.gravityScale = GravityPoint;
                     }
-
                 }
             }
             if (onLadder == false)
@@ -406,19 +370,6 @@ public class PlayerController : MonoBehaviour
             CanInteract = true;
         }
 
-        //if (anyOBJ == "Paper") 
-        //{
-        //    if(isLookPaper==false)
-        //    {
-        //        isLookPaper = true;
-        //        Onmove = false;
-        //        paperController.PaperLook.SetActive(true);
-
-        //        yield return new WaitForSeconds(2f);
-        //        paperController.PaperESC.SetActive(true);
-        //    }
-        //}
-
         if (anyOBJ == "Battery")
         {
             Battery += 1;
@@ -435,10 +386,9 @@ public class PlayerController : MonoBehaviour
             onLadder = true;
             CanMove = false;
 
-            GameObject childLadder;
             for(int i =0; ; i++)
             {
-                if (ladderController.childLadder[i].GetComponent<BoxCollider2D>() != null)
+                if (ladderController.childLadder[i].name == "ladderTOP")
                 {
                     childLadder = ladderController.childLadder[i];
                     break;
@@ -549,6 +499,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "ladder")
             ladderController = collision.GetComponent<LadderController>();
 
+        if (collision.gameObject.name == "ladderTopLeftArea")
+            inTopArea = true;
+
         if (collision.gameObject.tag == "Locker")
             lockerController = collision.GetComponent<LockerController>();
 
@@ -572,6 +525,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "ladder")
             ladderController    = null;
+
+        if (collision.gameObject.name == "ladderTopLeftArea")
+            inTopArea = false;
 
         if (collision.gameObject.tag == "Locker")
             lockerController    = null;
