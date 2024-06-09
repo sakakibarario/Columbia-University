@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mark : MonoBehaviour
 {
-    GameObject player;
+    PlayerController PlayerController;
 
     //マーク用
     public GameObject Exclamation_mark;
@@ -23,18 +23,19 @@ public class Mark : MonoBehaviour
         AudioFlag = true;
         Exclamation_mark.SetActive(false);
         Question_mark.SetActive(false);
+        //Player　のゲームオブジェクトを得る
+        PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Player　のゲームオブジェクトを得る
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (transform.position.x < player.transform.position.x)
+
+        if (transform.position.x < PlayerController.transform.position.x)
         {
             Question_mark.transform.localScale = new Vector2(-0.7f, 0.7f);//左向き
         }
-        else if (transform.position.x > player.transform.position.x)
+        else if (transform.position.x > PlayerController.transform.position.x)
         {
             Question_mark.transform.localScale = new Vector2(0.7f, 0.7f);//左向き
         }
@@ -44,7 +45,7 @@ public class Mark : MonoBehaviour
         {
             Exclamation_mark.SetActive(true);
 
-            if(AudioFlag)
+            if (AudioFlag)
             {
                 //オーディオ再生
                 AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
@@ -58,7 +59,8 @@ public class Mark : MonoBehaviour
 
         if(Enemy_Strength_Security_Guard.EMove_Stop_mark)//主人公見失い時
         {
-             Question_mark.SetActive(true);
+            Debug.Log("未発見");
+            Question_mark.SetActive(true);
 
             if (!AudioFlag)
             {

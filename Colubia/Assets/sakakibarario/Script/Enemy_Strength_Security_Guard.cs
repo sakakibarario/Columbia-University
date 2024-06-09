@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_Strength_Security_Guard : MonoBehaviour
 {
     Rigidbody2D rb;
-    GameObject player;
+    private GameObject player;
     PlayerController PlayerController;
     //GameObject MyEnemy;
 
@@ -47,6 +47,9 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
+        //Player　のゲームオブジェクトを得る
+        //player = GameObject.FindGameObjectWithTag("Player");
+
         PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         //最初の動き出す時間を変える
         countleftTime = Enemy_Start_Count;
@@ -60,9 +63,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Player　のゲームオブジェクトを得る
-         player = GameObject.FindGameObjectWithTag("Player");
-        if(GameManager.GState == "Pose")
+        if (GameManager.GState == "Pose")
         {
             animator.Play(stopAnime);    //アニメーション再生
             Moved_Enemy = true;//初期位置に戻す
@@ -71,6 +72,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
         if(PlayerController.inLocker == true)
         {
+            Debug.Log("ロッカー");
             isActive = false;
         }
     }
@@ -79,20 +81,23 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         if (GameManager.GState == "Playing")
         {
             //プレイヤーとの距離を求める
-            movementx.x = this.transform.position.x - player.transform.position.x;
-            movementy.y = this.transform.position.y - player.transform.position.y;
+            movementx.x = this.transform.position.x - PlayerController.transform.position.x;
+            movementy.y = this.transform.position.y - PlayerController.transform.position.y;
             float distx = movementx.magnitude;
             float disty = movementy.magnitude;
 
             if (disty < reactionDistanceY && distx < reactionDistanceX && PlayerController.inLocker == false)
             {
+              
                 isActive = true; //アクティブにする
+                Debug.Log(isActive);
                 EMove_Stop_mark = false;
             }
             else
             {
                 isActive = false; //非アクティブにする
-               
+
+                Debug.Log("mihakken");
                 if (Moved_Enemy)
                 {
                     MoveBack();
@@ -147,7 +152,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                 countleftTime = 3.0f;//カウントリセット
                 countrightTime = 3.0f;//カウントリセット
                  // PLAYERの位置を取得
-                Vector2 targetPos = player.transform.position;
+                Vector2 targetPos = PlayerController.transform.position;
                 // PLAYERのx座標
                 float x = targetPos.x;
                 // ENEMYは、地面を移動させるので座標は常に0とする
@@ -158,11 +163,11 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
                 // ENEMYのRigidbody2Dに移動速度を指定する
                 rb.velocity = direction * speed_P;
                 //反転
-                if (transform.position.x < player.transform.position.x)
+                if (transform.position.x < PlayerController.transform.position.x)
                 {
                     this.transform.localScale = new Vector2(-0.6f, 0.6f);//左向き
                 }
-                else if (transform.position.x > player.transform.position.x)
+                else if (transform.position.x > PlayerController.transform.position.x)
                 {
                     this.transform.localScale = new Vector2(0.6f, 0.6f);//左向き
                 }
