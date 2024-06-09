@@ -54,17 +54,16 @@ public class RandomQestion : MonoBehaviour
         AdvancedQuestion2.SetActive(false);
         AdvancedQuestion3.SetActive(false);
 
-
+        RndQ();
     }
 
-    // Update is called once per frame
-    void Update()
+    void RndQ()
     {
-        if(BeginnerQuestionFlag)//èâãâ
-        {          
-            int rand = Random.Range(1,4);
-            
-            switch(rand)
+        if (BeginnerQuestionFlag)//èâãâ
+        {
+            int rand = Random.Range(1, 4);
+            Debug.Log(rand);
+            switch (rand)
             {
                 case 1:
                     int[] beginner1 = new int[4] { 8, 7, 5, 3 };
@@ -82,15 +81,15 @@ public class RandomQestion : MonoBehaviour
                     int[] beginner3 = new int[4] { 4, 8, 4, 2 };
                     BeginnerQuestion3.SetActive(true);
                     RandomQuestion(beginner3);
-                    break;                
-            }           
+                    break;
+            }
         }
 
-        if(IntermediateQestionFlag)//íÜãâ
+        if (IntermediateQestionFlag)//íÜãâ
         {
-           
+
             int rand = Random.Range(1, 4);
-          
+
             switch (rand)
             {
                 case 1:
@@ -117,11 +116,11 @@ public class RandomQestion : MonoBehaviour
             }
         }
 
-        if(AdvancedQuestionFlag)//è„ãâ
+        if (AdvancedQuestionFlag)//è„ãâ
         {
             int rand = Random.Range(1, 4);
 
-            switch(rand)
+            switch (rand)
             {
                 case 1:
                     int[] Advanced1 = new int[4] { 1, 5, 7, 9 };
@@ -146,10 +145,14 @@ public class RandomQestion : MonoBehaviour
             }
         }
     }
+    // Update is called once per frame
+    void Update()
+    {
+      
+    }
 
     public void RandomQuestion(int[] Q)
     {
-        Debug.LogError(RandomQestion.AdvancedQuestionFlag);
         //BeginnerQuestionFlag = false;
         //IntermediateQestionFlag = false;
         //AdvancedQuestionFlag = false;
