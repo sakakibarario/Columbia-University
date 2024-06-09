@@ -86,8 +86,15 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         if(PlayerController.inLocker == true)
         {
             Debug.Log("ÉçÉbÉJÅ[");
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             isActive = false;
         }
+        else
+        {
+            rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+
+        }
+            
 
         if (transform.position.x < PlayerController.transform.position.x)
         {

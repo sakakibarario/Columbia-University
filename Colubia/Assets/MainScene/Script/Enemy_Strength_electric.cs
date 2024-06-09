@@ -11,7 +11,7 @@ public class Enemy_Strength_electric : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        enemy_Strength = GameObject.FindWithTag("Enemy_Strength_Security_Guard").GetComponent<Enemy_Strength_Security_Guard>();
+        enemy_Strength = GetComponent<Enemy_Strength_Security_Guard>();
     }
 
     // Update is called once per frame

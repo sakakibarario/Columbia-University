@@ -14,7 +14,7 @@ public class Enemy_electric : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         //ゲームオブジェクトを得る
-        enemy_Guard = GameObject.FindWithTag("Enemy_security_guard").GetComponent<Enemy_security_guard>();
+        enemy_Guard = GetComponent<Enemy_security_guard>();
     }
 
     // Update is called once per frame

@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
+  Enemy_Start_Count: 3
 --- !u!61 &3401832122273131095
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -346,4 +347,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 7
