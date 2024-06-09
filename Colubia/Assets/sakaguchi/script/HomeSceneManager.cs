@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class HomeSceneManager : MonoBehaviour
 {
+    AudioSource audioSource;
 
     //public GameObject Stage1;
     //public GameObject Stage2;
@@ -13,6 +14,8 @@ public class HomeSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         RandomQestion.BeginnerQuestionFlag = false;
         RandomQestion.IntermediateQestionFlag = false;
         RandomQestion.AdvancedQuestionFlag = false;
@@ -31,6 +34,7 @@ public class HomeSceneManager : MonoBehaviour
             RandomQestion.BeginnerQuestionFlag = true;
             // ゲームオーバー処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+            audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.BeginnerQuestionFlag);
         }
 
@@ -40,6 +44,7 @@ public class HomeSceneManager : MonoBehaviour
             RandomQestion.IntermediateQestionFlag = true;
             // ゲームオーバー処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+            audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.IntermediateQestionFlag);
         }
 
@@ -49,6 +54,7 @@ public class HomeSceneManager : MonoBehaviour
             RandomQestion.AdvancedQuestionFlag = true;
             // ゲームオーバー処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+            audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.AdvancedQuestionFlag);
         }
     }
