@@ -8,10 +8,10 @@ public class TimerCount : MonoBehaviour
 {
     PlayerController PlayerController;
 
-    //秒カウントダウン
+    //秒カウント
     private float countupsecond = 0;
 
-    //分カウントダウン
+    //分カウント
     private int countupinute = 0;
 
 
