@@ -251,15 +251,18 @@ MonoBehaviour:
   Locker_HeartBeat_SE: {fileID: 8300000, guid: 8ec9a0f29fda79f4f9c89aa0c6c2fecd, type: 3}
   Ladder_SE: {fileID: 8300000, guid: b0bfa026e16182a41836863c2f4e02b5, type: 3}
   hideduration: 0.005
-  speed: 3
-  isInteract: 1
+  speed: 4
+  isTenjo: 0
+  CanInteract: 1
   inLocker: 0
-  isLookPaper: 0
-  SwitchGravity: 1
+  CanSwitchGravity: 1
+  isCeiling: 0
   Battery: 2
   onFire: 0
   CanUseStungun: 1
   onLadder: 0
+  inTopArea: 0
+  inBottomArea: 0
 --- !u!82 &2246733928780211245
 AudioSource:
   m_ObjectHideFlags: 0
