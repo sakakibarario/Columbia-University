@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     //ゲームステート
     public enum GameState
     {
@@ -37,14 +38,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+     
     }
 
     //Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-            dispatch(GameState.Playing);
+        //if (Input.GetButtonDown("Fire1"))
+        //    dispatch(GameState.Playing);
     }
 
     // 状態による振り分け処理
