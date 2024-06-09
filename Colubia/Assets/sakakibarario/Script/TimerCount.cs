@@ -8,10 +8,10 @@ public class TimerCount : MonoBehaviour
 {
     PlayerController PlayerController;
 
-    //秒カウントダウン
+    //秒カウント
     private float countupsecond = 0;
 
-    //分カウントダウン
+    //分カウント
     private int countupinute = 0;
 
 
@@ -31,30 +31,30 @@ public class TimerCount : MonoBehaviour
     void Update()
     {
 
-        if (PlayerController.inLocker == false && PlayerController.onLadder == false &&
-            PlayerController.CanInteract == true && PlayerController.onFire == false &&
-            PlayerController.CanSwitchGravity == true)
-        {
-            //クリックされたとき
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                //ポーズ中にクリックされたとき
-                if (isPose)
-                {
-                    //ポーズ状態を解除する
-                    FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
-                    isPose = false;
+        //if (PlayerController.inLocker == false && PlayerController.onLadder == false &&
+        //    PlayerController.CanInteract == true && PlayerController.onFire == false &&
+        //    PlayerController.CanSwitchGravity == true)
+        //{
+        //    //クリックされたとき
+        //    if (Input.GetKeyDown(KeyCode.Tab))
+        //    {
+        //        //ポーズ中にクリックされたとき
+        //        if (isPose)
+        //        {
+        //            //ポーズ状態を解除する
+        //            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+        //            isPose = false;
 
-                }
-                //進行中にクリックされたとき
-                else
-                {
-                    //ポーズ状態にする
-                    FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Pose);
-                    isPose = true;
-                }
-            }
-        }
+        //        }
+        //        //進行中にクリックされたとき
+        //        else
+        //        {
+        //            //ポーズ状態にする
+        //            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Pose);
+        //            isPose = true;
+        //        }
+        //    }
+        //}
 
 
         if (GameManager.GState != "Playing")

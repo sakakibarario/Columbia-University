@@ -11,7 +11,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
 
     //“G‚Ì“®‚«
     public float speed = 4.0f;
-    float speed_P = 1.0f;
+    float speed_P = 2.5f;
     private int distance_traveled = 7;//ˆÚ“®‹——£
     private bool EMove_Stop = true;
     static public bool EMove_Stop_mark = false;

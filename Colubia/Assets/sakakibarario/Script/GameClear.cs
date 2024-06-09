@@ -59,7 +59,7 @@ public class GameClear : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
         //オーディオ再生
-        AudioSource.PlayOneShot(ClearStampSE, 1.0f);
+        AudioSource.PlayOneShot(ClearStampSE, 2.5f);
         yield return new WaitForSeconds(0.2f);
         //スタンプ表示
         ClearStamp.gameObject.SetActive(true);
