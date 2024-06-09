@@ -458,11 +458,7 @@ Transform:
   m_Children:
   - {fileID: 1972755315}
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 8
-=======
   m_RootOrder: 12
->>>>>>> main
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &77769547
 PrefabInstance:
@@ -6601,8 +6597,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9097141416391189608, guid: 611bd5a8d6d63d646acc8f2601989392, type: 3}
   m_PrefabInstance: {fileID: 1216372057}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
 --- !u!1001 &1406173957
 PrefabInstance:
   m_ObjectHideFlags: 0
