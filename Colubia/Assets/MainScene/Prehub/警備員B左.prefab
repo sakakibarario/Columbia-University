@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 1539815697659627117}
   - component: {fileID: 1539815697659627118}
   - component: {fileID: 1539815697659627115}
+  - component: {fileID: 8751858355872209643}
   - component: {fileID: 1539815697659627113}
   m_Layer: 0
   m_Name: "\u8B66\u5099\u54E1B\u5DE6"
@@ -331,6 +332,19 @@ MonoBehaviour:
   Enemy_start_count: 4
   stopAnime: Enemy_security_guardB_stand
   moveAnime: Enemy_security_guardB_run
+--- !u!114 &8751858355872209643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539815697659627104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a5e21924b7e524abf8c9b1818c9947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electricAnime: Enemy_electric
 --- !u!95 &1539815697659627113
 Animator:
   serializedVersion: 5
