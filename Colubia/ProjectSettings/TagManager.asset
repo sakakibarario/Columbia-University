@@ -31,6 +31,7 @@ TagManager:
   - Safe
   - BoxOFF
   - BoxON
+  - Demo
   layers:
   - Default
   - TransparentFX

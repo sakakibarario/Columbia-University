@@ -32,7 +32,7 @@ public class HomeSceneManager : MonoBehaviour
         {
             Debug.Log("Stage1");
             RandomQestion.BeginnerQuestionFlag = true;
-            // ゲームオーバー処理を呼ぶ
+            // Playing処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.BeginnerQuestionFlag);
@@ -42,7 +42,7 @@ public class HomeSceneManager : MonoBehaviour
         {
             Debug.Log("Stage2");
             RandomQestion.IntermediateQestionFlag = true;
-            // ゲームオーバー処理を呼ぶ
+            // Playing処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.IntermediateQestionFlag);
@@ -52,10 +52,17 @@ public class HomeSceneManager : MonoBehaviour
         {
             Debug.Log("Stage3");
             RandomQestion.AdvancedQuestionFlag = true;
-            // ゲームオーバー処理を呼ぶ
+            // Playing処理を呼ぶ
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
             audioSource.PlayOneShot(audioSource.clip);
             Debug.Log(RandomQestion.AdvancedQuestionFlag);
+        }
+
+        if (gameObject.tag == "Demo")
+        {
+            // Demo処理を呼ぶ
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Demo);
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 }

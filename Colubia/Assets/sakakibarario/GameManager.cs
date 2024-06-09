@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
         Home,
         Pose,
         Title,
-        Safe
+        Safe,
+        Demo
     }
     //フェード用
     public string sceneNameO;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     public string sceneNameS;
     public string sceneNameH;
     public string sceneNameT;
+    public string sceneNameD;
 
     public Color loadToColor = Color.white;
     public float fadeSpeed;
@@ -75,9 +77,19 @@ public class GameManager : MonoBehaviour
             case GameState.Safe:
                 GameSafe();
                 break;
+            case GameState.Demo:
+                GameDemo();
+                break;
         }
 
     }
+
+    void GameDemo()
+    {
+        Debug.Log("Demo");
+        Initiate.Fade(sceneNameD, loadToColor, fadeSpeed);
+    }
+
     void GameTitle()
     {
         Debug.Log("Title");

@@ -805,6 +805,7 @@ MonoBehaviour:
   sceneNameS: KeyPadScene
   sceneNameH: HomeScene
   sceneNameT: TitleScene
+  sceneNameD: Tutorial
   loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!82 &703865686
