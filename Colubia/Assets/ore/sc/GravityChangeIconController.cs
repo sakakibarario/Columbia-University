@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StunGunIconController : MonoBehaviour
+public class GravityChangeIconController : MonoBehaviour
 {
     PlayerController player;
     Image img;
@@ -22,24 +22,22 @@ public class StunGunIconController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!player.CanUseStungun)
+        if (!player.CanSwitchGravity)
         {
-            if(startcooltime)
+            if (startcooltime)
             {
                 img.fillAmount = 1.0f;
                 startcooltime = false;
             }
-
             img.fillAmount -= 1.0f / countTime * Time.deltaTime;
-            if(img.fillAmount <= 0 )
-                player.CanUseStungun = true;
+            if (img.fillAmount <= 0)
+                player.CanSwitchGravity = true;
         }
         else
         {
-            Debug.Log(img.fillAmount);
             img.fillAmount = 0.0f;
             startcooltime = true;
         }
-            
+
     }
 }
