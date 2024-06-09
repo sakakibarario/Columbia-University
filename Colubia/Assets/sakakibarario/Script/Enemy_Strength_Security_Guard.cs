@@ -28,13 +28,23 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
     //playerとの距離
     public float reactionDistanceX = 10.0f;//距離
     public float reactionDistanceY = 4.0f;//距離
-    static public bool isActive = false;
+    private bool isActive = false;
     private bool Moved_Enemy = false;
 
     //アニメーション用
     Animator animator; //アニメーター
     private string stopAnime = "Enemy_Strength_Security_Guard_stand";
     private string moveAnime = "Enemy_Strength_Security_Guard_run";
+
+    //マーク用
+    public GameObject Exclamation_mark;
+    public GameObject Question_mark;
+
+    //SE用
+    AudioSource AudioSource;
+    public AudioClip ExclamationAudio;
+    public AudioClip QuestionAuidoname;
+    private bool AudioFlag = false;
 
     Vector2 MyEnemy = new Vector2(0, 0);
     Vector2 MyEnemy2 = new Vector2(0, 0);
@@ -47,9 +57,12 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        //Player　のゲームオブジェクトを得る
-        //player = GameObject.FindGameObjectWithTag("Player");
+        AudioSource = GetComponent<AudioSource>();
+        AudioFlag = true;
+        Exclamation_mark.SetActive(false);
+        Question_mark.SetActive(false);
 
+        //Player　のゲームオブジェクトを得る
         PlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         //最初の動き出す時間を変える
         countleftTime = Enemy_Start_Count;
@@ -74,6 +87,49 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
         {
             Debug.Log("ロッカー");
             isActive = false;
+        }
+
+        if (transform.position.x < PlayerController.transform.position.x)
+        {
+            Question_mark.transform.localScale = new Vector2(-0.7f, 0.7f);//左向き
+        }
+        else if (transform.position.x > PlayerController.transform.position.x)
+        {
+            Question_mark.transform.localScale = new Vector2(0.7f, 0.7f);//左向き
+        }
+
+
+        if (isActive)//主人公発見時
+        {
+            Exclamation_mark.SetActive(true);
+
+            if (AudioFlag)
+            {
+                //オーディオ再生
+                AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
+                AudioFlag = false;
+            }
+        }
+        else
+        {
+            Exclamation_mark.SetActive(false);
+        }
+
+        if (EMove_Stop_mark)//主人公見失い時
+        {
+            Debug.Log("未発見");
+            Question_mark.SetActive(true);
+
+            if (!AudioFlag)
+            {
+                //オーディオ再生
+                AudioSource.PlayOneShot(QuestionAuidoname, 1.0f);
+                AudioFlag = true;
+            }
+        }
+        else
+        {
+            Question_mark.SetActive(false);
         }
     }
     private void FixedUpdate()

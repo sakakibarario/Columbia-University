@@ -41,21 +41,21 @@ public class Mark : MonoBehaviour
         }
 
 
-        if (Enemy_Strength_Security_Guard.isActive)//主人公発見時
-        {
-            Exclamation_mark.SetActive(true);
+        //if (Enemy_Strength_Security_Guard.isActive)//主人公発見時
+        //{
+        //    Exclamation_mark.SetActive(true);
 
-            if (AudioFlag)
-            {
-                //オーディオ再生
-                AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
-                AudioFlag = false;
-            }
-        }
-        else
-        {
-            Exclamation_mark.SetActive(false);
-        }
+        //    if (AudioFlag)
+        //    {
+        //        //オーディオ再生
+        //        AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
+        //        AudioFlag = false;
+        //    }
+        //}
+        //else
+        //{
+        //    Exclamation_mark.SetActive(false);
+        //}
 
         if(Enemy_Strength_Security_Guard.EMove_Stop_mark)//主人公見失い時
         {
