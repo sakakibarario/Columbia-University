@@ -346,8 +346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -17.463, y: -1.441}
-  m_SizeDelta: {x: -47.7911, y: -10.9176}
+  m_AnchoredPosition: {x: -17.6033, y: -1.441}
+  m_SizeDelta: {x: -47.5104, y: -10.9176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141146815
 MonoBehaviour:
@@ -866,10 +866,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u91D1\u5EAB\u3092\u958B\u3051\u3066\u4F9D\u983C\u7269\u3092\u53D6\u308D\u3046"
+  m_text: Open the SAFE and get the requested item
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
-  m_sharedMaterial: {fileID: 2916505461043112277, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1001,10 +1001,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5DE6\u30B7\u30D5\u30C8\u3092\u62BC\u3057\u3066\n\u5929\u4E95\u3092\u79FB\u52D5\n"
+  m_text: "Press L-Shift \nto move the ceiling"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
-  m_sharedMaterial: {fileID: 2916505461043112277, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1484,6 +1484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007b4ff9fafc53943a2b918d48176825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PullCamera: 0.125
+  PushCamera: 0.015
   EndPoint: 0
 --- !u!114 &813862389
 MonoBehaviour:
@@ -2282,10 +2284,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u68AF\u5B50\u3067\u6607\u308A\u964D\u308A\u3057\u3066\u307F\u3088\u3046"
+  m_text: Try climbing up and down the LADDER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
-  m_sharedMaterial: {fileID: 2916505461043112277, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2547,10 +2549,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30D0\u30C3\u30C6\u30EA\u30FC\u3092\u62FE\u3063\u3066\n\u30B9\u30BF\u30F3\u30AC\u30F3\u3092\u5145\u96FB"
+  m_text: 'Pick up the ''BATTERY''
+
+    and charge the StunGun'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
-  m_sharedMaterial: {fileID: 2916505461043112277, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4658,10 +4662,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30ED\u30C3\u30AB\u30FC\u306B\u96A0\u308C\u3066\u51CC\u3050\u304B\n\u6575(\u4EBA)\u3092\u30B9\u30BF\u30F3\u30AC\u30F3\u3067\u653B\u6483\u3057\u3088\u3046(\u5DE6\u30AF\u30EA\u30C3\u30AF)"
+  m_text: "Hide in a 'LOCKER' to avoid being hit, \nor attack the 'ENEMY' with a
+    stun gun (L-Click)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
-  m_sharedMaterial: {fileID: 2916505461043112277, guid: e5003621a0582d848b10e3f89246dfa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
