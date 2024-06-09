@@ -166,7 +166,7 @@ public class KeyPad_Program : MonoBehaviour
             {
                 Debug.Log("正解");
                 //オーディオ再生
-                AudioSource.PlayOneShot(SuccessSE, 1.5f);
+                AudioSource.PlayOneShot(SuccessSE, 0.5f);
                 FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Clear);
                 break;
                
