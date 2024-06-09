@@ -47,9 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool CanMove = true;
     private bool isMoveLeft = false;
     private bool isMoveRight = false;
-    public bool isTenjo = false;
-    private bool top = false;
-    private bool under = false;
+    public bool isCeilingWalk = false;
 
     public bool CanInteract = true;
 
@@ -100,8 +98,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GState == "Playing")
+        if (GameManager.GState == "Playing"　|| GameManager.GState == "Demo")
         {
+            //  通常時
             if (CanMove)
             {
                 //　Aを押したら左に進む
@@ -124,6 +123,8 @@ public class PlayerController : MonoBehaviour
                     animator.Play("playerstop");
                 }
             }
+
+            //  梯子に乗っているとき
             if (onLadder)
             {
                 //　Sを押したら下に進む
@@ -138,14 +139,16 @@ public class PlayerController : MonoBehaviour
                     playerY = speed;
                     animator.Play("climb");
                 }
+                //  止まってるとき
                 else
                 {
                     playerY = 0;
                     animator.Play("stopclimb");
                 }
-
+                //  動いてるとき、はしごの効果音を鳴らす
                 if (playerY != 0)
                 {
+                    //  クールタイムをつけて音が重複しないようにする
                     mcount -= Time.deltaTime;
                     if (mcount < 0)
                     {
@@ -155,82 +158,85 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            //  キャラクターが進行方向に進むようにする
-            if (!isTenjo)
+            //  キャラクターの向きと進行方向を合わせる
+            if (!isCeilingWalk)   //    地面を歩いてるとき
             {
-                if (isMoveRight)
+                if (isMoveRight)    //  右に進んでるトキ
                 {
                     transform.localScale = new Vector2(-0.7f, 0.7f);
                     stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
-                if (isMoveLeft)
+                if (isMoveLeft)     //  左に進んでるトキ
                 {
                     transform.localScale = new Vector2(0.7f, 0.7f);
                     stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
             }
-            else
+            else     //    天井を歩いてるとき
             {
-                if (isMoveRight)
+                if (isMoveRight)    //  右に進んでるトキ
                 {
                     transform.localScale = new Vector2(0.7f, 0.7f);
                     stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
-                if (isMoveLeft)
+                if (isMoveLeft)     //  左に進んでるトキ
                 {
                     transform.localScale = new Vector2(-0.7f, 0.7f);
                     stungun.transform.localScale = new Vector2(-0.35f, 0.35f);
                 }
             }
 
-            //　Spaceを押したら重力を反転させ、グラフィックの向きを整える
+            //　LeftShiftを押して天井を歩く
             if (ladderController == null && CanSwitchGravity && inLocker == false && onLadder == false)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                     GravityChange();
             }
 
-            ////　スタンガン
+            //　スタンガン
             if (CanSwitchGravity && inLocker == false && onLadder == false)
             {
+                //  左クリック押し込んでるトキ
                 if (Input.GetMouseButtonDown(0) && CanUseStungun && Battery > 0)
                 {
-                    stungun.SetActive(true);
-                    stungun.GetComponent<Animator>().Play("stungun0");
-                    stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();
+                    stungun.SetActive(true);//  スタンガンを表示
+                    stungun.GetComponent<Animator>().Play("stungun0");//    スタンガンのアニメーションを再生
+                    stunGunController = GameObject.Find("stunarea").GetComponent<StunGunController>();  
                 }
 
+                //  左クリック離したトキ
                 if (stunGunController != null && Input.GetMouseButtonUp(0) && CanUseStungun && Battery > 0)
                 {
-                    CanUseStungun = false;
-                    stunGunIconController.countTime = stunGunIconController.count;
-                    StartCoroutine(StunGun());
+                    CanUseStungun = false;//    スタンガン使用中にクリックできないようにする判定
+                    stunGunIconController.countTime = stunGunIconController.count;//    スタンガンのクールタイムを視覚化するための　スタンガンUIのスクリプトの数値を初期化
+                    StartCoroutine(StunGun());  //  スタンガンの処理開始
                 }
             }
 
-            //  ロッカーのボタンガイドがアクティブなら
+            //  ロッカーのボタンガイドがアクティブのトキに　Fを押すとロッカーに隠れる
             if (lockerController != null && lockerController.LockerF.activeSelf)
             {
                 if (Input.GetKey(KeyCode.F) && CanInteract == true)
                 {
-                    CanInteract = false;
-                    StartCoroutine(Interactive("Locker"));
+                    CanInteract = false;//  隠れている間にインタラクトできないようにする
+                    StartCoroutine(Interactive("Locker"));//    ロッカーの処理
                 }
             }
 
+            //  金庫のボタンガイドがアクティブのトキに　Fを押すと金庫を確認
             if (safeController != null && safeController.SafeF.activeSelf)
             {
                 if (Input.GetKey(KeyCode.F) && CanInteract == true)
                 {
-                    CanInteract = false;
-                    StartCoroutine(Interactive("Safe"));
+                    CanInteract = false;//  金庫に触れた時にほかのオブジェクトを触れないようにする
+                    StartCoroutine(Interactive("Safe"));//  金庫の処理開始
                 }
             }
 
-            //　バッテリー
+            //　バッテリーのボタンガイドがアクティブのトキに　Fを押すとバッテリーを拾う
             if (batteryController != null && batteryController.BatteryF.activeSelf)
             {
-                if (Input.GetKey(KeyCode.F) && CanInteract == true && Battery < 5)
+                if (Input.GetKey(KeyCode.F) && CanInteract == true && Battery < 5)//    バッテリーが最大のトキ
                 {
                     CanInteract = false;
                     StartCoroutine(Interactive("Battery"));
@@ -243,7 +249,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (CanSwitchGravity && inLocker == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
-                    if (isTenjo == false && Input.GetKey(KeyCode.F) && CanInteract == true)
+                    if (isCeilingWalk == false && Input.GetKey(KeyCode.F) && CanInteract == true)
                     {
                         CanInteract = false;
                         StartCoroutine(Interactive("Ladder"));
@@ -310,7 +316,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.000025f);
         }
 
-        isTenjo = !isTenjo;
+        isCeilingWalk = !isCeilingWalk;
 
         //  空中で回転できないように少し待機
         yield return new WaitForSecondsRealtime(0.25f);
