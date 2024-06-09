@@ -191,8 +191,12 @@ public class PlayerController : MonoBehaviour
             //　LeftShiftを押して天井を歩く
             if (ladderController == null && CanSwitchGravity && inLocker == false && onLadder == false)
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    CanSwitchGravity = false;
+                    gravityChangeIconController.countTime = gravityChangeIconController.count;
                     GravityChange();
+                }
             }
 
             //　スタンガン
@@ -282,13 +286,10 @@ public class PlayerController : MonoBehaviour
     {
         isCeiling = true;
         playerX = 0;//  移動中に反転できないようにできる
-        CanSwitchGravity = false;
         CanMove = false;
         CanInteract = false;
 
-        gravityChangeIconController.countTime = gravityChangeIconController.count;
         stungun.SetActive(false);
-
 
         //　重力を反転させる
         rb2D.gravityScale *= -1;

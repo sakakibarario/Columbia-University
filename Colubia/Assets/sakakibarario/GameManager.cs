@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     void GameDemo()
     {
+        GState = "Demo";
         Debug.Log("Demo");
         Initiate.Fade(sceneNameD, loadToColor, fadeSpeed);
     }
