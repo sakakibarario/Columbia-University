@@ -23,6 +23,13 @@ public class TitleButton : MonoBehaviour
         //オーディオ再生
         AudioSource.PlayOneShot(ButtonSE, 1.5f);
         //ゲームの状態をtitleに変更
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Home);
+    }
+    public void OnClickT()
+    {
+        //オーディオ再生
+        AudioSource.PlayOneShot(ButtonSE, 1.5f);
+        //ゲームの状態をtitleに変更
         FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
     }
 }

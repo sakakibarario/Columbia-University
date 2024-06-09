@@ -9,6 +9,7 @@ public class GameClear : MonoBehaviour
     public GameObject stage3;
 
     public GameObject ClearStamp;
+    public GameObject HomeButton;
     public GameObject TitleButton;
 
     //SE用
@@ -28,6 +29,7 @@ public class GameClear : MonoBehaviour
 
         ClearStamp.gameObject.SetActive(false);
         TitleButton.gameObject.SetActive(false);
+        HomeButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -67,6 +69,7 @@ public class GameClear : MonoBehaviour
 
         //ボタンの表示
         TitleButton.gameObject.SetActive(true);
+        HomeButton.gameObject.SetActive(true);
         yield break;
     }
 
