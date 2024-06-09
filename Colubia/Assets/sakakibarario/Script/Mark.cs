@@ -47,7 +47,7 @@ public class Mark : MonoBehaviour
             if(AudioFlag)
             {
                 //オーディオ再生
-                AudioSource.PlayOneShot(ExclamationAudio, 0.5f);
+                AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
                 AudioFlag = false;
             }
         }
@@ -63,7 +63,7 @@ public class Mark : MonoBehaviour
             if (!AudioFlag)
             {
                 //オーディオ再生
-                AudioSource.PlayOneShot(QuestionAuidoname, 0.5f);
+                AudioSource.PlayOneShot(QuestionAuidoname, 1.0f);
                 AudioFlag = true;
             }
         }
