@@ -18,7 +18,11 @@ public class KeyPad_Program : MonoBehaviour
     public GameObject Number8;
     public GameObject Number9;
 
-    
+    //SE用
+    AudioSource AudioSource;
+    public AudioClip ButtonSE;
+    public AudioClip SuccessSE;
+    public AudioClip FailureSE;
 
     Vector3 pos1 = new Vector3(-2.1f, 3.31f, 0.0f);
     Vector3 pos2 = new Vector3(-0.9f, 3.31f, 0.0f);
@@ -40,7 +44,7 @@ public class KeyPad_Program : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
-
+        AudioSource = GetComponent<AudioSource>();
         clickCount = 0;
     }
 
@@ -57,7 +61,8 @@ public class KeyPad_Program : MonoBehaviour
 
     public void Click()
     {
-
+        //オーディオ再生
+        AudioSource.PlayOneShot(ButtonSE, 1.5f);
         if (clickCount == 0)
             pos = pos1;
         if (clickCount == 1)
@@ -150,6 +155,8 @@ public class KeyPad_Program : MonoBehaviour
             if (answer[i] != p_answer[i])
             {
                 Debug.Log("不正解");
+                //オーディオ再生
+                AudioSource.PlayOneShot(FailureSE, 1.5f);
                 clickCount = 0;
                 KNumDelete.deleteFlag = true;
 
@@ -158,6 +165,8 @@ public class KeyPad_Program : MonoBehaviour
             else if (i >= 3)
             {
                 Debug.Log("正解");
+                //オーディオ再生
+                AudioSource.PlayOneShot(SuccessSE, 1.5f);
                 FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Clear);
                 break;
                
