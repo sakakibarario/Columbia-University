@@ -8,6 +8,10 @@ public class RandomQestion : MonoBehaviour
     static public bool BeginnerQuestionFlag = false;
     static public bool IntermediateQestionFlag = false;
     static public bool AdvancedQuestionFlag = false;
+    static public bool TutorialFlag = false;
+
+    //チュートリアル
+    public GameObject Tutorial;
 
     //初級
     public GameObject BeginnerQuestion1;
@@ -35,6 +39,9 @@ public class RandomQestion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //チュートリアル
+        Tutorial.SetActive(false);
+
         //初級
         BeginnerQuestion1.SetActive(false);
         BeginnerQuestion2.SetActive(false);
@@ -59,6 +66,13 @@ public class RandomQestion : MonoBehaviour
 
     void RndQ()
     {
+        if(TutorialFlag)
+        {
+            int[] TutorialQ = new int[4] { 6, 9, 1, 2 };
+            Tutorial.SetActive(true);
+            RandomQuestion(TutorialQ);
+        }
+
         if (BeginnerQuestionFlag)//初級
         {
             int rand = Random.Range(1, 4);

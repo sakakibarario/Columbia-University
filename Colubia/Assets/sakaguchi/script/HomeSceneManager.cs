@@ -60,6 +60,8 @@ public class HomeSceneManager : MonoBehaviour
 
         if (gameObject.tag == "Demo")
         {
+            Debug.Log("Demo");
+            RandomQestion.TutorialFlag = true;
             // Demoˆ—‚ğŒÄ‚Ô
             FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Demo);
             audioSource.PlayOneShot(audioSource.clip);

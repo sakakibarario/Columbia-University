@@ -27,7 +27,7 @@ public class SafeImage : MonoBehaviour
         {
             Safe2.gameObject.SetActive(true);
         }
-        if (RandomQestion.AdvancedQuestionFlag == true)
+        if (RandomQestion.AdvancedQuestionFlag == true || RandomQestion.TutorialFlag ==true)
         {
             Safe3.gameObject.SetActive(true);
         }
