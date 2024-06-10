@@ -1278,11 +1278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4085424121431467653, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -243
+      value: -243.00006
       objectReference: {fileID: 0}
     - target: {fileID: 4085424121431467653, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000076293945
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 6435572176306458722, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1370,11 +1370,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6435572177725136165, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 594.44
+      value: 585.5
       objectReference: {fileID: 0}
     - target: {fileID: 6435572177725136165, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -357.4
+      value: -388.40002
       objectReference: {fileID: 0}
     - target: {fileID: 6435572177725136165, guid: 6a430f230476cc14fa29be9bdcd7298e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1541,8 +1541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007b4ff9fafc53943a2b918d48176825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PullCamera: 0.125
-  PushCamera: 0.015
+  PullCamera: 0.2
+  PushCamera: 0.02
   EndPoint: 0
 --- !u!114 &813862389
 MonoBehaviour:
@@ -1914,7 +1914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4991575007460687879, guid: 2ba5a079aef43b740975e8f35c714da4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -254
+      value: -254.00006
       objectReference: {fileID: 0}
     - target: {fileID: 4991575007460687879, guid: 2ba5a079aef43b740975e8f35c714da4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1998,11 +1998,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6794215986070751161, guid: 2ba5a079aef43b740975e8f35c714da4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 347.7
+      value: 317.7
       objectReference: {fileID: 0}
     - target: {fileID: 6794215986070751161, guid: 2ba5a079aef43b740975e8f35c714da4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -358.1
+      value: -388.7
       objectReference: {fileID: 0}
     - target: {fileID: 6794215986070751161, guid: 2ba5a079aef43b740975e8f35c714da4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4633,7 +4633,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 998
+  m_SortingOrder: 19
   m_TargetDisplay: 0
 --- !u!224 &1661387885
 RectTransform:
