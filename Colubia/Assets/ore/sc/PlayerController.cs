@@ -568,7 +568,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        ladderController = null;
+        if (collision.gameObject.tag == "ladder")
+        {
+            ladderController = null;
+        }
     }
 
     //  pose宙に動けなくする
