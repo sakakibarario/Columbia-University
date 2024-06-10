@@ -324,15 +324,16 @@ public class PlayerController : MonoBehaviour
         isCeilingWalk = !isCeilingWalk;
 
         //  空中で回転できないように少し待機
-        yield return new WaitForSecondsRealtime(0.25f);
-        CanMove = true; //着地後に移動できるようにする
+        yield return new WaitForSecondsRealtime(0.3f);
         CanInteract = true;
-        yield return new WaitForSecondsRealtime(0.2f);
+        //yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.15f);
         isCeiling = false;
+        CanMove = true; //着地後に移動できるようにする
 
         //yield return new WaitForSecondsRealtime(1.55f);
         //CanSwitchGravity = true;
-       
+
     }
 
     IEnumerator Interactive(string anyOBJ)
