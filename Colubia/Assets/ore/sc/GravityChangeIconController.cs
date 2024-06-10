@@ -8,8 +8,8 @@ public class GravityChangeIconController : MonoBehaviour
     PlayerController player;
     Image img;
 
-    public int count = 10;
-    public int countTime;
+    public float count = 1.5f;
+    public float countTime;
     float timer;
     bool startcooltime = true;
     // Start is called before the first frame update

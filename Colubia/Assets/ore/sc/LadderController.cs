@@ -31,8 +31,6 @@ public class LadderController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("asiudhgwiu");
-
             if (PlayerCTRL.onLadder == false)
             {
                 if (this.name != "ladderTopLeftArea")

@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //  ladder
-            if (ladderController != null)
+            if(ladderController != null)
             {
                 if (CanSwitchGravity && inLocker == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
@@ -261,18 +261,18 @@ public class PlayerController : MonoBehaviour
                         StartCoroutine(Interactive("Ladder"));
                     }
                 }
+            }
 
-                if (inBottomArea || inTopArea)
+            if (inBottomArea || inTopArea)
+            {
+                if (Input.GetKey(KeyCode.Space))
                 {
-                    if (Input.GetKey(KeyCode.Space))
-                    {
-                        onLadder = false;
-                        CanMove = true;
-                        CanInteract = true;
+                    onLadder = false;
+                    CanMove = true;
+                    CanInteract = true;
 
-                        childLadder.GetComponent<BoxCollider2D>().enabled = true;
-                        rb2D.gravityScale = GravityPoint;
-                    }
+                    childLadder.GetComponent<BoxCollider2D>().enabled = true;
+                    rb2D.gravityScale = GravityPoint;
                 }
             }
             if (onLadder == false)
