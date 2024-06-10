@@ -324,10 +324,10 @@ public class PlayerController : MonoBehaviour
         isCeilingWalk = !isCeilingWalk;
 
         //  空中で回転できないように少し待機
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         CanInteract = true;
         //yield return new WaitForSecondsRealtime(0.2f);
-        yield return new WaitForSecondsRealtime(0.15f);
+        yield return new WaitForSecondsRealtime(0.25f);
         isCeiling = false;
         CanMove = true; //着地後に移動できるようにする
 
@@ -346,6 +346,7 @@ public class PlayerController : MonoBehaviour
             if (inLocker == false)
             {
                 playerX = 0;
+                playerY = 0;
                 inLocker = true;
                 CanMove = false;      //　主人公を止める
                 rb2D.isKinematic = true;
@@ -379,7 +380,7 @@ public class PlayerController : MonoBehaviour
             //　保存した座標をプレイヤーに入れる
             transform.position = new Vector2( position.x, transform.position.y );
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSecondsRealtime(1f);
             CanInteract = true;
         }
 
@@ -389,7 +390,7 @@ public class PlayerController : MonoBehaviour
 
             batteryController.objDestroy();
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             CanInteract = true;
         }
 
