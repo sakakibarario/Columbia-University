@@ -19,6 +19,7 @@ public class HomeSceneManager : MonoBehaviour
         RandomQestion.BeginnerQuestionFlag = false;
         RandomQestion.IntermediateQestionFlag = false;
         RandomQestion.AdvancedQuestionFlag = false;
+        RandomQestion.TutorialFlag = false;
     }
 
     // Update is called once per frame

@@ -113,7 +113,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             if (AudioFlag)
             {
                 //オーディオ再生
-                AudioSource.PlayOneShot(ExclamationAudio, 1.0f);
+                AudioSource.PlayOneShot(ExclamationAudio, 0.7f);
                 AudioFlag = false;
             }
         }
@@ -130,7 +130,7 @@ public class Enemy_Strength_Security_Guard : MonoBehaviour
             if (!AudioFlag)
             {
                 //オーディオ再生
-                AudioSource.PlayOneShot(QuestionAuidoname, 1.0f);
+                AudioSource.PlayOneShot(QuestionAuidoname, 0.6f);
                 AudioFlag = true;
             }
         }
