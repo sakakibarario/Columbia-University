@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //  ladder
-            if (ladderController != null)
+            if(ladderController != null)
             {
                 if (CanSwitchGravity && inLocker == false && ladderController.LadderF.activeSelf || ladderController.childLadderF.activeSelf)
                 {
@@ -261,18 +261,18 @@ public class PlayerController : MonoBehaviour
                         StartCoroutine(Interactive("Ladder"));
                     }
                 }
+            }
 
-                if (inBottomArea || inTopArea)
+            if (inBottomArea || inTopArea)
+            {
+                if (Input.GetKey(KeyCode.Space))
                 {
-                    if (Input.GetKey(KeyCode.Space))
-                    {
-                        onLadder = false;
-                        CanMove = true;
-                        CanInteract = true;
+                    onLadder = false;
+                    CanMove = true;
+                    CanInteract = true;
 
-                        childLadder.GetComponent<BoxCollider2D>().enabled = true;
-                        rb2D.gravityScale = GravityPoint;
-                    }
+                    childLadder.GetComponent<BoxCollider2D>().enabled = true;
+                    rb2D.gravityScale = GravityPoint;
                 }
             }
             if (onLadder == false)
@@ -324,10 +324,10 @@ public class PlayerController : MonoBehaviour
         isCeilingWalk = !isCeilingWalk;
 
         //  空中で回転できないように少し待機
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         CanInteract = true;
         //yield return new WaitForSecondsRealtime(0.2f);
-        yield return new WaitForSecondsRealtime(0.15f);
+        yield return new WaitForSecondsRealtime(0.25f);
         isCeiling = false;
         CanMove = true; //着地後に移動できるようにする
 
@@ -346,6 +346,7 @@ public class PlayerController : MonoBehaviour
             if (inLocker == false)
             {
                 playerX = 0;
+                playerY = 0;
                 inLocker = true;
                 CanMove = false;      //　主人公を止める
                 rb2D.isKinematic = true;
@@ -379,7 +380,7 @@ public class PlayerController : MonoBehaviour
             //　保存した座標をプレイヤーに入れる
             transform.position = new Vector2( position.x, transform.position.y );
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSecondsRealtime(1f);
             CanInteract = true;
         }
 
@@ -389,7 +390,7 @@ public class PlayerController : MonoBehaviour
 
             batteryController.objDestroy();
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             CanInteract = true;
         }
 
@@ -567,7 +568,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        ladderController = null;
+        if (collision.gameObject.tag == "ladder")
+        {
+            ladderController = null;
+        }
     }
 
     //  pose宙に動けなくする
